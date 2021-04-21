@@ -8,6 +8,7 @@ namespace hack {
 		DWORD __stdcall _initial_routine( HANDLE ) {
 			util::logger::startup( );
 			util::logger::info( "Initializing stuff" );
+			portal::initial( );
 
 
 			while ( !GetAsyncKeyState( VK_DELETE ) ) // @todo: std::condition_variable + input sys based on hooked wndproc

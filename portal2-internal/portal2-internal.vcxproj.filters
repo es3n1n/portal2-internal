@@ -24,6 +24,9 @@
     <ClCompile Include="util\logger\logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sdk\portal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h">
@@ -36,6 +39,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\portal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\mem\mem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\mem\addr\addr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\mem\module\module.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

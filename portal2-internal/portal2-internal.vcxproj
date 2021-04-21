@@ -21,12 +21,17 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hack\core.cpp" />
+    <ClCompile Include="sdk\portal.cpp" />
     <ClCompile Include="util\logger\logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="sdk\portal.h" />
     <ClInclude Include="util\logger\logger.h" />
+    <ClInclude Include="util\mem\addr\addr.h" />
+    <ClInclude Include="util\mem\mem.h" />
+    <ClInclude Include="util\mem\module\module.h" />
     <ClInclude Include="util\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
