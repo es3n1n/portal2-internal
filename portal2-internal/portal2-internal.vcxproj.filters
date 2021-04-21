@@ -27,6 +27,9 @@
     <ClCompile Include="sdk\portal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="util\mem\mem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h">
@@ -51,6 +54,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util\mem\module\module.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_engine_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\interfaces.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

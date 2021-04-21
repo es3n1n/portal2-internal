@@ -53,7 +53,7 @@ namespace util::mem {
 		T* ptr( ) { return reinterpret_cast< T* >( m_ptr ); }
 
 		template <typename T>
-		T& cast( ) { return reinterpret_cast< T >( m_ptr ); }
+		T cast( ) { return reinterpret_cast< T >( m_ptr ); }
 
 	private:
 		ptr_type m_ptr;

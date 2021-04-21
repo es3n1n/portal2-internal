@@ -8,8 +8,8 @@
 #define LOG_DEBUG_MESSAGES
 #endif
 
-#define L_ERROR(txt) utils::logger::error("%s(): %s", __FUNCTION__, txt);
-#define TRACE_FN utils::logger::debug( "%s()", __FUNCTION__ );
+#define L_ERROR(...) util::logger::error(__FUNCTION__ "(): " __VA_ARGS__);
+#define TRACE_FN util::logger::debug( "%s()", __FUNCTION__ );
 
 #define CREATE_LOGGER_METHOD(n) inline void n(const char* fmt, ...) { char buf[1024]; va_list va; va_start( va, fmt ); _vsnprintf_s( buf, 1024, fmt, va ); va_end( va ); log( #n, e_level_color::level_color_ ##n, buf ); }
 

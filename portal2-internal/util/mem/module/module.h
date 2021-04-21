@@ -16,6 +16,20 @@ namespace util::mem {
 		~module_t( ) = default;
 
 	public:
+		//
+		// exports related
+		mem::addr_t find_export( const char* name ) {
+			return mem::addr_t( static_cast< void* >( GetProcAddress( m_addr.cast<HMODULE>( ), name ) ) );
+		}
+
+		template<typename T>
+		T* capture_interface( const char* name ) {
+			return mem::addr_t( find_export( "CreateInterface" ).cast<void* ( __cdecl* )( const char*, int* )>( )( name, nullptr ) ).ptr<T>( );
+		}
+
+		//
+		// pattern scan related
+	public:
 		mem::addr_t find_pattern( std::string_view pattern ) {
 			auto sizeOfImage = get_nt_headers( )->OptionalHeader.SizeOfImage;
 
@@ -37,11 +51,11 @@ namespace util::mem {
 					continue;
 
 				auto ret = m_addr.offset( i );
-				util::logger::debug( "Found '%s' sig from %s at 0x%x", pattern.data( ), m_name, static_cast< std::uintptr_t >( ret ) );
+				util::logger::debug( "Found '%s' sig from %s at 0x%x [rva: 0x%x]", pattern.data( ), m_name, static_cast< std::uintptr_t >( ret ), i );
 				return ret;
 			}
 
-			util::logger::error( "Signature from %s '%s' not found", m_name, pattern.data( ) );
+			L_ERROR( "Signature from %s '%s' not found", m_name, pattern.data( ) );
 			return mem::addr_t( );
 		}
 	protected:
