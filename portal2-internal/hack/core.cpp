@@ -5,7 +5,7 @@
 
 namespace hack {
 	namespace core {
-		void _initial_routine( ) {
+		DWORD __stdcall _initial_routine( HANDLE ) {
 			util::logger::startup( );
 			util::logger::info( "Initializing stuff" );
 
@@ -19,17 +19,17 @@ namespace hack {
 			//
 			util::logger::info( "Panic key was pressed, bye" );
 			core::_shutdown( );
+
+			return 1; // unreachable but whatever
 		}
 
 		bool startup( ) {
-			std::thread( [ ] ( ) -> void {
-				core::_initial_routine( );
-				} ).detach( );
-				return true;
+			CreateThread( nullptr, 0, core::_initial_routine, g::dll_handle, 0, nullptr );
+			return true;
 		}
 
 		void _shutdown( ) {
-
+			FreeLibraryAndExitThread( static_cast< HMODULE >( g::dll_handle ), 0x1 );
 		}
 	}
 }

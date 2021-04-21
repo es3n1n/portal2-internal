@@ -1,10 +1,11 @@
 #pragma once
 #include "../util/util.h"
+#include "../globals.h"
 
 
 namespace hack {
 	namespace core {
-		void _initial_routine( );
+		DWORD __stdcall _initial_routine( );
 		bool startup( );
 
 		void _shutdown( );
