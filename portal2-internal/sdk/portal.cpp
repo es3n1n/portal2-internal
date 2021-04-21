@@ -37,3 +37,6 @@ namespace portal {
 		portal::interfaces::capture( );
 	}
 }
+
+
+#undef DUMP_INTERFACE
