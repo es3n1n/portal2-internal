@@ -2,6 +2,7 @@
 #include "../util/util.h"
 #include "../globals.h"
 #include "../sdk/portal.h"
+#include "hooks/hooks.h"
 
 
 namespace hack {

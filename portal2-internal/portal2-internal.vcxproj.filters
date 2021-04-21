@@ -30,6 +30,15 @@
     <ClCompile Include="util\mem\mem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="util\hooking\vmt\vmt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hack\hooks\hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hack\hooks\hooked\create_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h">
@@ -60,6 +69,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\interfaces\interfaces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\hooking\hooking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\hooking\vmt\vmt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hack\hooks\hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_hl_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

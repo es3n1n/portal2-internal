@@ -1,4 +1,7 @@
 #include "hack.h"
+
+#include "hooks/hooks.h"
+
 #include <thread>
 #include <chrono>
 
@@ -9,6 +12,7 @@ namespace hack {
 			util::logger::startup( );
 			util::logger::info( "Initializing stuff" );
 			portal::initial( );
+			hooks::setup( );
 
 
 			while ( !GetAsyncKeyState( VK_DELETE ) ) // @todo: std::condition_variable + input sys based on hooked wndproc
@@ -30,6 +34,7 @@ namespace hack {
 		}
 
 		void _shutdown( ) {
+			hooks::unhook( );
 			FreeLibraryAndExitThread( static_cast< HMODULE >( g::dll_handle ), 0x1 );
 		}
 	}
