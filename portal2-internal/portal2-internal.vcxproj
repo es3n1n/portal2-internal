@@ -18,6 +18,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="hack\core.cpp" />
+    <ClCompile Include="util\logger\logger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hack\hack.h" />
+    <ClInclude Include="util\logger\logger.h" />
+    <ClInclude Include="util\util.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
