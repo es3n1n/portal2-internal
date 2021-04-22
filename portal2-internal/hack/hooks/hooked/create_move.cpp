@@ -15,9 +15,9 @@ namespace hack::hooks::hooked {
 			return;
 
 		int localplayer_idx = portal::interfaces::m_engine_client->get_local_player( );
-		g::m_localplayer = portal::interfaces::m_entitylist->get_player( localplayer_idx );
+		g::localplayer = portal::interfaces::m_entitylist->get_player( localplayer_idx );
 
-		if ( !g::m_localplayer )
+		if ( !g::localplayer )
 			return;
 
 		features::create_move( cmd );
