@@ -18,6 +18,7 @@ namespace portal {
 	namespace interfaces {
 		inline c_engine_client* m_engine_client;
 		inline c_hl_client* m_hl_client;
+		inline c_input* m_input;
 
 		void capture( );
 	}
