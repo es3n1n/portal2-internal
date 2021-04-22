@@ -5,7 +5,7 @@
 
 class c_base_player : public c_base_entity {
 public:
-	int get_flags( ) {
-		return *reinterpret_cast< int* >( reinterpret_cast< std::uintptr_t >( this ) + 0xF8 );
-	}
+	NETVAR( int, m_fFlags, 0xF8 );
+	NETVAR( int, m_iObserverMode, 0x16e4 );
+	NETVAR( int, m_iHealth, 0xf4 );
 };
