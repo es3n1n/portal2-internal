@@ -44,16 +44,22 @@ namespace util::mem {
 
 		//
 		// utils
-		memory_address_t offset( ptr_type off ) { return memory_address_t<ptr_type>( m_ptr + off ); }
+		memory_address_t<ptr_type> offset( ptr_type off ) { return memory_address_t<ptr_type>( m_ptr + off ); }
 
 		template <typename T>
-		T& read( ) { return *ptr<T>( ); }
+		T read( ) { return *ptr<T>( ); }
 
 		template<typename T>
 		T* ptr( ) { return reinterpret_cast< T* >( m_ptr ); }
 
 		template <typename T>
 		T cast( ) { return reinterpret_cast< T >( m_ptr ); }
+
+		memory_address_t<ptr_type>& self_get( ptr_type count = 1 ) {
+			for ( ptr_type i = 0; i < count; i++ )
+				m_ptr = *reinterpret_cast< ptr_type* >( m_ptr );
+			return *this;
+		}
 
 	private:
 		ptr_type m_ptr;

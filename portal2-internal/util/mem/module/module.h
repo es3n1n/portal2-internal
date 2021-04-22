@@ -31,18 +31,21 @@ namespace util::mem {
 		// pattern scan related
 	public:
 		mem::addr_t find_pattern( std::string_view pattern ) {
-			auto sizeOfImage = get_nt_headers( )->OptionalHeader.SizeOfImage;
+			unsigned long image_size = get_nt_headers( )->OptionalHeader.SizeOfImage;
 
-			auto pattern_bytes = pattern_to_byte( pattern );
-			auto pattern_data = pattern_bytes.data( );
+			std::vector<int> pattern_bytes = pattern_to_byte( pattern );
+			int* pattern_data = pattern_bytes.data( );
+			size_t pattern_size = pattern_bytes.size( );
 
-			for ( DWORD i = 0ul; i < sizeOfImage - pattern_bytes.size( ); i++ ) {
+			for ( unsigned long i = 0ul; i < image_size - pattern_size; i++ ) {
 				bool found = true;
 
-				for ( size_t j = 0ul; j < pattern_bytes.size( ); ++j ) {
-					if ( m_addr.offset( i + j ).read<std::uint32_t>( ) == pattern_data[ j ] || pattern_data[ j ] != -1 )
+				for ( unsigned long j = 0ul; j < pattern_size; j++ ) {
+					if ( pattern_data[ j ] == -1 )
 						continue;
-
+					if ( m_addr.offset( i + j ).read<std::uint8_t>( ) == pattern_data[ j ] )
+						continue;
+					
 					found = false;
 					break;
 				}
@@ -67,12 +70,10 @@ namespace util::mem {
 			return m_addr.offset( get_dos_headers( )->e_lfanew ).ptr< IMAGE_NT_HEADERS >( );
 		}
 	protected:
-		std::vector< std::uint32_t > pattern_to_byte( std::string_view pattern ) {
-			auto bytes = std::vector<std::uint32_t> {};
+		std::vector< int > pattern_to_byte( std::string_view pattern ) {
+			auto bytes = std::vector<int> {};
 			auto start = const_cast< char* >( pattern.data( ) );
-			auto len = pattern.length( );
-			auto end = const_cast< char* >( start ) + len;
-			bytes.reserve( len / 3 + 5 );
+			auto end = const_cast< char* >( start ) + pattern.length( );
 
 			for ( auto current = start; current < end; ++current ) {
 				if ( *current == '?' ) {
