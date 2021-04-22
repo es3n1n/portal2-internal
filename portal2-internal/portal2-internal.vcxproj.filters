@@ -131,6 +131,9 @@
     <ClInclude Include="sdk\structs\c_base_player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\enums\e_ent_flags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="util\hooking\detours\mh\minhook.lib" />

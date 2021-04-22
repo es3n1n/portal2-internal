@@ -38,6 +38,7 @@
     <ClInclude Include="hack\hooks\hooks.h" />
     <ClInclude Include="sdk\enums\enums.h" />
     <ClInclude Include="sdk\enums\e_cmd_buttons.h" />
+    <ClInclude Include="sdk\enums\e_ent_flags.h" />
     <ClInclude Include="sdk\interfaces\c_engine_client.h" />
     <ClInclude Include="sdk\interfaces\c_entitylist.h" />
     <ClInclude Include="sdk\interfaces\c_hl_client.h" />
