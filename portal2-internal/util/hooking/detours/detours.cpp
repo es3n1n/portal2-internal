@@ -3,7 +3,7 @@
 
 
 #define MH_ASSERT_BEGIN std::uint32_t stat;
-#define MH_ASSERT(cond, err) if ( stat = cond; cond != MH_OK ) return util::logger::error( err ": %i", stat );
+#define MH_ASSERT(cond, err) if ( stat = cond; cond != MH_OK ) return L_ERROR( err ": %i", stat );
 
 
 namespace util::hooking::detour {
