@@ -8,20 +8,21 @@ namespace hack::hooks::hooked {
 
 		o( portal::interfaces::m_hl_client, sequence_number, input_sample_frametime, active );
 
+		c_usercmd* cmd = portal::interfaces::m_input->get_command( sequence_number );
+		auto verified_cmd = portal::interfaces::m_input->get_verified_command( sequence_number );
+
+		if ( !cmd || !cmd->m_number )
+			return;
+
 		int localplayer_idx = portal::interfaces::m_engine_client->get_local_player( );
 		g::m_localplayer = portal::interfaces::m_entitylist->get_player( localplayer_idx );
-
-		util::logger::debug( "localplayer: [idx: %i ent: 0x%x]", localplayer_idx, g::m_localplayer );
 
 		if ( !g::m_localplayer )
 			return;
 
-		c_usercmd* cmd = portal::interfaces::m_input->get_command( sequence_number );
-		c_verified_usercmd* verified_cmd = portal::interfaces::m_input->get_verified_command( sequence_number );
-
 		features::create_move( cmd );
 
-		verified_cmd->m_command = cmd;
+		verified_cmd->m_command = *cmd;
 		verified_cmd->m_crc32 = util::valve::crc::calc( cmd );
 	}
 }
