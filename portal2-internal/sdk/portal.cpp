@@ -18,7 +18,9 @@ namespace portal {
 		void capture( ) {
 			TRACE_FN;
 
-			// useless 4 now, but maybe someday i will use it to store some features-related patterns
+			util::valve::crc::calc = modules::m_client.find_pattern( "55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ? ? ? ? 6A 04" ).cast<util::valve::crc::_get_checksum_fn>( );
+
+			// kinda useless 4 now, but maybe someday i will use it to store some features-related patterns
 		}
 	}
 

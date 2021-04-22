@@ -1,25 +1,29 @@
 #pragma once
 #include "../misc/ang_t.h"
 
-struct c_usercmd {
+
+class c_usercmd {
 public:
-	char pad_0000[ 4 ]; //0x0000
-	int32_t m_number; //0x0004
-	int32_t m_tickcount; //0x0008
-	ang_t m_viewangles; //0x000C
-	float m_forwardmove; //0x0018
-	float m_sidemove; //0x001C
-	float m_upmove; //0x0020
-	int32_t m_buttons; //0x0024
-	char pad_0028[ 12 ]; //0x0028
-	int32_t m_randomseed; //0x0034
-	int16_t m_mousedx; //0x0038
-	int16_t m_mousedy; //0x003A
-	bool m_predicted; //0x003C
+	char pad_0000[ 4 ]; // destructor
+	int32_t m_number; // for matching server and client commands for debugging
+	int32_t m_tickcount; // the tick the client created this command
+	ang_t m_viewangles; // player instantaneous view angles
+	float m_forwardmove; //	forward velocity
+	float m_sidemove; //  sideways velocity
+	float m_upmove; //  upward velocity
+	int32_t m_buttons; // attack button states
+	char impulse; // impulse command issued
+	int32_t m_weaponselect; // current weapon id
+	int32_t m_weaponsubtype; // current weapon subtype
+	int32_t m_randomseed; // for shared random functions
+	int16_t m_mousedx; // mouse accum in x from create move
+	int16_t m_mousedy; // mouse accum in y from create move
+	bool m_predicted; // tracks whether we've predicted this command at least once
 };
 
-struct c_verified_usercmd {
+class c_verified_usercmd {
 public:
-	c_usercmd m_command;
-	unsigned int m_crc32;
+	c_usercmd* m_command;
+	util::valve::crc::crc32_t m_crc32;
 };
+

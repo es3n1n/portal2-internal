@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hack\core.cpp" />
+    <ClCompile Include="hack\features\misc\bhop.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
     <ClCompile Include="hack\hooks\hooks.cpp" />
     <ClCompile Include="sdk\portal.cpp" />
@@ -30,9 +31,13 @@
     <ClCompile Include="util\mem\mem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="hack\features\features.h" />
+    <ClInclude Include="hack\features\misc\misc.h" />
     <ClInclude Include="hack\hack.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="hack\hooks\hooks.h" />
+    <ClInclude Include="sdk\enums\enums.h" />
+    <ClInclude Include="sdk\enums\e_cmd_buttons.h" />
     <ClInclude Include="sdk\interfaces\c_engine_client.h" />
     <ClInclude Include="sdk\interfaces\c_entitylist.h" />
     <ClInclude Include="sdk\interfaces\c_hl_client.h" />
@@ -41,6 +46,8 @@
     <ClInclude Include="sdk\misc\ang_t.h" />
     <ClInclude Include="sdk\misc\vec_t.h" />
     <ClInclude Include="sdk\portal.h" />
+    <ClInclude Include="sdk\structs\c_base_entity.h" />
+    <ClInclude Include="sdk\structs\c_base_player.h" />
     <ClInclude Include="sdk\structs\c_usercmd.h" />
     <ClInclude Include="util\hooking\detours\detours.h" />
     <ClInclude Include="util\hooking\detours\mh\minhook.h" />
@@ -51,6 +58,7 @@
     <ClInclude Include="util\mem\mem.h" />
     <ClInclude Include="util\mem\module\module.h" />
     <ClInclude Include="util\util.h" />
+    <ClInclude Include="util\valve\valve.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="util\hooking\detours\mh\minhook.lib" />
