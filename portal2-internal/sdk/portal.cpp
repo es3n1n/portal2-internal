@@ -1,7 +1,7 @@
 #include "portal.h"
 
 
-#define DUMP_INTERFACE(v) util::logger::debug( #v " at 0x%x", v );
+#define DUMP_INTERFACE(v) util::logger::debug( #v " at %p", v );
 
 
 namespace portal {
