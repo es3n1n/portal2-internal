@@ -4,7 +4,7 @@
 
 class c_engine_client {
 public:
-	int GetLocalPlayer( ) {
+	int get_local_player( ) {
 		return util::mem::virtual_function<int( __thiscall* )( void* )>( this, 12 )( this );
 	}
 };

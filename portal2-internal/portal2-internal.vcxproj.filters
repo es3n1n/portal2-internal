@@ -98,6 +98,15 @@
     <ClInclude Include="sdk\interfaces\c_input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_entitylist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\misc\ang_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\misc\vec_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="util\hooking\detours\mh\minhook.lib" />

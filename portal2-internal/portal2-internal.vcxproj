@@ -34,9 +34,12 @@
     <ClInclude Include="globals.h" />
     <ClInclude Include="hack\hooks\hooks.h" />
     <ClInclude Include="sdk\interfaces\c_engine_client.h" />
+    <ClInclude Include="sdk\interfaces\c_entitylist.h" />
     <ClInclude Include="sdk\interfaces\c_hl_client.h" />
     <ClInclude Include="sdk\interfaces\c_input.h" />
     <ClInclude Include="sdk\interfaces\interfaces.h" />
+    <ClInclude Include="sdk\misc\ang_t.h" />
+    <ClInclude Include="sdk\misc\vec_t.h" />
     <ClInclude Include="sdk\portal.h" />
     <ClInclude Include="sdk\structs\c_usercmd.h" />
     <ClInclude Include="util\hooking\detours\detours.h" />
