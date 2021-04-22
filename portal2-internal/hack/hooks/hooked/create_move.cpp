@@ -14,7 +14,7 @@ namespace hack::hooks::hooked {
 			auto cmd = portal::interfaces::m_input->get_command( sequence_number );
 			if ( !cmd )
 				util::logger::debug( "cmd = nullptr" );
-			if ( cmd && cmd->m_buttons & ( 1 << 1 ) )
+			else if ( cmd->m_buttons & e_cmd_buttons::in_jump )
 				util::logger::debug( "jumping" );
 		}
 	}

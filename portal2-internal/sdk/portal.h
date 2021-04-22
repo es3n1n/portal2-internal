@@ -1,6 +1,7 @@
 #pragma once
 #include "../util/util.h"
 #include "interfaces/interfaces.h"
+#include "enums/enums.h"
 
 
 namespace portal {
