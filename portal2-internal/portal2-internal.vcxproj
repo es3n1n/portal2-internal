@@ -45,6 +45,8 @@
     <ClInclude Include="sdk\interfaces\c_input.h" />
     <ClInclude Include="sdk\interfaces\interfaces.h" />
     <ClInclude Include="sdk\misc\ang_t.h" />
+    <ClInclude Include="sdk\misc\client_class.h" />
+    <ClInclude Include="sdk\misc\recv.h" />
     <ClInclude Include="sdk\misc\vec_t.h" />
     <ClInclude Include="sdk\portal.h" />
     <ClInclude Include="sdk\structs\c_base_entity.h" />
