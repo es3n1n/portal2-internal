@@ -14,6 +14,13 @@ namespace hack::hooks::hooked {
 		if ( !cmd || !cmd->m_number )
 			return;
 
+		if ( menu::opened ) {
+			if ( cmd->m_buttons & e_cmd_buttons::in_attack )
+				cmd->m_buttons &= ~e_cmd_buttons::in_attack;
+			if ( cmd->m_buttons & e_cmd_buttons::in_attack2 )
+				cmd->m_buttons &= ~e_cmd_buttons::in_attack2;
+		}
+
 		int localplayer_idx = portal::interfaces::m_engine_client->get_local_player( );
 		g::localplayer = portal::interfaces::m_entitylist->get_player( localplayer_idx );
 
