@@ -24,7 +24,6 @@ namespace util::hooking::detour {
 
 	void remove( void* target ) {
 		MH_ASSERT_BEGIN;
-		MH_ASSERT( MH_RemoveHook( target ), "Unable to remove hooks" );
 		MH_ASSERT( MH_DisableHook( target ), "Unable to disable hooks" );
 	}
 }

@@ -1,5 +1,6 @@
 #include "menu.h"
 #include <Windows.h>
+#include "../../util/util.h"
 
 
 namespace hack::menu {
@@ -17,7 +18,7 @@ namespace hack::menu {
 	}
 
 	void toggle( ) {
-		if ( !GetAsyncKeyState( VK_INSERT ) ) // @todo: input sys based on wndproc hook
+		if ( !util::input::get( VK_INSERT ).pressed( ) )
 			return;
 		opened ^= true;
 	}

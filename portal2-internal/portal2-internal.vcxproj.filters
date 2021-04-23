@@ -75,6 +75,9 @@
     <ClCompile Include="hack\hooks\hooked\wndproc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="util\input\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h">
@@ -195,6 +198,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="hack\menu\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\input\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

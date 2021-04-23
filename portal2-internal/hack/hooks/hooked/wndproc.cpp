@@ -7,7 +7,10 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler( HWND hwnd, UINT ms
 
 namespace hack::hooks::hooked {
 	unsigned long __stdcall wndproc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam ) {
+		util::input::_wndproc( msg, wparam );
+
 		menu::toggle( );
+
 		ImGui_ImplWin32_WndProcHandler( hwnd, msg, wparam, lparam );
 
 		if ( menu::opened && ( msg == WM_MOUSEMOVE || msg == WM_MOUSEWHEEL ) )

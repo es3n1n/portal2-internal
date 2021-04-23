@@ -37,6 +37,7 @@
     <ClCompile Include="sdk\portal.cpp" />
     <ClCompile Include="util\hooking\detours\detours.cpp" />
     <ClCompile Include="util\hooking\vmt\vmt.cpp" />
+    <ClCompile Include="util\input\input.cpp" />
     <ClCompile Include="util\logger\logger.cpp" />
     <ClCompile Include="util\mem\mem.cpp" />
   </ItemGroup>
@@ -75,6 +76,7 @@
     <ClInclude Include="util\hooking\detours\mh\minhook.h" />
     <ClInclude Include="util\hooking\hooking.h" />
     <ClInclude Include="util\hooking\vmt\vmt.h" />
+    <ClInclude Include="util\input\input.h" />
     <ClInclude Include="util\logger\logger.h" />
     <ClInclude Include="util\mem\addr\addr.h" />
     <ClInclude Include="util\mem\mem.h" />
