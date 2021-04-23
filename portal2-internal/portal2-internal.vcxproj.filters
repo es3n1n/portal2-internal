@@ -78,6 +78,9 @@
     <ClCompile Include="util\input\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hack\cfg\cfg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h">
@@ -201,6 +204,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util\input\input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hack\cfg\cfg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hack\cfg\opts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hack\cfg\detail\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

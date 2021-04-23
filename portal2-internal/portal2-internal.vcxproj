@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="hack\cfg\cfg.cpp" />
     <ClCompile Include="hack\core.cpp" />
     <ClCompile Include="hack\features\misc\bhop.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
@@ -42,6 +43,9 @@
     <ClCompile Include="util\mem\mem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="hack\cfg\cfg.h" />
+    <ClInclude Include="hack\cfg\detail\json.hpp" />
+    <ClInclude Include="hack\cfg\opts.h" />
     <ClInclude Include="hack\features\features.h" />
     <ClInclude Include="hack\features\misc\misc.h" />
     <ClInclude Include="hack\hack.h" />

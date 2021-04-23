@@ -12,6 +12,7 @@ namespace hack {
 			util::logger::startup( );
 			util::logger::info( "Initializing stuff" );
 
+			cfg::init( );
 			util::hooking::detour::init( );
 			portal::initial( );
 			hooks::setup( );

@@ -1,6 +1,7 @@
 #include "menu.h"
 #include <Windows.h>
 #include "../../util/util.h"
+#include "../cfg/cfg.h"
 
 
 namespace hack::menu {
@@ -12,7 +13,13 @@ namespace hack::menu {
 		ImGui::SetNextWindowSize( ImVec2( 500, 450 ), ImGuiCond_Once );
 
 		if ( ImGui::Begin( "portal2-internal by es3n1n", &opened, ImGuiWindowFlags_NoCollapse ) ) {
-
+			ImGui::Checkbox( "bhop", &cfg::opts::bhop );
+			ImGui::Spacing( );
+			if ( ImGui::Button( "save" ) )
+				cfg::save( "config" );
+			ImGui::SameLine( );
+			if ( ImGui::Button( "load" ) )
+				cfg::read( "config" );
 		}
 		ImGui::End( );
 	}
