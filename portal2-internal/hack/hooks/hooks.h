@@ -2,7 +2,7 @@
 #include "../hack.h"
 #include <d3d9.h>
 
-
+// @todo: find out analog of i_surface::lock_cursor, because in this game it's implemented like this lmao: https://imgur.com/a/kHffIeOs
 namespace hack::hooks {
 	namespace hooked {
 		void __stdcall create_move( int sequence_number, float input_sample_frametime, bool active );
