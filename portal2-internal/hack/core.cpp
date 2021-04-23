@@ -11,13 +11,13 @@ namespace hack {
 		DWORD __stdcall _initial_routine( HANDLE ) {
 			util::logger::startup( );
 			util::logger::info( "Initializing stuff" );
+
+			util::hooking::detour::init( );
 			portal::initial( );
 			hooks::setup( );
 
-
 			while ( !GetAsyncKeyState( VK_DELETE ) ) // @todo: std::condition_variable + input sys based on hooked wndproc
 				std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
-
 
 			// 
 			// unload

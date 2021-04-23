@@ -8,11 +8,15 @@ namespace portal {
 	namespace modules {
 		inline util::mem::module_t m_client;
 		inline util::mem::module_t m_engine;
+		inline util::mem::module_t m_gameoverlayrenderer;
 
 		void capture( );
 	}
 
 	namespace patterns {
+		inline util::mem::addr_t m_present;
+		inline util::mem::addr_t m_reset;
+
 		void capture( );
 	}
 

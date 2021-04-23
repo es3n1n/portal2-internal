@@ -23,7 +23,17 @@
     <ClCompile Include="hack\core.cpp" />
     <ClCompile Include="hack\features\misc\bhop.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
+    <ClCompile Include="hack\hooks\hooked\present.cpp" />
+    <ClCompile Include="hack\hooks\hooked\reset.cpp" />
+    <ClCompile Include="hack\hooks\hooked\wndproc.cpp" />
     <ClCompile Include="hack\hooks\hooks.cpp" />
+    <ClCompile Include="hack\menu\imgui\imgui.cpp" />
+    <ClCompile Include="hack\menu\imgui\imgui_draw.cpp" />
+    <ClCompile Include="hack\menu\imgui\imgui_tables.cpp" />
+    <ClCompile Include="hack\menu\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="hack\menu\imgui\impls\imgui_impl_dx9.cpp" />
+    <ClCompile Include="hack\menu\imgui\impls\imgui_impl_win32.cpp" />
+    <ClCompile Include="hack\menu\menu.cpp" />
     <ClCompile Include="sdk\portal.cpp" />
     <ClCompile Include="util\hooking\detours\detours.cpp" />
     <ClCompile Include="util\hooking\vmt\vmt.cpp" />
@@ -36,6 +46,15 @@
     <ClInclude Include="hack\hack.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="hack\hooks\hooks.h" />
+    <ClInclude Include="hack\menu\imgui\imconfig.h" />
+    <ClInclude Include="hack\menu\imgui\imgui.h" />
+    <ClInclude Include="hack\menu\imgui\imgui_internal.h" />
+    <ClInclude Include="hack\menu\imgui\impls\imgui_impl_dx9.h" />
+    <ClInclude Include="hack\menu\imgui\impls\imgui_impl_win32.h" />
+    <ClInclude Include="hack\menu\imgui\imstb_rectpack.h" />
+    <ClInclude Include="hack\menu\imgui\imstb_textedit.h" />
+    <ClInclude Include="hack\menu\imgui\imstb_truetype.h" />
+    <ClInclude Include="hack\menu\menu.h" />
     <ClInclude Include="sdk\enums\enums.h" />
     <ClInclude Include="sdk\enums\e_cmd_buttons.h" />
     <ClInclude Include="sdk\enums\e_ent_flags.h" />
@@ -120,15 +139,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

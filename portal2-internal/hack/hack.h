@@ -3,13 +3,12 @@
 #include "../globals.h"
 #include "../sdk/portal.h"
 #include "hooks/hooks.h"
+#include "menu/menu.h"
 
 
-namespace hack {
-	namespace core {
-		DWORD __stdcall _initial_routine( HANDLE );
-		bool startup( );
+namespace hack::core {
+	DWORD __stdcall _initial_routine( HANDLE );
+	bool startup( );
 
-		void _shutdown( );
-	}
+	void _shutdown( );
 }
