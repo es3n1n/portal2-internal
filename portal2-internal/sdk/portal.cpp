@@ -44,12 +44,7 @@ namespace portal {
 			.text:1002336F B0 FD                                                           mov     al, 0FDh ; 'ý'
 			.text:10023371 20 86 A8 00 00 00                                               and     [esi+0A8h], al
 			*/
-			auto mov_instruction = modules::m_shaderapidx9.find_pattern( "89 1D ? ? ? ? E8 ? ? ? ? 8B 55 08 8B 5D 10 B0 FD 20 86 ? ? ? ? 20 46 10 8A 8E ? ? ? ?" );
-			auto offset = mov_instruction.offset( 2 ); // skip first 2 bytes
-			auto ptr = offset.self_get( ); // now we have a pointer to instance
-			auto inst = ptr.self_get( ); // so deref second time to get an instance
-			m_dx9 = inst.ptr< IDirect3DDevice9 >( );
-
+			m_dx9 = modules::m_shaderapidx9.find_pattern( "89 1D ? ? ? ? E8 ? ? ? ? 8B 55 08 8B 5D 10 B0 FD 20 86 ? ? ? ? 20 46 10 8A 8E ? ? ? ?" ).offset( 2 ).self_get( 2 ).ptr< IDirect3DDevice9 >( );
 			m_engine_client = modules::m_engine.capture_interface<c_engine_client>( "VEngineClient015" );
 			m_entitylist = modules::m_client.capture_interface<c_entitylist>( "VClientEntityList003" );
 			m_hl_client = modules::m_client.capture_interface<c_hl_client>( "VClient016" );
