@@ -11,10 +11,11 @@ namespace hack::hooks::hooked {
 
 		menu::toggle( );
 
-		ImGui_ImplWin32_WndProcHandler( hwnd, msg, wparam, lparam );
-
-		if ( menu::opened && ( msg == WM_MOUSEMOVE || msg == WM_MOUSEWHEEL ) )
+		if ( menu::opened && ImGui_ImplWin32_WndProcHandler( hwnd, msg, wparam, lparam ) )
 			return false;
+
+		//if ( menu::opened && ( msg == WM_MOUSEMOVE || msg == WM_MOUSEWHEEL ) )
+		//	return false;
 
 		return CallWindowProcW( others::o::wndproc, hwnd, msg, wparam, lparam );
 	}
