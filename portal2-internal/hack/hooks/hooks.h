@@ -2,7 +2,7 @@
 #include "../hack.h"
 #include <d3d9.h>
 
-// @todo: find out analog of i_surface::lock_cursor, because in this game it's implemented like this lmao: https://imgur.com/a/kHffIeOs
+// @todo: find out analog of i_surface::lock_cursor, because in this game it's implemented like this lmao: https://imgur.com/a/kHffIeO
 namespace hack::hooks {
 	namespace hooked {
 		void __stdcall create_move( int sequence_number, float input_sample_frametime, bool active );
@@ -12,10 +12,7 @@ namespace hack::hooks {
 	}
 
 	namespace detours {
-		namespace o {
-			inline void* present = nullptr;
-			inline void* reset = nullptr;
-		}
+		namespace o { }
 
 		void setup( );
 		void unhook( );
@@ -23,6 +20,7 @@ namespace hack::hooks {
 
 	namespace vmt {
 		inline util::hooking::vmt m_hl_client;
+		inline util::hooking::vmt m_dx9;
 		
 		void setup( );
 		void unhook( );

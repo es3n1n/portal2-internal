@@ -3,24 +3,23 @@
 
 namespace hack::hooks {
 	namespace detours {
-		void setup( ) {
-			util::hooking::detour::create( portal::patterns::m_present, hooked::present, &o::present );
-			util::hooking::detour::create( portal::patterns::m_reset, hooked::reset, &o::reset );
-		}
-		void unhook( ) {
-			util::hooking::detour::remove( );
-		}
+		void setup( ) { }
+		void unhook( ) { }
 	}
 
 	namespace vmt {
 		void setup( ) {
 			m_hl_client.setup( portal::interfaces::m_hl_client );
+			m_dx9.setup( portal::interfaces::m_dx9 );
 
 			m_hl_client.hook( 21, hooked::create_move );
+			m_dx9.hook( 16, hooked::reset );
+			m_dx9.hook( 17, hooked::present );
 		}
 
 		void unhook( ) {
 			m_hl_client.unhook( );
+			m_dx9.unhook( );
 		}
 	}
 

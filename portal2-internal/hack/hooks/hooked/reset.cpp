@@ -4,9 +4,12 @@
 
 namespace hack::hooks::hooked {
 	long __stdcall reset( IDirect3DDevice9* pthis, D3DPRESENT_PARAMETERS* params ) {
+		static auto o = vmt::m_dx9.original<decltype( &reset )>( 16 );
 		ImGui_ImplDX9_InvalidateDeviceObjects( );
+
+		auto ret = o( pthis, params );
 		ImGui_ImplDX9_CreateDeviceObjects( );
 
-		return reinterpret_cast< decltype( &reset ) >( detours::o::reset )( pthis, params );
+		return ret;
 	}
 }
