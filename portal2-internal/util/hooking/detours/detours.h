@@ -1,7 +1,6 @@
 #pragma once
 
 #include "mh/minhook.h"
-#pragma comment(lib, "util/hooking/detours/mh/minhook.lib") // warn: minhook lib might be outdated, i don't care
 #include "../../mem/mem.h"
 
 
