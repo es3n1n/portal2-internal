@@ -84,6 +84,9 @@
     <ClCompile Include="hack\hooks\hooked\set_cursor_lock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hack\menu\ui\imgui_custom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h">
@@ -219,6 +222,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\interfaces\i_surface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hack\menu\ui\imgui_custom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

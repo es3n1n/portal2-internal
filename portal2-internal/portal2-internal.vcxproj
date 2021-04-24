@@ -36,6 +36,7 @@
     <ClCompile Include="hack\menu\imgui\impls\imgui_impl_dx9.cpp" />
     <ClCompile Include="hack\menu\imgui\impls\imgui_impl_win32.cpp" />
     <ClCompile Include="hack\menu\menu.cpp" />
+    <ClCompile Include="hack\menu\ui\imgui_custom.cpp" />
     <ClCompile Include="sdk\portal.cpp" />
     <ClCompile Include="util\hooking\detours\detours.cpp" />
     <ClCompile Include="util\hooking\vmt\vmt.cpp" />
@@ -61,6 +62,7 @@
     <ClInclude Include="hack\menu\imgui\imstb_textedit.h" />
     <ClInclude Include="hack\menu\imgui\imstb_truetype.h" />
     <ClInclude Include="hack\menu\menu.h" />
+    <ClInclude Include="hack\menu\ui\imgui_custom.h" />
     <ClInclude Include="sdk\enums\enums.h" />
     <ClInclude Include="sdk\enums\e_cmd_buttons.h" />
     <ClInclude Include="sdk\enums\e_ent_flags.h" />
