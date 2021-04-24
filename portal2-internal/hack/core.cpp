@@ -10,33 +10,33 @@ namespace hack {
 	namespace core {
 		DWORD __stdcall _initial_routine( HANDLE ) {
 			util::logger::startup( );
-			util::logger::info( "Initializing stuff" );
 
 			cfg::init( );
 			util::hooking::detour::init( );
 			portal::initial( );
 			hooks::setup( );
 
-			std::mutex _mtx;
-			std::unique_lock<std::mutex> thread_lock( _mtx );
-			watcher.wait( thread_lock, [ ] ( ) -> bool { return !g::running; } );
-			thread_lock.unlock( );
+			_handle_unload( );
 
-			// 
-			// unload
-			//
-			util::logger::info( "Unloading, bye" );
 			core::_shutdown( );
-
 			return 1; // unreachable but whatever
 		}
 
 		bool startup( ) {
+			TRACE_FN;
 			CreateThread( nullptr, 0, core::_initial_routine, g::dll_handle, 0, nullptr );
 			return true;
 		}
 
+		void _handle_unload( ) {
+			std::mutex _mtx;
+			std::unique_lock<std::mutex> thread_lock( _mtx );
+			watcher.wait( thread_lock, [ ] ( ) -> bool { return !g::running; } );
+			thread_lock.unlock( );
+		}
+
 		void _shutdown( ) {
+			TRACE_FN;
 			hooks::unhook( );
 			FreeLibraryAndExitThread( static_cast< HMODULE >( g::dll_handle ), 0x1 );
 		}
