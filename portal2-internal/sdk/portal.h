@@ -9,13 +9,15 @@ namespace portal {
 	namespace modules {
 		inline util::mem::module_t m_client;
 		inline util::mem::module_t m_engine;
-		//inline util::mem::module_t m_gameoverlayrenderer;
 		inline util::mem::module_t m_shaderapidx9;
+		inline util::mem::module_t m_vguimatsurface;
 
 		void capture( );
 	}
 
 	namespace patterns {
+		inline util::mem::memory_address_t m_set_cursor_lock_fn;
+
 		void capture( );
 	}
 
@@ -25,6 +27,7 @@ namespace portal {
 		inline c_entitylist* m_entitylist;
 		inline c_hl_client* m_hl_client;
 		inline c_input* m_input;
+		inline i_surface* m_surface;
 
 		void capture( );
 		void _dump( );

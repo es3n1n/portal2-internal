@@ -3,8 +3,12 @@
 
 namespace hack::hooks {
 	namespace detours {
-		void setup( ) { }
-		void unhook( ) { }
+		void setup( ) { 
+			util::hooking::detour::create( portal::patterns::m_set_cursor_lock_fn, hooked::set_cursor_lock, &o::set_cursor_lock );
+		}
+		void unhook( ) {
+			util::hooking::detour::remove( );
+		}
 	}
 
 	namespace vmt {

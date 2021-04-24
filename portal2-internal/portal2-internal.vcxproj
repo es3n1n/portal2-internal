@@ -24,6 +24,7 @@
     <ClCompile Include="hack\core.cpp" />
     <ClCompile Include="hack\features\misc\bhop.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
+    <ClCompile Include="hack\hooks\hooked\set_cursor_lock.cpp" />
     <ClCompile Include="hack\hooks\hooked\present.cpp" />
     <ClCompile Include="hack\hooks\hooked\reset.cpp" />
     <ClCompile Include="hack\hooks\hooked\wndproc.cpp" />
@@ -68,6 +69,7 @@
     <ClInclude Include="sdk\interfaces\c_hl_client.h" />
     <ClInclude Include="sdk\interfaces\c_input.h" />
     <ClInclude Include="sdk\interfaces\interfaces.h" />
+    <ClInclude Include="sdk\interfaces\i_surface.h" />
     <ClInclude Include="sdk\misc\ang_t.h" />
     <ClInclude Include="sdk\misc\client_class.h" />
     <ClInclude Include="sdk\misc\recv.h" />

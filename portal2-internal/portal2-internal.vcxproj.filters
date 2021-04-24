@@ -81,6 +81,9 @@
     <ClCompile Include="hack\cfg\cfg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hack\hooks\hooked\set_cursor_lock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h">
@@ -213,6 +216,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="hack\cfg\detail\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\i_surface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
