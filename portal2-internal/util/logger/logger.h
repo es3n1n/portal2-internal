@@ -6,6 +6,7 @@
 
 #ifdef _DEBUG
 #define LOG_DEBUG_MESSAGES
+#define ALLOC_CONSOLE
 #endif
 
 #define L_ERROR(...) util::logger::error(__FUNCTION__ "(): " __VA_ARGS__);
