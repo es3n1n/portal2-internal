@@ -23,7 +23,8 @@ namespace detail {
 			break;
 		}
 
-		char ret_buff[ 128 ] {};
+		char ret_buff[ 128 ];
+		strcpy_s( ret_buff, "-" );
 		int result = GetKeyNameTextA( code << 16, ret_buff, 128 );
 
 		if ( !result ) {
@@ -42,9 +43,6 @@ namespace detail {
 				break;
 			case VK_RBUTTON:
 				strcpy_s( ret_buff, "M2" );
-				break;
-			default:
-				strcpy_s( ret_buff, "-" );
 				break;
 			}
 		}
