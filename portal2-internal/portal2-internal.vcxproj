@@ -47,6 +47,7 @@
     <ClCompile Include="util\hooking\vmt\vmt.cpp" />
     <ClCompile Include="util\input\input.cpp" />
     <ClCompile Include="util\logger\logger.cpp" />
+    <ClCompile Include="util\math\math.cpp" />
     <ClCompile Include="util\mem\mem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,8 @@
     <ClInclude Include="util\hooking\vmt\vmt.h" />
     <ClInclude Include="util\input\input.h" />
     <ClInclude Include="util\logger\logger.h" />
+    <ClInclude Include="util\math\base.h" />
+    <ClInclude Include="util\math\math.h" />
     <ClInclude Include="util\mem\addr\addr.h" />
     <ClInclude Include="util\mem\mem.h" />
     <ClInclude Include="util\mem\module\module.h" />
