@@ -13,7 +13,7 @@ namespace hack::hooks::hooked {
 		core::handle_input( );
 
 		ImGui_ImplWin32_WndProcHandler( hwnd, msg, wparam, lparam );
-		if ( menu::opened )
+		if ( menu::opened && ( msg == WM_MOUSEMOVE || msg == WM_MOUSEWHEEL ) )
 			return true;
 
 		return CallWindowProcW( others::o::wndproc, hwnd, msg, wparam, lparam );
