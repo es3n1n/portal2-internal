@@ -1,6 +1,5 @@
 #include "portal.h"
 #include <d3d9.h>
-#include "../globals.h"
 
 
 #define DUMP_INTERFACE(v) util::logger::debug( #v " at %p", v );
@@ -73,10 +72,6 @@ namespace portal {
 		portal::modules::capture( );
 		portal::patterns::capture( );
 		portal::interfaces::capture( );
-
-		auto creation_parameters = D3DDEVICE_CREATION_PARAMETERS( );
-		interfaces::m_dx9->GetCreationParameters( &creation_parameters );
-		g::win = creation_parameters.hFocusWindow;
 	}
 }
 

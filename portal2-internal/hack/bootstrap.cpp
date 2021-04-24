@@ -7,7 +7,7 @@
 
 
 namespace hack {
-	namespace core {
+	namespace bootstrap {
 		DWORD __stdcall _initial_routine( HANDLE ) {
 			util::logger::startup( );
 
@@ -15,37 +15,40 @@ namespace hack {
 			util::hooking::detour::init( );
 			portal::initial( );
 			hooks::setup( );
+			util::input::init( );
 
 			_handle_unload( );
 
-			core::_shutdown( );
+			_shutdown( );
 			return 1; // unreachable but whatever
 		}
 
-		bool startup( ) {
+		bool startup( HANDLE dll_handle ) {
 			TRACE_FN;
-			CreateThread( nullptr, 0, core::_initial_routine, g::dll_handle, 0, nullptr );
+			_::dll_handle = dll_handle;
+			CreateThread( nullptr, 0, _initial_routine, 0, 0, nullptr );
 			return true;
 		}
 
 		void _handle_unload( ) {
 			std::mutex _mtx;
 			std::unique_lock<std::mutex> thread_lock( _mtx );
-			watcher.wait( thread_lock, [ ] ( ) -> bool { return !g::running; } );
+			_::watcher.wait( thread_lock, [ ] ( ) -> bool { return !running; } );
 			thread_lock.unlock( );
 		}
 
 		void _shutdown( ) {
 			TRACE_FN;
 			hooks::unhook( );
-			FreeLibraryAndExitThread( static_cast< HMODULE >( g::dll_handle ), 0x1 );
+			util::input::deinit( );
+			FreeLibraryAndExitThread( static_cast< HMODULE >( _::dll_handle ), 0x1 );
 		}
 
 		void handle_input( ) {
 			if ( !util::input::get( VK_DELETE ).pressed( ) )
 				return;
-			g::running = false;
-			watcher.notify_one( );
+			running = false;
+			_::watcher.notify_one( );
 		}
 	}
 }

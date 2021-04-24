@@ -18,7 +18,7 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hack\core.cpp">
+    <ClCompile Include="hack\bootstrap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="util\logger\logger.cpp">
@@ -72,9 +72,6 @@
     <ClCompile Include="hack\hooks\hooked\reset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hack\hooks\hooked\wndproc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="util\input\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -102,10 +99,10 @@
     <ClCompile Include="util\hooking\detours\mh\trampoline.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hack\features\misc\strafer.cpp">
+    <ClCompile Include="util\math\math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="util\math\math.cpp">
+    <ClCompile Include="util\entities\entities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,9 +114,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util\util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\portal.h">
@@ -273,6 +267,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util\math\math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\entities\entities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

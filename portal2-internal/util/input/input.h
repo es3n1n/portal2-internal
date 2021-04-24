@@ -25,7 +25,16 @@ namespace util::input {
 		}
 	};
 
-	void _wndproc( const unsigned int msg, const WPARAM param );
+	namespace _ {
+		inline WNDPROC original;
+	}
+
+	inline HWND win;
+
+	void init( );
+	void deinit( );
+
+	unsigned long __stdcall wndproc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam );
 
 	key_info_t& get( const int key );
 

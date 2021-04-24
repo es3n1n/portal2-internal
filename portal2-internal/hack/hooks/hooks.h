@@ -28,15 +28,6 @@ namespace hack::hooks {
 		void unhook( );
 	}
 
-	namespace others {
-		namespace o {
-			inline WNDPROC wndproc;
-		}
-
-		void setup( );
-		void unhook( );
-	}
-
 	void setup( );
 	void unhook( );
 }

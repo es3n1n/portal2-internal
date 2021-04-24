@@ -2,11 +2,8 @@
 #include "hack/hack.h"
 
 
-
 bool __stdcall DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved ) {
 	if ( fdwReason != DLL_PROCESS_ATTACH ) return TRUE;
 
-	g::dll_handle = hinstDLL;
-
-	return hack::core::startup( );
+	return hack::bootstrap::startup( hinstDLL );
 }

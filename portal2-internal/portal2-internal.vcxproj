@@ -21,13 +21,12 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hack\cfg\cfg.cpp" />
-    <ClCompile Include="hack\core.cpp" />
+    <ClCompile Include="hack\bootstrap.cpp" />
     <ClCompile Include="hack\features\misc\bhop.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
     <ClCompile Include="hack\hooks\hooked\set_cursor_lock.cpp" />
     <ClCompile Include="hack\hooks\hooked\present.cpp" />
     <ClCompile Include="hack\hooks\hooked\reset.cpp" />
-    <ClCompile Include="hack\hooks\hooked\wndproc.cpp" />
     <ClCompile Include="hack\hooks\hooks.cpp" />
     <ClCompile Include="hack\menu\imgui\imgui.cpp" />
     <ClCompile Include="hack\menu\imgui\imgui_draw.cpp" />
@@ -38,6 +37,7 @@
     <ClCompile Include="hack\menu\menu.cpp" />
     <ClCompile Include="hack\menu\ui\imgui_custom.cpp" />
     <ClCompile Include="sdk\portal.cpp" />
+    <ClCompile Include="util\entities\entities.cpp" />
     <ClCompile Include="util\hooking\detours\detours.cpp" />
     <ClCompile Include="util\hooking\detours\mh\buffer.c" />
     <ClCompile Include="util\hooking\detours\mh\hde\hde32.c" />
@@ -57,7 +57,6 @@
     <ClInclude Include="hack\features\features.h" />
     <ClInclude Include="hack\features\misc\misc.h" />
     <ClInclude Include="hack\hack.h" />
-    <ClInclude Include="globals.h" />
     <ClInclude Include="hack\hooks\hooks.h" />
     <ClInclude Include="hack\menu\imgui\imconfig.h" />
     <ClInclude Include="hack\menu\imgui\imgui.h" />
@@ -86,6 +85,7 @@
     <ClInclude Include="sdk\structs\c_base_entity.h" />
     <ClInclude Include="sdk\structs\c_base_player.h" />
     <ClInclude Include="sdk\structs\c_usercmd.h" />
+    <ClInclude Include="util\entities\entities.h" />
     <ClInclude Include="util\hooking\detours\detours.h" />
     <ClInclude Include="util\hooking\detours\mh\buffer.h" />
     <ClInclude Include="util\hooking\detours\mh\hde\hde32.h" />

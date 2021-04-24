@@ -27,25 +27,13 @@ namespace hack::hooks {
 		}
 	}
 
-	namespace others {
-		void setup( ) {
-			o::wndproc = reinterpret_cast< WNDPROC >( SetWindowLongW( g::win, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( hooked::wndproc ) ) );
-		}
-
-		void unhook( ) {
-			SetWindowLongW( g::win, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( o::wndproc ) );
-		}
-	}
-
 	void setup( ) {
 		detours::setup( );
 		vmt::setup( );
-		others::setup( );
 	}
 
 	void unhook( ) {
 		detours::unhook( );
 		vmt::unhook( );
-		others::unhook( );
 	}
 }

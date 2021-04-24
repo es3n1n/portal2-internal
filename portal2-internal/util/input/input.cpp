@@ -1,8 +1,24 @@
 #include "input.h"
+#include "../../hack/hack.h"
+#include "imgui_impl_win32.h"
+
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam );
 
 
 namespace util::input {
-	void _wndproc( const unsigned int msg, const WPARAM param ) {
+	void init( ) {
+		auto creation_parameters = D3DDEVICE_CREATION_PARAMETERS( );
+		portal::interfaces::m_dx9->GetCreationParameters( &creation_parameters );
+		win = creation_parameters.hFocusWindow;
+		_::original = reinterpret_cast< WNDPROC >( SetWindowLongW( win, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( wndproc ) ) );
+	}
+
+	void deinit( ) {
+		SetWindowLongW( win, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( _::original ) );
+	}
+
+	unsigned long __stdcall wndproc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam ) {
 		for ( auto i = 0; i < 256; i++ ) {
 			if ( m_keys.at( i ).m_state != e_button_state::pressed ) continue;
 			m_keys.at( i ).m_state = e_button_state::held;
@@ -11,37 +27,37 @@ namespace util::input {
 		switch ( msg ) {
 			/// "Normal" keys
 		case WM_KEYDOWN:
-			if ( param >= 0 && param < 256 )
-				m_keys.at( param ).m_state = e_button_state::pressed;
+			if ( wparam >= 0 && wparam < 256 )
+				m_keys.at( wparam ).m_state = e_button_state::pressed;
 			break;
 		case WM_KEYUP:
-			if ( param >= 0 && param < 256 )
-				m_keys.at( param ).m_state = e_button_state::idle;
+			if ( wparam >= 0 && wparam < 256 )
+				m_keys.at( wparam ).m_state = e_button_state::idle;
 			break;
 
 			/// Side mouse buttons
 		case WM_XBUTTONDOWN:
 		case WM_XBUTTONDBLCLK:
-			if ( GET_XBUTTON_WPARAM( param ) & XBUTTON1 )
+			if ( GET_XBUTTON_WPARAM( wparam ) & XBUTTON1 )
 				m_keys.at( VK_XBUTTON1 ).m_state = e_button_state::pressed;
-			else if ( GET_XBUTTON_WPARAM( param ) & XBUTTON2 )
+			else if ( GET_XBUTTON_WPARAM( wparam ) & XBUTTON2 )
 				m_keys.at( VK_XBUTTON2 ).m_state = e_button_state::pressed;
 			break;
 		case WM_XBUTTONUP:
-			if ( GET_XBUTTON_WPARAM( param ) & XBUTTON1 )
+			if ( GET_XBUTTON_WPARAM( wparam ) & XBUTTON1 )
 				m_keys.at( VK_XBUTTON1 ).m_state = e_button_state::idle;
-			else if ( GET_XBUTTON_WPARAM( param ) & XBUTTON2 )
+			else if ( GET_XBUTTON_WPARAM( wparam ) & XBUTTON2 )
 				m_keys.at( VK_XBUTTON2 ).m_state = e_button_state::idle;
 			break;
 
 			/// System keys
 		case WM_SYSKEYDOWN:
-			if ( param >= 0 && param < 256 )
-				m_keys.at( param ).m_state = e_button_state::pressed;
+			if ( wparam >= 0 && wparam < 256 )
+				m_keys.at( wparam ).m_state = e_button_state::pressed;
 			break;
 		case WM_SYSKEYUP:
-			if ( param >= 0 && param < 256 )
-				m_keys.at( param ).m_state = e_button_state::idle;
+			if ( wparam >= 0 && wparam < 256 )
+				m_keys.at( wparam ).m_state = e_button_state::idle;
 			break;
 
 			/// Middle button
@@ -73,6 +89,15 @@ namespace util::input {
 		default:
 			break;
 		}
+
+		hack::menu::toggle( );
+		hack::bootstrap::handle_input( );
+
+		ImGui_ImplWin32_WndProcHandler( hwnd, msg, wparam, lparam );
+		if ( hack::menu::opened && ( msg == WM_MOUSEMOVE || msg == WM_MOUSEWHEEL ) )
+			return true;
+
+		return CallWindowProcW( _::original, hwnd, msg, wparam, lparam );
 	}
 
 	key_info_t& get( const int key ) {

@@ -1,5 +1,4 @@
 #include "../hooks.h"
-#include "../../../globals.h"
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
 #include <mutex>
@@ -13,7 +12,7 @@ namespace hack::hooks::hooked {
 		std::call_once( once_flag, [ & ] ( ) -> void {
 			ImGui::CreateContext( );
 			ImGui_ImplDX9_Init( device );
-			ImGui_ImplWin32_Init( g::win );
+			ImGui_ImplWin32_Init( util::input::win );
 			menu::setup( );
 			} );
 

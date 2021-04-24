@@ -21,10 +21,8 @@ namespace hack::hooks::hooked {
 				cmd->m_buttons &= ~e_cmd_buttons::in_attack2;
 		}
 
-		int localplayer_idx = portal::interfaces::m_engine_client->get_local_player( );
-		g::localplayer = portal::interfaces::m_entitylist->get_player( localplayer_idx );
-
-		if ( !g::localplayer )
+		util::entities::local.get( );
+		if ( !util::entities::local.valid( ) )
 			return;
 
 		features::create_move( cmd );
