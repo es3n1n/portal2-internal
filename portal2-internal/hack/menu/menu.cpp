@@ -32,9 +32,7 @@ namespace hack::menu {
 
 	void setup( ) {
 		auto& io = ImGui::GetIO( );
-		io.IniFilename = nullptr;
-
-		auto& style = ImGui::GetStyle( );
-		ImGui::StyleColorsDark( );
+		io.LogFilename = NULL;
+		io.IniFilename = NULL;
 	}
 }

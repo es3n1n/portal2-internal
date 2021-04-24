@@ -10,12 +10,12 @@ namespace hack::hooks::hooked {
 		static auto o = vmt::m_dx9.original<decltype( &present )>( 17 );
 		static std::once_flag once_flag;
 
-		std::call_once( once_flag, [ & ]( ) -> void {
+		std::call_once( once_flag, [ & ] ( ) -> void {
 			ImGui::CreateContext( );
 			ImGui_ImplDX9_Init( device );
 			ImGui_ImplWin32_Init( g::win );
 			menu::setup( );
-		} );
+			} );
 
 		ImGui_ImplDX9_NewFrame( );
 		ImGui_ImplWin32_NewFrame( );
@@ -27,6 +27,6 @@ namespace hack::hooks::hooked {
 		ImGui::Render( );
 		ImGui_ImplDX9_RenderDrawData( ImGui::GetDrawData( ) );
 
-		return o( device, src_rect, dest_rect, dest_wnd_override, dirty_region);
+		return o( device, src_rect, dest_rect, dest_wnd_override, dirty_region );
 	}
 }
