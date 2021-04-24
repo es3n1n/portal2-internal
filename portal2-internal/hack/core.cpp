@@ -17,13 +17,15 @@ namespace hack {
 			portal::initial( );
 			hooks::setup( );
 
-			while ( !GetAsyncKeyState( VK_DELETE ) ) // @todo: std::condition_variable + input sys based on hooked wndproc
-				std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+			std::mutex _mtx;
+			std::unique_lock<std::mutex> thread_lock( _mtx );
+			watcher.wait( thread_lock, [ ] ( ) -> bool { return !g::running; } );
+			thread_lock.unlock( );
 
 			// 
 			// unload
 			//
-			util::logger::info( "Panic key was pressed, bye" );
+			util::logger::info( "Unloading, bye" );
 			core::_shutdown( );
 
 			return 1; // unreachable but whatever
@@ -37,6 +39,13 @@ namespace hack {
 		void _shutdown( ) {
 			hooks::unhook( );
 			FreeLibraryAndExitThread( static_cast< HMODULE >( g::dll_handle ), 0x1 );
+		}
+
+		void handle_input( ) {
+			if ( !util::input::get( VK_DELETE ).pressed( ) )
+				return;
+			g::running = false;
+			watcher.notify_one( );
 		}
 	}
 }

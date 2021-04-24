@@ -2,6 +2,8 @@
 #include <Windows.h>
 #include "../../util/util.h"
 #include "../cfg/cfg.h"
+#include "../../globals.h"
+#include "../hack.h"
 
 
 namespace hack::menu {

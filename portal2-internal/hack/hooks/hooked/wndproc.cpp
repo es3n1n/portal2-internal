@@ -10,6 +10,7 @@ namespace hack::hooks::hooked {
 		util::input::_wndproc( msg, wparam );
 
 		menu::toggle( );
+		core::handle_input( );
 
 		ImGui_ImplWin32_WndProcHandler( hwnd, msg, wparam, lparam );
 		if ( menu::opened )

@@ -5,11 +5,14 @@
 #include "cfg/cfg.h"
 #include "hooks/hooks.h"
 #include "menu/menu.h"
+#include <condition_variable>
 
 
 namespace hack::core {
+	inline std::condition_variable watcher;
+
 	DWORD __stdcall _initial_routine( HANDLE );
 	bool startup( );
-
 	void _shutdown( );
+	void handle_input( );
 }
