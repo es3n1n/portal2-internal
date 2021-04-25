@@ -4,33 +4,30 @@
 #include <stdio.h>
 
 
+// @credits: https://github.com/emily33901/2015-load-library-injector
 class Injector
 {
 public:
-	static bool Inject( const wchar_t procName[ ], const char* dllName )
-	{
+	static bool Inject( const wchar_t procName[ ], const char* dllName ) {
 		// Get the process id from the process name
 		DWORD processID = GetTargetThreadIDFromProcName( procName );
 
 		return Inject( processID, dllName );
 	}
 
-	static bool Inject( DWORD processID, const char* relativeDllName )
-	{
-
+	static bool Inject( DWORD processID, const char* relativeDllName ) {
 		if ( processID == 0 )
 			return false; // tlhelp was unable to find the process name
 
 		HANDLE Proc = OpenProcess( PROCESS_ALL_ACCESS, FALSE, processID );
-		if ( Proc == 0 )
-		{
+		if ( Proc == 0 ) {
 			// this process id clearly isnt valid or is 0 - bail!
 			// this can also happen if we dont have the privileges required to access this process
 			auto err = GetLastError( );
 			if ( err == 5 )
 				printf( "Run injector as administrator" );
 			else
-				printf( "OpenProcess() failed: %d", GetLastError( ) );
+				printf( "OpenProcess() failed: %d", err );
 			return false;
 		}
 
@@ -54,13 +51,10 @@ public:
 		return true;
 	}
 
-	static DWORD GetTargetThreadIDFromProcName( const wchar_t* ProcName )
-	{
+	static DWORD GetTargetThreadIDFromProcName( const wchar_t* ProcName ) {
 		// create a handle to the toolhelp32 library
 		HANDLE thSnapShot = CreateToolhelp32Snapshot( TH32CS_SNAPPROCESS, 0 );
-		if ( thSnapShot == INVALID_HANDLE_VALUE )
-		{
-			//MessageBox(NULL, "Error: Unable to create toolhelp snapshot!", "2MLoader", MB_OK);
+		if ( thSnapShot == INVALID_HANDLE_VALUE ) {
 			printf( "Error: Unable to create toolhelp snapshot!" );
 			return 0;
 		}
@@ -70,10 +64,8 @@ public:
 
 		// iterate over the currently running processes to find the one whose name matches `ProcName`
 		BOOL retval = Process32First( thSnapShot, &pe );
-		while ( retval )
-		{
-			if ( !wcscmp( pe.szExeFile, ProcName ) )
-			{
+		while ( retval ) {
+			if ( !wcscmp( pe.szExeFile, ProcName ) ) {
 				// names match
 				// close the handle and return the process id
 				CloseHandle( thSnapShot );
