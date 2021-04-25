@@ -34,16 +34,6 @@ public:
 			return false;
 		}
 
-		static bool IsFixed { false };
-		if ( !IsFixed ) {
-			// fixing csgo lla
-			auto LdrLoadDll = GetProcAddress( GetModuleHandleA( "ntdll.dll" ), "LdrLoadDll" );
-			auto NtOpenFile = GetProcAddress( GetModuleHandleA( "ntdll.dll" ), "NtOpenFile" );
-
-			WriteProcessMemory( Proc, LdrLoadDll, LdrLoadDll, 10, 0 );
-			WriteProcessMemory( Proc, NtOpenFile, NtOpenFile, 10, 0 );
-			IsFixed = true;
-		}
 		char DllName[ MAX_PATH ];
 
 		// get the full path to the dll - this is important as the target processes working directory is probably different !
@@ -104,13 +94,8 @@ public:
 };
 
 int main( ) {
-
-	if ( !Injector::Inject( L"portal2.exe", "portal2-internal.dll" ) ) {
-		printf( "\n[Step 1] Failed %d.\n", GetLastError( ) );
+	if ( !Injector::Inject( L"portal2.exe", "portal2-internal.dll" ) )
 		system( "pause" );
-		//TerminateProcess(pi.hProcess, 0x0);
-		goto END;
-	}
-END:
+
 	return 1;
 }
