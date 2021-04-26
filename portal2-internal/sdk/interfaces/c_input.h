@@ -4,6 +4,7 @@
 
 
 #define MULTIPLAYER_BACKUP 150
+#define READ_VERIFIED_COMMANDS(off) *reinterpret_cast< c_verified_usercmd** >( reinterpret_cast< uint32_t >( this ) + off )
 
 
 class c_input {
@@ -13,8 +14,13 @@ public:
 		return util::mem::virtual_function<c_usercmd* ( __thiscall* )( void* pthis, int slot, int sequence_number )>( this, 8 )( this, 0, sequence_num );
 	}
 
-	c_verified_usercmd* get_verified_command( int sequence_number ) { // tyty csgosimple
-		auto verifiedCommands = *( c_verified_usercmd** )( reinterpret_cast< uint32_t >( this ) + 0xF8 );
-		return &verifiedCommands[ sequence_number % MULTIPLAYER_BACKUP ];
+	c_verified_usercmd* get_verified_command( int sequence_number ) {
+		c_verified_usercmd* verified_commands = READ_VERIFIED_COMMANDS( 0xF8 ); // portal2
+		if ( !verified_commands )
+			verified_commands = READ_VERIFIED_COMMANDS( 0xF0 ); // portal reloaded
+		return &verified_commands[ sequence_number % MULTIPLAYER_BACKUP ];
 	}
 };
+
+
+#undef READ_VERIFIED_COMMANDS
