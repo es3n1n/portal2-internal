@@ -7,7 +7,6 @@ namespace hack::hooks {
 		void __stdcall create_move( int sequence_number, float input_sample_frametime, bool active );
 		long __stdcall present( IDirect3DDevice9* device, RECT* src_rect, RECT* dest_rect, HWND dest_wnd_override, RGNDATA* dirty_region );
 		long __stdcall reset( IDirect3DDevice9* pthis, D3DPRESENT_PARAMETERS* params );
-		unsigned long __stdcall wndproc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam );
 		int __cdecl set_cursor_lock( int a1, bool is_locked );
 	}
 
