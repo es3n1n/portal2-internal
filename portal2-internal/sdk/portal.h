@@ -9,7 +9,8 @@ namespace portal {
 	namespace modules {
 		inline util::mem::module_t m_client;
 		inline util::mem::module_t m_engine;
-		inline util::mem::module_t m_shaderapidx9;
+		inline util::mem::module_t m_shaderapivk;
+		inline util::mem::module_t m_dxvk_d3d9;
 		inline util::mem::module_t m_vguimatsurface;
 
 		void capture( );
@@ -17,6 +18,7 @@ namespace portal {
 
 	namespace patterns {
 		inline util::mem::memory_address_t m_set_cursor_lock_fn;
+		inline util::mem::memory_address_t m_present;
 
 		void capture( );
 	}

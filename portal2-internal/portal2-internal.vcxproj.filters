@@ -272,5 +272,8 @@
     <ClInclude Include="util\entities\entities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\interfaces\i_dxvk_device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

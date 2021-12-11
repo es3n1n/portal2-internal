@@ -12,7 +12,8 @@ namespace portal {
 
 			m_client = util::mem::module_t( "client.dll" );
 			m_engine = util::mem::module_t( "engine.dll" );
-			m_shaderapidx9 = util::mem::module_t( "shaderapidx9.dll" );
+			m_shaderapivk = util::mem::module_t( "shaderapivk.dll" );
+			m_dxvk_d3d9 = util::mem::module_t( "dxvk_d3d9.dll" );
 			m_vguimatsurface = util::mem::module_t( "vguimatsurface.dll" );
 		}
 	}
@@ -23,6 +24,7 @@ namespace portal {
 
 			util::valve::crc::calc = modules::m_client.find_pattern( "55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ? ? ? ? 6A 04" ).cast<util::valve::crc::_get_checksum_fn>( );
 			m_set_cursor_lock_fn = modules::m_vguimatsurface.find_pattern( "55 8B EC 80 3D ? ? ? ? ? 8A" );
+			m_present = modules::m_dxvk_d3d9.find_pattern( "E8 ? ? ? ? 83 EC 18 83 C4 2C C2 14 00" ).rel<uint32_t>( 1 );
 
 			//m_present = modules::m_gameoverlayrenderer.find_pattern( "FF 15 ? ? ? ? 8B F8 85 DB" ).offset( 2 ).self_get( 2 );
 			//m_reset = modules::m_gameoverlayrenderer.find_pattern( "C7 45 ? ? ? ? ? FF 15 ? ? ? ? 8B F8" ).offset( 9 ).self_get( 2 );
@@ -33,7 +35,7 @@ namespace portal {
 		void capture( ) {
 			TRACE_FN;
 
-			m_dx9 = modules::m_shaderapidx9.find_pattern( "89 1D ? ? ? ? E8 ? ? ? ? 8B 55" ).offset( 2 ).self_get( 2 ).ptr< IDirect3DDevice9 >( );
+			m_dx9 = modules::m_shaderapivk.find_pattern( "89 1D ? ? ? ? E8 ? ? ? ? 8B 55" ).offset( 2 ).self_get( 2 ).ptr< IDirect3DDevice9 >( );
 			m_engine_client = modules::m_engine.capture_interface<c_engine_client>( "VEngineClient015" );
 			m_entitylist = modules::m_client.capture_interface<c_entitylist>( "VClientEntityList003" );
 			m_hl_client = modules::m_client.capture_interface<c_hl_client>( "VClient016" );

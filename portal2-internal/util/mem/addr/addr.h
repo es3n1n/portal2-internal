@@ -46,6 +46,11 @@ namespace util::mem {
 		// utils
 		memory_address_t<ptr_type> offset( ptr_type off ) { return memory_address_t<ptr_type>( m_ptr + off ); }
 
+		inline memory_address_t add( ptr_type offset ) { return memory_address_t<ptr_type>( m_ptr + offset ); }
+
+		template <typename t = uint32_t>
+		inline memory_address_t rel( ptr_type offset ) { return this->add( this->add( offset ).template read<t>( ) ).add( offset + sizeof( t ) ); }
+
 		template <typename T>
 		T read( ) { return *ptr<T>( ); }
 

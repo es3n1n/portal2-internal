@@ -76,6 +76,7 @@
     <ClInclude Include="sdk\interfaces\c_hl_client.h" />
     <ClInclude Include="sdk\interfaces\c_input.h" />
     <ClInclude Include="sdk\interfaces\interfaces.h" />
+    <ClInclude Include="sdk\interfaces\i_dxvk_device.h" />
     <ClInclude Include="sdk\interfaces\i_surface.h" />
     <ClInclude Include="sdk\misc\ang_t.h" />
     <ClInclude Include="sdk\misc\client_class.h" />
