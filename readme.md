@@ -7,7 +7,7 @@ A simple Portal 2/Portal Reloaded internal cheat base with imgui-based menu code
  - wnd-proc based input system
  - quite simple(but still) configs-system
  - bunnyhop
- - vulkan renderer (vulkan branch)
+ - support for the vulkan game branch
 
 ## Menu:
 ![menu-preview](https://i.imgur.com/SVxRCod.png)
