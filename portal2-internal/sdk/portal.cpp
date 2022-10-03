@@ -8,19 +8,35 @@ namespace portal {
         void capture() {
             TRACE_FN;
 
+            // @note: @es3n1n: wait for game modules and capture them
+            //
             do {
                 m_client = util::mem::module_t("client.dll");
                 m_engine = util::mem::module_t("engine.dll");
-                m_shaderapidx9 = util::mem::module_t("shaderapidx9.dll");
                 m_vguimatsurface = util::mem::module_t("vguimatsurface.dll");
                 m_inputsystem = util::mem::module_t("inputsystem.dll");
-            } while (!m_client || !m_engine || !m_shaderapidx9 || !m_vguimatsurface || !m_inputsystem);
+            } while (!m_client || !m_engine || !m_vguimatsurface || !m_inputsystem);
+
+            // @note: @es3n1n: d3d9 stuff
+            //
+            m_shaderapidx9 = util::mem::module_t("shaderapidx9.dll");
+
+            // @note: @es3n1n: vulkan stuff
+            //
+            m_shaderapivk = util::mem::module_t("shaderapivk.dll");
+            m_dxvk_d3d9 = util::mem::module_t("dxvk_d3d9.dll");
+
+            // @note: @es3n1n: detect if we're on `-vulkan` game ver
+            //
+            is_vulkan_enabled = static_cast<bool>(m_dxvk_d3d9);
 
             DUMP(m_client);
             DUMP(m_engine);
-            DUMP(m_shaderapidx9);
             DUMP(m_vguimatsurface);
             DUMP(m_inputsystem);
+            DUMP(m_shaderapidx9);
+            DUMP(m_shaderapivk);
+            DUMP(m_dxvk_d3d9);
         }
     } // namespace modules
 
@@ -42,7 +58,7 @@ namespace portal {
         void capture() {
             TRACE_FN;
 
-            m_dx9 = modules::m_shaderapidx9.find_pattern("89 1D ? ? ? ? E8 ? ? ? ? 8B 55").offset(2).self_get(2).ptr<IDirect3DDevice9>();
+            m_dx9 = modules::get_shaderapi().find_pattern("89 1D ? ? ? ? E8 ? ? ? ? 8B 55").offset(2).self_get(2).ptr<IDirect3DDevice9>();
             m_engine_client = modules::m_engine.capture_interface<c_engine_client>("VEngineClient015");
             m_entitylist = modules::m_client.capture_interface<c_entitylist>("VClientEntityList003");
             m_hl_client = modules::m_client.capture_interface<c_hl_client>("VClient016");
