@@ -78,9 +78,6 @@
     <ClCompile Include="hack\cfg\cfg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hack\hooks\hooked\set_cursor_lock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="hack\menu\ui\imgui_custom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,6 +100,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="util\entities\entities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="util\valve\valve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -270,6 +270,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util\entities\entities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_input_system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_input_stacksystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

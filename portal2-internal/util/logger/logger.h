@@ -1,53 +1,63 @@
 #pragma once
-#include <cstdint>
-#include <stdio.h>
 #include <Windows.h>
+#include <cstdint>
 #include <functional>
+#include <mutex>
+#include <stdio.h>
 
 #ifdef _DEBUG
-#define LOG_DEBUG_MESSAGES
-#define ALLOC_CONSOLE
+    #define LOG_DEBUG_MESSAGES
+    #define ALLOC_CONSOLE
 #endif
 
 #define L_ERROR(...) util::logger::error(__FUNCTION__ "(): " __VA_ARGS__);
-#define TRACE_FN util::logger::debug( "%s()", __FUNCTION__ );
+#define TRACE_FN util::logger::debug("%s()", __FUNCTION__);
 
-#define CREATE_LOGGER_METHOD(n) inline void n(const char* fmt, ...) { char buf[1024]; va_list va; va_start( va, fmt ); _vsnprintf_s( buf, 1024, fmt, va ); va_end( va ); log( #n, e_level_color::level_color_ ##n, buf ); }
-
+#define CREATE_LOGGER_METHOD(n)                       \
+    inline void n(const char* fmt, ...) {             \
+        char buf[1024];                               \
+        va_list va;                                   \
+        va_start(va, fmt);                            \
+        _vsnprintf_s(buf, 1024, fmt, va);             \
+        va_end(va);                                   \
+        log(#n, e_level_color::level_color_##n, buf); \
+    }
 
 namespace util {
-	namespace logger {
-		enum class e_level_color : uint32_t {
-			level_color_none = 15, // black bg and white fg
-			level_color_debug = 8,
-			level_color_info = 10,
-			level_color_warn = 14,
-			level_color_error = 12
-		};
+    namespace logger {
+        inline std::mutex _mtx;
 
-		namespace _colors {
-			extern void* m_console_handle;
+        enum class e_level_color : uint32_t {
+            level_color_none = 15, // black bg and white fg
+            level_color_debug = 8,
+            level_color_info = 10,
+            level_color_warn = 14,
+            level_color_error = 12
+        };
 
-			bool ensure_handle( );
-			void apply( uint32_t clr );
-			void reset( );
-			void colorify( uint32_t clr, std::function<void( )> cb );
-		}
+        namespace _colors {
+            extern void* m_console_handle;
 
-		void log( const char* prefix, e_level_color level, const char* message );
+            bool ensure_handle();
+            void apply(uint32_t clr);
+            void reset();
+            void colorify(uint32_t clr, std::function<void()> cb);
+        } // namespace _colors
+
+        void log(const char* prefix, e_level_color level, const char* message);
 
 #ifdef LOG_DEBUG_MESSAGES
-		CREATE_LOGGER_METHOD( debug );
+        CREATE_LOGGER_METHOD(debug);
 #else
-		inline void debug( const char* fmt, ... ) { }
+        inline void debug(const char* fmt, ...) { }
 #endif
 
-		CREATE_LOGGER_METHOD( info );
-		CREATE_LOGGER_METHOD( warn );
-		CREATE_LOGGER_METHOD( error );
+        CREATE_LOGGER_METHOD(info);
+        CREATE_LOGGER_METHOD(warn);
+        CREATE_LOGGER_METHOD(error);
 
-		void startup( );
-	}
-}
+        void startup();
+    } // namespace logger
+} // namespace util
 
 #undef CREATE_LOGGER_METHOD
