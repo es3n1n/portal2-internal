@@ -22,7 +22,10 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hack\cfg\cfg.cpp" />
     <ClCompile Include="hack\bootstrap.cpp" />
+    <ClCompile Include="hack\features\misc\airacceleration_fix.cpp" />
     <ClCompile Include="hack\features\misc\bhop.cpp" />
+    <ClCompile Include="hack\features\misc\autostrafer.cpp" />
+    <ClCompile Include="hack\features\misc\csgolike_airacceleration_speed.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
     <ClCompile Include="hack\hooks\hooked\present.cpp" />
     <ClCompile Include="hack\hooks\hooked\reset.cpp" />
@@ -71,6 +74,7 @@
     <ClInclude Include="sdk\enums\enums.h" />
     <ClInclude Include="sdk\enums\e_cmd_buttons.h" />
     <ClInclude Include="sdk\enums\e_ent_flags.h" />
+    <ClInclude Include="sdk\interfaces\c_cvar.h" />
     <ClInclude Include="sdk\interfaces\c_engine_client.h" />
     <ClInclude Include="sdk\interfaces\c_entitylist.h" />
     <ClInclude Include="sdk\interfaces\c_hl_client.h" />
@@ -165,21 +169,29 @@
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)output\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)intermediates\$(Configuration)\$(MSBuildProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)output\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)intermediates\$(Configuration)\$(MSBuildProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)output\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)intermediates\$(Configuration)\$(MSBuildProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)output\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)intermediates\$(Configuration)\$(MSBuildProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -190,6 +202,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -206,6 +219,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -223,6 +237,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -239,6 +254,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

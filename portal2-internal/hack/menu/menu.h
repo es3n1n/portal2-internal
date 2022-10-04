@@ -3,7 +3,7 @@
 
 
 namespace hack::menu {
-	inline bool opened = false;
+	inline bool opened = true;
 
 	void render( );
 	void toggle( );

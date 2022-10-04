@@ -8,10 +8,12 @@ namespace portal {
     inline bool is_vulkan_enabled = false;
 
     namespace modules {
+        inline util::mem::module_t m_server;
         inline util::mem::module_t m_client;
         inline util::mem::module_t m_engine;
         inline util::mem::module_t m_vguimatsurface;
         inline util::mem::module_t m_inputsystem;
+        inline util::mem::module_t m_vstdlib;
 
         // @note: @es3n1n: d3d9 stuff
         //
@@ -30,8 +32,10 @@ namespace portal {
     } // namespace modules
 
     namespace patterns {
+        // @note: @es3n1n: CPortalGameMovement::AirMove
+        inline util::mem::addr_t airmove_velocity_check;
         void capture();
-    }
+    } // namespace patterns
 
     namespace interfaces {
         inline IDirect3DDevice9* m_dx9;
@@ -42,6 +46,7 @@ namespace portal {
         inline i_surface* m_surface;
         inline c_input_system* m_input_sys;
         inline c_input_stacksystem* m_input_stacksys;
+        inline c_cvar* m_cvar;
 
         void capture();
         void _dump();

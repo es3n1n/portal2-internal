@@ -4,6 +4,7 @@
 #include "cfg/cfg.h"
 #include "hooks/hooks.h"
 #include "menu/menu.h"
+#include "features/features.h"
 #include <condition_variable>
 
 

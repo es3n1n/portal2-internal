@@ -1,7 +1,17 @@
 #include "portal.h"
 #include <d3d9.h>
 
-#define DUMP(v) util::logger::debug(#v " at %p", v);
+#ifndef _DEBUG
+    #define DUMP(v) util::logger::debug(#v " at %p", v);
+    #define DUMP_NOSANITY(v) DUMP(v)
+#else
+    #define DUMP_NOSANITY(v) util::logger::debug(#v " at %p", v);
+    #define DUMP(v)         \
+        DUMP_NOSANITY(v);   \
+        if (!v) {           \
+            __debugbreak(); \
+        }
+#endif
 
 namespace portal {
     namespace modules {
@@ -11,11 +21,13 @@ namespace portal {
             // @note: @es3n1n: wait for game modules and capture them
             //
             do {
+                m_server = util::mem::module_t("server.dll");
                 m_client = util::mem::module_t("client.dll");
                 m_engine = util::mem::module_t("engine.dll");
                 m_vguimatsurface = util::mem::module_t("vguimatsurface.dll");
                 m_inputsystem = util::mem::module_t("inputsystem.dll");
-            } while (!m_client || !m_engine || !m_vguimatsurface || !m_inputsystem);
+                m_vstdlib = util::mem::module_t("vstdlib.dll");
+            } while (!m_server || !m_client || !m_engine || !m_vguimatsurface || !m_inputsystem || !m_vstdlib);
 
             // @note: @es3n1n: d3d9 stuff
             //
@@ -30,13 +42,15 @@ namespace portal {
             //
             is_vulkan_enabled = static_cast<bool>(m_dxvk_d3d9);
 
+            DUMP(m_server);
             DUMP(m_client);
             DUMP(m_engine);
             DUMP(m_vguimatsurface);
             DUMP(m_inputsystem);
-            DUMP(m_shaderapidx9);
-            DUMP(m_shaderapivk);
-            DUMP(m_dxvk_d3d9);
+            DUMP(m_vstdlib);
+            DUMP_NOSANITY(m_shaderapidx9);
+            DUMP_NOSANITY(m_shaderapivk);
+            DUMP_NOSANITY(m_dxvk_d3d9);
         }
     } // namespace modules
 
@@ -46,8 +60,10 @@ namespace portal {
 
             util::valve::crc::calc =
                 modules::m_client.find_pattern("55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ? ? ? ? 6A 04").cast<util::valve::crc::_get_checksum_fn>();
+            airmove_velocity_check = modules::m_server.find_pattern("F3 0F 10 58 ? F3 0F 10 25");
 
             DUMP(util::valve::crc::calc);
+            DUMP(airmove_velocity_check);
 
             // m_present = modules::m_gameoverlayrenderer.find_pattern( "FF 15 ? ? ? ? 8B F8 85 DB" ).offset( 2 ).self_get( 2 );
             // m_reset = modules::m_gameoverlayrenderer.find_pattern( "C7 45 ? ? ? ? ? FF 15 ? ? ? ? 8B F8" ).offset( 9 ).self_get( 2 );
@@ -66,6 +82,7 @@ namespace portal {
             m_surface = modules::m_vguimatsurface.capture_interface<i_surface>("VGUI_Surface031");
             m_input_sys = modules::m_inputsystem.capture_interface<c_input_system>("InputSystemVersion001");
             m_input_stacksys = modules::m_inputsystem.capture_interface<c_input_stacksystem>("InputStackSystemVersion001");
+            m_cvar = modules::m_vstdlib.capture_interface<c_cvar>("VEngineCvar007");
 
             interfaces::_dump();
         }
@@ -79,6 +96,7 @@ namespace portal {
             DUMP(m_surface);
             DUMP(m_input_sys);
             DUMP(m_input_stacksys);
+            DUMP(m_cvar);
         }
     } // namespace interfaces
 

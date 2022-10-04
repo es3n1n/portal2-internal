@@ -105,6 +105,15 @@
     <ClCompile Include="util\valve\valve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hack\features\misc\autostrafer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hack\features\misc\airacceleration_fix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hack\features\misc\csgolike_airacceleration_speed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.h">
@@ -276,6 +285,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\interfaces\c_input_stacksystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_cvar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
