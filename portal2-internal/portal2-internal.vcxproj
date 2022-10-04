@@ -17,6 +17,7 @@
     <ClCompile Include="hack\features\misc\airacceleration_fix.cpp" />
     <ClCompile Include="hack\features\misc\bhop.cpp" />
     <ClCompile Include="hack\features\misc\autostrafer.cpp" />
+    <ClCompile Include="hack\features\misc\bhoplike_airacceleration_speed.cpp" />
     <ClCompile Include="hack\features\misc\csgolike_airacceleration_speed.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
     <ClCompile Include="hack\hooks\hooked\present.cpp" />

@@ -13,7 +13,7 @@ namespace hack::cfg {
         push(&opts::autostrafer, "misc_strafer");
         push(&opts::airacceleration_fix, "misc_airacceleration_fix");
         push(&opts::csgolike_air_speed, "misc_csgolike_airacceleration_speed");
-
+        push(&opts::bhoplike_air_speed, "misc_bhoplike_airacceleration_speed");
         read("config");
     }
 

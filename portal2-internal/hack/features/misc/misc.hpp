@@ -6,6 +6,7 @@ namespace hack::features::misc {
     //
     void airacceleration_fix();
     void csgolike_air_speed();
+    void bhoplike_air_speed();
 
     // create-move
     //
@@ -13,7 +14,7 @@ namespace hack::features::misc {
     void autostrafer(c_usercmd* cmd);
 
     inline void create_move(c_usercmd* cmd) {
-        bhop(cmd);
         autostrafer(cmd);
+        bhop(cmd);
     }
 } // namespace hack::features::misc

@@ -23,6 +23,8 @@ namespace hack::menu {
             hack::features::misc::airacceleration_fix();
         if (ImGui::Checkbox("csgolike_air_speed", &opts::csgolike_air_speed) || (first_render && opts::csgolike_air_speed))
             hack::features::misc::csgolike_air_speed();
+        if (ImGui::Checkbox("bhoplike_air_speed", &opts::bhoplike_air_speed) || (first_render && opts::bhoplike_air_speed))
+            hack::features::misc::bhoplike_air_speed();
 
         ImGui::Spacing();
 
