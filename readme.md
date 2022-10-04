@@ -6,11 +6,11 @@ A simple Portal 2/Portal Reloaded internal cheat base with imgui-based menu code
  - simple menu engine
  - wnd-proc based input system
  - quite simple(but still) configs-system
- - bunnyhop
- - support for the vulkan game branch
+ - bunnyhop and autostrafer along with some patches that would bring csgolike movement to portal2
+ - support for the vulkan game version
 
 ## Menu:
-![menu-preview](https://i.imgur.com/SVxRCod.png)
+![menu-preview](https://i.imgur.com/CtgsaGe.png)
 
 ## Contributing
 
