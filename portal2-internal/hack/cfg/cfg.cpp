@@ -1,4 +1,4 @@
-#include "cfg.h"
+#include "cfg.hpp"
 #include "detail/json.hpp"
 #include <filesystem>
 #include <fstream>

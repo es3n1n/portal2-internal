@@ -9,14 +9,6 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -39,7 +31,7 @@
     <ClCompile Include="hack\menu\menu.cpp" />
     <ClCompile Include="hack\menu\ui\imgui_custom.cpp" />
     <ClCompile Include="sdk\portal.cpp" />
-    <ClCompile Include="util\entities\entities.cpp" />
+    <ClCompile Include="util\players\players.cpp" />
     <ClCompile Include="util\hooking\detours\detours.cpp" />
     <ClCompile Include="util\hooking\detours\mh\buffer.c" />
     <ClCompile Include="util\hooking\detours\mh\hde\hde32.c" />
@@ -54,13 +46,13 @@
     <ClCompile Include="util\valve\valve.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hack\cfg\cfg.h" />
+    <ClInclude Include="hack\cfg\cfg.hpp" />
     <ClInclude Include="hack\cfg\detail\json.hpp" />
-    <ClInclude Include="hack\cfg\opts.h" />
-    <ClInclude Include="hack\features\features.h" />
-    <ClInclude Include="hack\features\misc\misc.h" />
-    <ClInclude Include="hack\hack.h" />
-    <ClInclude Include="hack\hooks\hooks.h" />
+    <ClInclude Include="hack\cfg\opts.hpp" />
+    <ClInclude Include="hack\features\features.hpp" />
+    <ClInclude Include="hack\features\misc\misc.hpp" />
+    <ClInclude Include="hack\hack.hpp" />
+    <ClInclude Include="hack\hooks\hooks.hpp" />
     <ClInclude Include="hack\menu\imgui\imconfig.h" />
     <ClInclude Include="hack\menu\imgui\imgui.h" />
     <ClInclude Include="hack\menu\imgui\imgui_internal.h" />
@@ -69,30 +61,30 @@
     <ClInclude Include="hack\menu\imgui\imstb_rectpack.h" />
     <ClInclude Include="hack\menu\imgui\imstb_textedit.h" />
     <ClInclude Include="hack\menu\imgui\imstb_truetype.h" />
-    <ClInclude Include="hack\menu\menu.h" />
-    <ClInclude Include="hack\menu\ui\imgui_custom.h" />
-    <ClInclude Include="sdk\enums\enums.h" />
-    <ClInclude Include="sdk\enums\e_cmd_buttons.h" />
-    <ClInclude Include="sdk\enums\e_ent_flags.h" />
-    <ClInclude Include="sdk\interfaces\c_cvar.h" />
-    <ClInclude Include="sdk\interfaces\c_engine_client.h" />
-    <ClInclude Include="sdk\interfaces\c_entitylist.h" />
-    <ClInclude Include="sdk\interfaces\c_hl_client.h" />
-    <ClInclude Include="sdk\interfaces\c_input.h" />
-    <ClInclude Include="sdk\interfaces\c_input_stacksystem.h" />
-    <ClInclude Include="sdk\interfaces\c_input_system.h" />
-    <ClInclude Include="sdk\interfaces\interfaces.h" />
-    <ClInclude Include="sdk\interfaces\i_surface.h" />
-    <ClInclude Include="sdk\misc\ang_t.h" />
-    <ClInclude Include="sdk\misc\client_class.h" />
-    <ClInclude Include="sdk\misc\recv.h" />
-    <ClInclude Include="sdk\misc\vec_t.h" />
-    <ClInclude Include="sdk\portal.h" />
-    <ClInclude Include="sdk\structs\c_base_entity.h" />
-    <ClInclude Include="sdk\structs\c_base_player.h" />
-    <ClInclude Include="sdk\structs\c_usercmd.h" />
-    <ClInclude Include="util\entities\entities.h" />
-    <ClInclude Include="util\hooking\detours\detours.h" />
+    <ClInclude Include="hack\menu\menu.hpp" />
+    <ClInclude Include="hack\menu\ui\imgui_custom.hpp" />
+    <ClInclude Include="sdk\enums\enums.hpp" />
+    <ClInclude Include="sdk\enums\e_cmd_buttons.hpp" />
+    <ClInclude Include="sdk\enums\e_ent_flags.hpp" />
+    <ClInclude Include="sdk\interfaces\c_cvar.hpp" />
+    <ClInclude Include="sdk\interfaces\c_engine_client.hpp" />
+    <ClInclude Include="sdk\interfaces\c_entitylist.hpp" />
+    <ClInclude Include="sdk\interfaces\c_hl_client.hpp" />
+    <ClInclude Include="sdk\interfaces\c_input.hpp" />
+    <ClInclude Include="sdk\interfaces\c_input_stacksystem.hpp" />
+    <ClInclude Include="sdk\interfaces\c_input_system.hpp" />
+    <ClInclude Include="sdk\interfaces\interfaces.hpp" />
+    <ClInclude Include="sdk\interfaces\i_surface.hpp" />
+    <ClInclude Include="sdk\misc\ang_t.hpp" />
+    <ClInclude Include="sdk\misc\client_class.hpp" />
+    <ClInclude Include="sdk\misc\recv.hpp" />
+    <ClInclude Include="sdk\misc\vec_t.hpp" />
+    <ClInclude Include="sdk\portal.hpp" />
+    <ClInclude Include="sdk\structs\c_base_entity.hpp" />
+    <ClInclude Include="sdk\structs\c_base_player.hpp" />
+    <ClInclude Include="sdk\structs\c_usercmd.hpp" />
+    <ClInclude Include="util\players\players.hpp" />
+    <ClInclude Include="util\hooking\detours\detours.hpp" />
     <ClInclude Include="util\hooking\detours\mh\buffer.h" />
     <ClInclude Include="util\hooking\detours\mh\hde\hde32.h" />
     <ClInclude Include="util\hooking\detours\mh\hde\hde64.h" />
@@ -101,17 +93,17 @@
     <ClInclude Include="util\hooking\detours\mh\hde\table64.h" />
     <ClInclude Include="util\hooking\detours\mh\minhook.h" />
     <ClInclude Include="util\hooking\detours\mh\trampoline.h" />
-    <ClInclude Include="util\hooking\hooking.h" />
-    <ClInclude Include="util\hooking\vmt\vmt.h" />
-    <ClInclude Include="util\input\input.h" />
-    <ClInclude Include="util\logger\logger.h" />
-    <ClInclude Include="util\math\base.h" />
-    <ClInclude Include="util\math\math.h" />
-    <ClInclude Include="util\mem\addr\addr.h" />
-    <ClInclude Include="util\mem\mem.h" />
-    <ClInclude Include="util\mem\module\module.h" />
-    <ClInclude Include="util\util.h" />
-    <ClInclude Include="util\valve\valve.h" />
+    <ClInclude Include="util\hooking\hooking.hpp" />
+    <ClInclude Include="util\hooking\vmt\vmt.hpp" />
+    <ClInclude Include="util\input\input.hpp" />
+    <ClInclude Include="util\logger\logger.hpp" />
+    <ClInclude Include="util\math\base.hpp" />
+    <ClInclude Include="util\math\math.hpp" />
+    <ClInclude Include="util\mem\addr\addr.hpp" />
+    <ClInclude Include="util\mem\mem.hpp" />
+    <ClInclude Include="util\mem\module\module.hpp" />
+    <ClInclude Include="util\util.hpp" />
+    <ClInclude Include="util\valve\valve.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -134,19 +126,6 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -156,12 +135,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -179,20 +152,6 @@
     <OutDir>$(SolutionDir)output\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)intermediates\$(Configuration)\$(MSBuildProjectName)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)output\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)intermediates\$(Configuration)\$(MSBuildProjectName)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(MSBuildProjectDirectory)\hack\menu\imgui\impls;$(MSBuildProjectDirectory)\hack\menu\imgui;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)output\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)intermediates\$(Configuration)\$(MSBuildProjectName)\</IntDir>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -203,6 +162,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -220,41 +181,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

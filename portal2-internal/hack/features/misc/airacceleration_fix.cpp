@@ -1,5 +1,6 @@
-#include "../../cfg/cfg.h"
-#include "misc.h"
+#include "misc.hpp"
+
+#include "hack/cfg/opts.hpp"
 
 namespace hack::features::misc {
     namespace {
@@ -35,7 +36,7 @@ namespace hack::features::misc {
     } // namespace
 
     void airacceleration_fix() {
-        if (cfg::opts::airacceleration_fix) {
+        if (opts::airacceleration_fix) {
             patch();
         } else {
             restore();

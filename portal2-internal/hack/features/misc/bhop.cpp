@@ -1,13 +1,14 @@
-#include "../../cfg/cfg.h"
-#include "misc.h"
+#include "misc.hpp"
+
+#include "hack/cfg/opts.hpp"
 
 namespace hack::features::misc {
     void bhop(c_usercmd* cmd) {
-        if (!cfg::opts::bhop)
+        if (!opts::bhop)
             return;
 
         if (!(cmd->m_buttons & e_cmd_buttons::in_jump) || // space button isn't pressed
-            util::entities::local->m_fFlags() & e_ent_flags::fl_onground // we're on ground
+            util::players::local->m_fFlags() & e_ent_flags::fl_onground // we're on ground
         )
             return; // so we'll keep a space button to jump
 

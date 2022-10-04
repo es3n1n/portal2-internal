@@ -1,11 +1,11 @@
-#include "../hooks.h"
+#include "hack/hooks/hooks.hpp"
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
 #include <mutex>
 
 namespace hack::hooks::hooked {
     long __stdcall present(IDirect3DDevice9* device, RECT* src_rect, RECT* dest_rect, HWND dest_wnd_override, RGNDATA* dirty_region) {
-        static auto o = vmt::m_dx9.original<decltype(&present)>(17);
+        static auto o = vmt::dx9.original<decltype(&present)>(17);
 
         if (static bool once_flag = false; !once_flag) {
             ImGui::CreateContext();

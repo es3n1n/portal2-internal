@@ -1,4 +1,4 @@
-#include "vmt.h"
+#include "vmt.hpp"
 
 namespace util::hooking {
     namespace detail {

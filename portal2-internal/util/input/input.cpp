@@ -1,5 +1,5 @@
-#include "input.h"
-#include "../../hack/hack.h"
+#include "input.hpp"
+#include "hack/hack.hpp"
 #include "imgui_impl_win32.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
@@ -7,13 +7,13 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg
 namespace util::input {
     void init() {
         auto creation_parameters = D3DDEVICE_CREATION_PARAMETERS();
-        portal::interfaces::m_dx9->GetCreationParameters(&creation_parameters);
+        portal::dx9->GetCreationParameters(&creation_parameters);
         win = creation_parameters.hFocusWindow;
-        _::original = reinterpret_cast<WNDPROC>(SetWindowLongW(win, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wndproc)));
+        _original = reinterpret_cast<WNDPROC>(SetWindowLongW(win, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wndproc)));
     }
 
     void deinit() {
-        SetWindowLongW(win, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(_::original));
+        SetWindowLongW(win, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(_original));
     }
 
     unsigned long __stdcall wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
@@ -97,7 +97,7 @@ namespace util::input {
         // if (hack::menu::opened && (msg == WM_MOUSEMOVE || msg == WM_MOUSEWHEEL))
         //    return true;
 
-        return CallWindowProcW(_::original, hwnd, msg, wparam, lparam);
+        return CallWindowProcW(_original, hwnd, msg, wparam, lparam);
     }
 
     key_info_t& get(const int key) {

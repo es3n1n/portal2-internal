@@ -1,7 +1,7 @@
-#include "menu.h"
-#include "../../util/util.h"
-#include "../cfg/cfg.h"
-#include "../hack.h"
+#include "menu.hpp"
+#include "hack/cfg/cfg.hpp"
+#include "hack/hack.hpp"
+#include "util/util.hpp"
 #include <Windows.h>
 
 namespace hack::menu {
@@ -17,11 +17,11 @@ namespace hack::menu {
 
         static bool first_render{true};
 
-        ImGui::Checkbox("bhop", &cfg::opts::bhop);
-        ImGui::Checkbox("autostrafer", &cfg::opts::autostrafer);
-        if (ImGui::Checkbox("airacceleration_fix", &cfg::opts::airacceleration_fix) || (first_render && cfg::opts::airacceleration_fix))
+        ImGui::Checkbox("bhop", &opts::bhop);
+        ImGui::Checkbox("autostrafer", &opts::autostrafer);
+        if (ImGui::Checkbox("airacceleration_fix", &opts::airacceleration_fix) || (first_render && opts::airacceleration_fix))
             hack::features::misc::airacceleration_fix();
-        if (ImGui::Checkbox("csgolike_air_speed", &cfg::opts::csgolike_air_speed) || (first_render && cfg::opts::csgolike_air_speed))
+        if (ImGui::Checkbox("csgolike_air_speed", &opts::csgolike_air_speed) || (first_render && opts::csgolike_air_speed))
             hack::features::misc::csgolike_air_speed();
 
         ImGui::Spacing();

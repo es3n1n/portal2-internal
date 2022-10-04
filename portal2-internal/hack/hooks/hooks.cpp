@@ -1,4 +1,4 @@
-#include "hooks.h"
+#include "hooks.hpp"
 
 namespace hack::hooks {
     namespace detours {
@@ -14,19 +14,19 @@ namespace hack::hooks {
         void setup() {
             TRACE_FN;
 
-            m_hl_client.setup(portal::interfaces::m_hl_client);
-            m_dx9.setup(portal::interfaces::m_dx9);
+            hl_client.setup(portal::hl_client);
+            dx9.setup(portal::dx9);
 
-            m_hl_client.hook(21, hooked::create_move);
-            m_dx9.hook(16, hooked::reset);
-            m_dx9.hook(17, hooked::present);
+            hl_client.hook(21, hooked::create_move);
+            dx9.hook(16, hooked::reset);
+            dx9.hook(17, hooked::present);
         }
 
         void unhook() {
             TRACE_FN;
 
-            m_hl_client.unhook();
-            m_dx9.unhook();
+            hl_client.unhook();
+            dx9.unhook();
         }
     } // namespace vmt
 
