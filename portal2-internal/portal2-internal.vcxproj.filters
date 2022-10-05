@@ -111,7 +111,7 @@
     <ClCompile Include="hack\features\misc\airacceleration_fix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hack\features\misc\csgolike_airacceleration_speed.cpp">
+    <ClCompile Include="hack\features\misc\airacceleration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,9 +7,11 @@ namespace hack::features::misc {
         if (!opts::autostrafer)
             return;
 
-        if ((util::players::local->m_fFlags() & e_ent_flags::fl_onground)) {
+        if ((cmd->m_buttons & e_cmd_buttons::in_jump) == 0)
             return;
-        }
+
+        if (util::players::local->m_fFlags() & e_ent_flags::fl_onground)
+            return;
 
         cmd->m_forwardmove =
             (10000.f / util::players::local->m_vecVelocity().length_2d() > 175.f) ? 175.f : 10000.f / util::players::local->m_vecVelocity().length_2d();
