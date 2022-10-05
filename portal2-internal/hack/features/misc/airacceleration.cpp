@@ -3,9 +3,9 @@
 #include "hack/cfg/opts.hpp"
 
 namespace hack::features::misc {
-    void bhoplike_air_speed() {
+    void apply_acceleration(std::optional<float> new_value) {
         static auto sv_paintairacceleration = portal::cvar->find_convar("sv_paintairacceleration");
 
-        sv_paintairacceleration->m_float_value = opts::bhoplike_air_speed ? 10000.f : 5.f;
+        sv_paintairacceleration->m_float_value = opts::airacceleration_value = new_value.value_or(opts::airacceleration_value);
     }
 } // namespace hack::features::misc

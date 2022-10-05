@@ -1,12 +1,12 @@
 #pragma once
 #include "sdk/portal.hpp"
+#include <optional>
 
 namespace hack::features::misc {
     // callbacks
     //
     void airacceleration_fix();
-    void csgolike_air_speed();
-    void bhoplike_air_speed();
+    void apply_acceleration(std::optional<float> new_value = std::nullopt);
 
     // create-move
     //
