@@ -57,32 +57,35 @@ namespace portal {
         }
     } // namespace modules
 
-    namespace patterns {
+    namespace sig {
         void capture() {
             TRACE_FN;
 
             util::valve::calc_cmd_crc =
-                modules::client.find_pattern("55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ? ? ? ? 6A 04").cast<util::valve::calc_cmd_crc_t>();
-            airmove_velocity_check = modules::server.find_pattern("F3 0F 10 58 ? F3 0F 10 25");
+                modules::client.find_pattern("55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ?? ?? ?? ?? 6A 04").cast<util::valve::calc_cmd_crc_t>();
 
-            // m_present = modules::m_gameoverlayrenderer.find_pattern( "FF 15 ? ? ? ? 8B F8 85 DB" ).offset( 2 ).self_get( 2 );
-            // m_reset = modules::m_gameoverlayrenderer.find_pattern( "C7 45 ? ? ? ? ? FF 15 ? ? ? ? 8B F8" ).offset( 9 ).self_get( 2 );
+            airmove_velocity_check = modules::server.find_pattern("F3 0F 10 ?? 40 F3 0F 10 25");
+            airmove_velocity_check_exit = modules::server.find_pattern("F3 0F 10 55 E4 F3 0F 10 ?? E8 F3 0F 58 ?? C8");
+
+            _dump();
         }
 
         void _dump() {
             DUMP(util::valve::calc_cmd_crc);
             DUMP(airmove_velocity_check);
+            DUMP(airmove_velocity_check_exit);
         }
-    } // namespace patterns
+    } // namespace sig
 
     void _capture() {
         TRACE_FN;
 
-        dx9 = modules::get_shaderapi().find_pattern("89 1D ? ? ? ? E8 ? ? ? ? 8B 55").offset(2).self_get(2).ptr<IDirect3DDevice9>();
+        dx9 = modules::get_shaderapi().find_pattern("89 1D ?? ? ? ? E8 ?? ?? ?? ?? 8B 55").offset(2).self_get(2).ptr<IDirect3DDevice9>();
+        input = modules::client.find_pattern("8B 0D ?? ?? ?? ?? 8B 01 F3 0F 10 45 ?? 8B 40 0C").offset(2).self_get(2).ptr<c_input>();
+
         engine_client = modules::engine.capture_interface<c_engine_client>("VEngineClient015");
         entitylist = modules::client.capture_interface<c_entitylist>("VClientEntityList003");
         hl_client = modules::client.capture_interface<c_hl_client>("VClient016");
-        input = modules::client.find_pattern("8B 0D ? ? ? ? 8B 01 F3 0F 10 45 ? 8B 40 0C").offset(2).self_get(2).ptr<c_input>();
         surface = modules::vguimatsurface.capture_interface<i_surface>("VGUI_Surface031");
         input_sys = modules::inputsystem.capture_interface<c_input_system>("InputSystemVersion001");
         input_stacksys = modules::inputsystem.capture_interface<c_input_stacksystem>("InputStackSystemVersion001");
@@ -107,7 +110,7 @@ namespace portal {
         TRACE_FN;
 
         portal::modules::capture();
-        portal::patterns::capture();
+        portal::sig::capture();
         portal::_capture();
     }
 } // namespace portal

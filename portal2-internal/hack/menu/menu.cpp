@@ -56,11 +56,7 @@ namespace hack::menu {
             return;
 
         opened ^= true;
-
-        if (opened)
-            util::valve::lock_cursor();
-        else
-            util::valve::unlock_cursor();
+        return opened ? util::valve::lock_cursor() : util::valve::unlock_cursor();
     }
 
     void setup() {

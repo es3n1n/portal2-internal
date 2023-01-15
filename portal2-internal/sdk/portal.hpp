@@ -32,13 +32,14 @@ namespace portal {
         }
     } // namespace modules
 
-    namespace patterns {
+    namespace sig {
         // @note: @es3n1n: CPortalGameMovement::AirMove
         inline util::mem::addr_t airmove_velocity_check;
+        inline util::mem::addr_t airmove_velocity_check_exit;
 
         void capture();
         void _dump();
-    } // namespace patterns
+    } // namespace sig
 
     inline IDirect3DDevice9* dx9;
     inline c_engine_client* engine_client;
