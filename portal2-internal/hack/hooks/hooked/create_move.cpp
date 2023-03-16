@@ -20,8 +20,7 @@ namespace hack::hooks::hooked {
                 cmd->m_buttons &= ~e_cmd_buttons::in_attack2;
         }
 
-        util::players::local.get();
-        if (!util::players::local.valid())
+        if (!portal::players::local.get())
             return;
 
         features::create_move(cmd);
