@@ -109,10 +109,25 @@ namespace portal {
     void initial() {
         TRACE_FN;
 
-        portal::modules::capture();
-        portal::sig::capture();
-        portal::_capture();
+        modules::capture();
+        sig::capture();
+        _capture();
     }
+
+    namespace players {
+        bool c_local_player::get() {
+            m_idx = portal::engine_client->get_local_player();
+            m_ent = portal::entitylist->get_client_entity(m_idx);
+            m_pl = reinterpret_cast<c_base_player*>(m_ent);
+        
+            return valid();
+        }
+
+        c_base_player* get(int idx) {
+            return reinterpret_cast<c_base_player*>(portal::entitylist->get_client_entity(idx));
+        }
+    } // namespace players
 } // namespace portal
 
 #undef DUMP
+#undef DUMP_NOSANITY
