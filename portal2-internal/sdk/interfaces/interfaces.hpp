@@ -1,4 +1,5 @@
 #pragma once
+#include "c_clientmode.hpp"
 #include "c_cvar.hpp"
 #include "c_engine_client.hpp"
 #include "c_entitylist.hpp"

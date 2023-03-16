@@ -19,6 +19,7 @@
     <ClCompile Include="hack\features\misc\autostrafer.cpp" />
     <ClCompile Include="hack\features\misc\airacceleration.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
+    <ClCompile Include="hack\hooks\hooked\override_view.cpp" />
     <ClCompile Include="hack\hooks\hooked\present.cpp" />
     <ClCompile Include="hack\hooks\hooked\reset.cpp" />
     <ClCompile Include="hack\hooks\hooks.cpp" />
@@ -65,6 +66,7 @@
     <ClInclude Include="sdk\enums\enums.hpp" />
     <ClInclude Include="sdk\enums\e_cmd_buttons.hpp" />
     <ClInclude Include="sdk\enums\e_ent_flags.hpp" />
+    <ClInclude Include="sdk\interfaces\c_clientmode.hpp" />
     <ClInclude Include="sdk\interfaces\c_cvar.hpp" />
     <ClInclude Include="sdk\interfaces\c_engine_client.hpp" />
     <ClInclude Include="sdk\interfaces\c_entitylist.hpp" />

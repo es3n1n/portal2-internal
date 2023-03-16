@@ -111,6 +111,9 @@
     <ClCompile Include="hack\features\misc\airacceleration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hack\hooks\hooked\override_view.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.hpp">
@@ -282,6 +285,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\interfaces\c_cvar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_clientmode.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

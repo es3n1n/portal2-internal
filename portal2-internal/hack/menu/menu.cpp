@@ -44,6 +44,10 @@ namespace hack::menu {
 
         ImGui::Spacing();
 
+        ImGui::SliderFloat("FOV", &opts::fov_value, 90.f, 160.f);
+
+        ImGui::Spacing();
+
         if (ImGui::Button("save"))
             cfg::save("config");
         ImGui::SameLine();

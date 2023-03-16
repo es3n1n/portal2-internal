@@ -15,6 +15,7 @@ namespace util::mem {
 
         //
         // operators
+        //
         inline operator ptr_type() {
             return m_ptr;
         }
@@ -43,7 +44,10 @@ namespace util::mem {
 
         //
         // utils
+        //
         memory_address_t<ptr_type> offset(ptr_type off) {
+            if (!m_ptr)
+                return m_ptr;
             return memory_address_t<ptr_type>(m_ptr + off);
         }
 
@@ -63,9 +67,26 @@ namespace util::mem {
         }
 
         memory_address_t<ptr_type>& self_get(ptr_type count = 1) {
+            if (!m_ptr)
+                return *this;
+
             for (ptr_type i = 0; i < count; i++)
                 m_ptr = *reinterpret_cast<ptr_type*>(m_ptr);
             return *this;
+        }
+
+        template <typename T = std::int32_t>
+        __forceinline memory_address_t<ptr_type> jmp(ptrdiff_t offset = 0x1) const {
+            if (!m_ptr)
+                return ptr_type(0);
+
+            ptr_type base = m_ptr + offset;
+            auto disp = *reinterpret_cast<T*>(base);
+
+            base += sizeof(T);
+            base += disp;
+
+            return ptr_type(base);
         }
     private:
         ptr_type m_ptr;

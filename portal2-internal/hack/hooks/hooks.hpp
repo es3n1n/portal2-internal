@@ -1,5 +1,6 @@
 #pragma once
 #include "hack/hack.hpp"
+#include "sdk/interfaces/c_clientmode.hpp"
 #include <d3d9.h>
 
 namespace hack::hooks {
@@ -7,6 +8,7 @@ namespace hack::hooks {
         void __stdcall create_move(int sequence_number, float input_sample_frametime, bool active);
         long __stdcall present(IDirect3DDevice9* device, RECT* src_rect, RECT* dest_rect, HWND dest_wnd_override, RGNDATA* dirty_region);
         long __stdcall reset(IDirect3DDevice9* pthis, D3DPRESENT_PARAMETERS* params);
+        void __stdcall override_view(c_view_setup* setup);
     } // namespace hooked
 
     namespace detours {
@@ -17,6 +19,7 @@ namespace hack::hooks {
     namespace vmt {
         inline util::hooking::vmt hl_client;
         inline util::hooking::vmt dx9;
+        inline util::hooking::vmt clientmode;
 
         void setup();
         void unhook();

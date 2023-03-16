@@ -9,8 +9,9 @@ namespace hack::cfg {
         push(&opts::autostrafer, "misc_strafer");
         push(&opts::airacceleration_fix, "misc_airacceleration_fix");
         push(&opts::airacceleration_value, "misc_airacceleration_value");
+        push(&opts::fov_value, "misc_fov_value");
 
-        read("config");
+        read("config"); // load default cfg
     }
 
     std::string& get_path(std::string& path) {

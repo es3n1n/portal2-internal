@@ -67,6 +67,8 @@ namespace portal {
             airmove_velocity_check = modules::server.find_pattern("F3 0F 10 ?? 40 F3 0F 10 25");
             airmove_velocity_check_exit = modules::server.find_pattern("F3 0F 10 55 E4 F3 0F 10 ?? E8 F3 0F 58 ?? C8");
 
+            get_clientmode = modules::client.find_pattern("E8 ?? ?? ?? ?? 83 3E 01").jmp(1);
+
             _dump();
         }
 
@@ -74,6 +76,7 @@ namespace portal {
             DUMP(util::valve::calc_cmd_crc);
             DUMP(airmove_velocity_check);
             DUMP(airmove_velocity_check_exit);
+            DUMP(get_clientmode);
         }
     } // namespace sig
 
@@ -91,6 +94,8 @@ namespace portal {
         input_stacksys = modules::inputsystem.capture_interface<c_input_stacksystem>("InputStackSystemVersion001");
         cvar = modules::vstdlib.capture_interface<c_cvar>("VEngineCvar007");
 
+        clientmode = sig::get_clientmode.cast<c_clientmode*(__cdecl*)()>()();
+
         _dump();
     }
 
@@ -104,6 +109,7 @@ namespace portal {
         DUMP(input_sys);
         DUMP(input_stacksys);
         DUMP(cvar);
+        DUMP(clientmode);
     }
 
     void initial() {

@@ -3,7 +3,7 @@
 
 namespace hack::menu {
     constexpr float_t kMenuWidth = 429.f;
-    constexpr float_t kMenuHeight = 151.f;
+    constexpr float_t kMenuHeight = 251.f;
 
     inline bool opened = true;
 

@@ -36,6 +36,7 @@ namespace portal {
         // @note: @es3n1n: CPortalGameMovement::AirMove
         inline util::mem::addr_t airmove_velocity_check;
         inline util::mem::addr_t airmove_velocity_check_exit;
+        inline util::mem::addr_t get_clientmode; // GetClientMode
 
         void capture();
         void _dump();
@@ -50,6 +51,7 @@ namespace portal {
     inline c_input_system* input_sys;
     inline c_input_stacksystem* input_stacksys;
     inline c_cvar* cvar;
+    inline c_clientmode* clientmode;
 
     void _capture();
     void _dump();
