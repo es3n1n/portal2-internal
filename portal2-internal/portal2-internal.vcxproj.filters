@@ -99,9 +99,6 @@
     <ClCompile Include="util\math\math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="util\players\players.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="util\valve\valve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -276,9 +273,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util\math\math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="util\players\players.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\interfaces\c_input_system.hpp">

@@ -21,3 +21,4 @@ public:
 };
 
 #undef READ_VERIFIED_COMMANDS
+#undef MULTIPLAYER_BACKUP

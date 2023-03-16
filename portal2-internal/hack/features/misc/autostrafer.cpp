@@ -1,8 +1,11 @@
 #include "misc.hpp"
-
 #include "hack/cfg/opts.hpp"
 
+#include <algorithm>
+
 namespace hack::features::misc {
+    constexpr float_t kMoveLimit = 175.f;
+
     void autostrafer(c_usercmd* cmd) {
         if (!opts::autostrafer)
             return;
@@ -10,11 +13,11 @@ namespace hack::features::misc {
         if ((cmd->m_buttons & e_cmd_buttons::in_jump) == 0)
             return;
 
-        if (util::players::local->m_fFlags() & e_ent_flags::fl_onground)
+        if (portal::players::local->m_fFlags() & e_ent_flags::fl_onground)
             return;
 
-        cmd->m_forwardmove =
-            (10000.f / util::players::local->m_vecVelocity().length_2d() > 175.f) ? 175.f : 10000.f / util::players::local->m_vecVelocity().length_2d();
-        cmd->m_sidemove = (cmd->m_mousedx != 0) ? (cmd->m_mousedx < 0.0f) ? -175.f : 175.f : (cmd->m_number % 2) == 0 ? -175.f : 175.f;
+        const auto new_forwardmove = 10000.f / portal::players::local->m_vecVelocity().length_2d();
+        cmd->m_forwardmove = std::clamp<float>(new_forwardmove, 0.f, kMoveLimit);
+        cmd->m_sidemove = ((cmd->m_mousedx && cmd->m_mousedx < 0) || !(cmd->m_number % 2)) ? -kMoveLimit : kMoveLimit;
     }
 } // namespace hack::features::misc
