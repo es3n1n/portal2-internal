@@ -114,6 +114,12 @@
     <ClCompile Include="hack\hooks\hooked\override_view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hack\hooks\hooked\draw_model_execute.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hack\features\visuals\chams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.hpp">
@@ -288,6 +294,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\interfaces\c_clientmode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_model_render.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hack\features\visuals\visuals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_mat_system.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_studio_renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\misc\color_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\hash\fnv.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

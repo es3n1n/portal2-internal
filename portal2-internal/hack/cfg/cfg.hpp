@@ -16,6 +16,7 @@ namespace hack::cfg {
     };
 
     void init();
+    void apply_rainbow();
 
     void read(std::string path);
     void save(std::string path);
@@ -24,6 +25,7 @@ namespace hack::cfg {
     //
     inline std::vector<cfg_item_t<bool>> _bools = {};
     inline std::vector<cfg_item_t<float>> _floats = {};
+    inline std::vector<color_t*> _cols = {};
 
     //
     template <typename t>

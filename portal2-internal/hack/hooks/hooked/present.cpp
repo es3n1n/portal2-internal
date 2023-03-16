@@ -65,6 +65,7 @@ namespace hack::hooks::hooked {
 
             ImGui::NewFrame();
 
+            cfg::apply_rainbow();
             menu::render();
 
             ImGui::EndFrame();

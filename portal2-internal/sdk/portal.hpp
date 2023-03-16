@@ -1,6 +1,7 @@
 #pragma once
 #include "enums/enums.hpp"
 #include "interfaces/interfaces.hpp"
+#include "misc/color_t.hpp"
 #include "util/util.hpp"
 #include <d3d9.h>
 
@@ -14,6 +15,8 @@ namespace portal {
         inline util::mem::module_t vguimatsurface;
         inline util::mem::module_t inputsystem;
         inline util::mem::module_t vstdlib;
+        inline util::mem::module_t materialsystem;
+        inline util::mem::module_t studiorender;
 
         // @note: @es3n1n: d3d9 stuff
         //
@@ -52,6 +55,9 @@ namespace portal {
     inline c_input_stacksystem* input_stacksys;
     inline c_cvar* cvar;
     inline c_clientmode* clientmode;
+    inline c_model_render* model_render;
+    inline c_material_system* material_system;
+    inline c_studio_renderer* studio_renderer;
 
     void _capture();
     void _dump();

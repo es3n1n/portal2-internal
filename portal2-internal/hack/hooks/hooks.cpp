@@ -23,6 +23,9 @@ namespace hack::hooks {
 
             clientmode.setup(portal::clientmode);
             clientmode.hook(18, hooked::override_view);
+
+            model_render.setup(portal::model_render);
+            model_render.hook(19, hooked::draw_model_execute);
         }
 
         void unhook() {
