@@ -25,3 +25,11 @@ public:
         return _mm_cvtss_f32(_mm_sqrt_ss(_mm_set_ss(x * x + y * y)));
     }
 };
+
+struct vec4_t {
+public:
+    float x;
+    float y;
+    float z;
+    float w;
+};

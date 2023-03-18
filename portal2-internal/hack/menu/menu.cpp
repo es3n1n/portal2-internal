@@ -8,12 +8,52 @@ namespace hack::menu {
     constexpr float_t kDefaultAirAccelerationValue = 5.f;
     constexpr float_t kCSGOAirAccelerationValue = 12.f;
     constexpr float_t kBhopAirAccelerationValue = 10000.f;
+    constexpr float_t kDefaultFOVValue = 90.f;
+
+    namespace {
+        inline bool color_edit(const char* label, color_t* col, ImGuiColorEditFlags flags) {
+            ImGui::PushID(label);
+            auto clr = ImVec4(col->r / 255.f, col->g / 255.f, col->b / 255.f, col->a / 255.f);
+
+            bool openPopup = ImGui::ColorButton("##btn", clr, ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_AlphaPreview);
+            ImGui::SameLine();
+            ImGui::TextUnformatted(label);
+
+            if (openPopup)
+                ImGui::OpenPopup("##popup");
+
+            if (ImGui::BeginPopup("##popup")) {
+                if (ImGui::ColorPicker4("##picker", &clr.x,
+                                        ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar))
+                    col->apply(clr.x, clr.y, clr.z, clr.w);
+
+                ImGui::Separator();
+                ImGui::BeginColumns("##colsinpopup", 4, ImGuiOldColumnFlags_NoBorder);
+                ImGui::Text("R: %d", col->r);
+                ImGui::NextColumn();
+                ImGui::Text("G: %d", col->g);
+                ImGui::NextColumn();
+                ImGui::Text("B: %d", col->b);
+                ImGui::NextColumn();
+                ImGui::Text("A: %d", col->a);
+                ImGui::EndColumns();
+                ImGui::Separator();
+
+                ImGui::Checkbox("Rainbow", &col->rainbow);
+
+                ImGui::EndPopup();
+            }
+            ImGui::PopID();
+
+            return false;
+        }
+    } // namespace
 
     void render() {
         if (!opened)
             return;
 
-        ImGui::SetNextWindowPos(ImGui::GetIO().DisplaySize * 0.5f, ImGuiCond_Once, ImVec2(0.5f, 0.5f));
+        ImGui::SetNextWindowPos(ImVec2(kMenuWidth + 15.f, kMenuHeight + 15.f), ImGuiCond_Once, ImVec2(0.5f, 0.5f));
         ImGui::SetNextWindowSize(ImVec2(kMenuWidth, kMenuHeight), ImGuiCond_Once);
 
         if (!ImGui::Begin("portal2 cheeto", &opened, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
@@ -41,6 +81,28 @@ namespace hack::menu {
         custom_acceleration_btn("DEFAULT", kDefaultAirAccelerationValue);
         custom_acceleration_btn("CSGO", kCSGOAirAccelerationValue);
         custom_acceleration_btn("BHOP", kBhopAirAccelerationValue);
+
+        ImGui::Spacing();
+
+        ImGui::SliderFloat("FOV", &opts::fov_value, 10.f, 160.f);
+        ImGui::SameLine();
+        if (ImGui::Button("Reset"))
+            opts::fov_value = kDefaultFOVValue;
+
+        ImGui::Spacing();
+
+        auto chams_settings = [=](const std::string_view name, opts::chams_opts_t* ptr) [[msvc::forceinline]] -> void {
+            ImGui::PushID(name.data());
+            ImGui::Checkbox(name.data(), &ptr->m_enabled);
+            ImGui::SameLine();
+            color_edit("Color", &ptr->m_color, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_NoLabel);
+            ImGui::Combo("Type", &ptr->m_material, "Normal\0Flat");
+            ImGui::PopID();
+        };
+
+        chams_settings("Portalgun Chams", &opts::portal_gun_chams);
+        chams_settings("Chell Chams", &opts::chell_chams);
+        chams_settings("Wheatley Chams", &opts::wheatley_chams);
 
         ImGui::Spacing();
 

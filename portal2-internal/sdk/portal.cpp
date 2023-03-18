@@ -26,7 +26,9 @@ namespace portal {
                 vguimatsurface = util::mem::module_t("vguimatsurface.dll");
                 inputsystem = util::mem::module_t("inputsystem.dll");
                 vstdlib = util::mem::module_t("vstdlib.dll");
-            } while (!server || !client || !engine || !vguimatsurface || !inputsystem || !vstdlib);
+                materialsystem = util::mem::module_t("materialsystem.dll");
+                studiorender = util::mem::module_t("studiorender.dll");
+            } while (!server || !client || !engine || !vguimatsurface || !inputsystem || !vstdlib || !materialsystem || !studiorender);
 
             // @note: @es3n1n: d3d9 stuff
             //
@@ -51,6 +53,8 @@ namespace portal {
             DUMP(vguimatsurface);
             DUMP(inputsystem);
             DUMP(vstdlib);
+            DUMP(materialsystem);
+            DUMP(studiorender);
             DUMP_NOSANITY(shaderapidx9);
             DUMP_NOSANITY(shaderapivk);
             DUMP_NOSANITY(dxvk_d3d9);
@@ -67,6 +71,8 @@ namespace portal {
             airmove_velocity_check = modules::server.find_pattern("F3 0F 10 ?? 40 F3 0F 10 25");
             airmove_velocity_check_exit = modules::server.find_pattern("F3 0F 10 55 E4 F3 0F 10 ?? E8 F3 0F 58 ?? C8");
 
+            get_clientmode = modules::client.find_pattern("E8 ?? ?? ?? ?? 83 3E 01").jmp(1);
+
             _dump();
         }
 
@@ -74,6 +80,7 @@ namespace portal {
             DUMP(util::valve::calc_cmd_crc);
             DUMP(airmove_velocity_check);
             DUMP(airmove_velocity_check_exit);
+            DUMP(get_clientmode);
         }
     } // namespace sig
 
@@ -90,6 +97,11 @@ namespace portal {
         input_sys = modules::inputsystem.capture_interface<c_input_system>("InputSystemVersion001");
         input_stacksys = modules::inputsystem.capture_interface<c_input_stacksystem>("InputStackSystemVersion001");
         cvar = modules::vstdlib.capture_interface<c_cvar>("VEngineCvar007");
+        model_render = modules::engine.capture_interface<c_model_render>("VEngineModel016");
+        material_system = modules::materialsystem.capture_interface<c_material_system>("VMaterialSystem080");
+        studio_renderer = modules::studiorender.capture_interface<c_studio_renderer>("VStudioRender026");
+
+        clientmode = sig::get_clientmode.cast<c_clientmode*(__cdecl*)()>()();
 
         _dump();
     }
@@ -104,6 +116,10 @@ namespace portal {
         DUMP(input_sys);
         DUMP(input_stacksys);
         DUMP(cvar);
+        DUMP(clientmode);
+        DUMP(model_render);
+        DUMP(material_system);
+        DUMP(studio_renderer);
     }
 
     void initial() {
@@ -119,7 +135,7 @@ namespace portal {
             m_idx = portal::engine_client->get_local_player();
             m_ent = portal::entitylist->get_client_entity(m_idx);
             m_pl = reinterpret_cast<c_base_player*>(m_ent);
-        
+
             return valid();
         }
 

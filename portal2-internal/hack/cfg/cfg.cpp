@@ -1,16 +1,51 @@
 #include "cfg.hpp"
 #include "detail/json.hpp"
 #include <filesystem>
+#include <format>
 #include <fstream>
 
 namespace hack::cfg {
+    // @fixme: -
+    __forceinline void push_chams_opts(const std::string_view prefix, opts::chams_opts_t& opts) {
+        push(&opts.m_enabled, std::format("{}_enabled", prefix));
+
+        push(&opts.m_material, std::format("{}_material", prefix));
+
+        push(&opts.m_color.r, std::format("{}_r", prefix));
+        push(&opts.m_color.g, std::format("{}_g", prefix));
+        push(&opts.m_color.b, std::format("{}_b", prefix));
+        push(&opts.m_color.a, std::format("{}_a", prefix));
+        push(&opts.m_color.rainbow, std::format("{}_rainbow", prefix));
+
+        _cols.emplace_back(&opts.m_color);
+    }
+
     void init() {
         push(&opts::bhop, "misc_bhop");
         push(&opts::autostrafer, "misc_strafer");
         push(&opts::airacceleration_fix, "misc_airacceleration_fix");
         push(&opts::airacceleration_value, "misc_airacceleration_value");
+        push(&opts::fov_value, "misc_fov_value");
 
-        read("config");
+        push_chams_opts("portal_gun_chams", opts::portal_gun_chams);
+        push_chams_opts("chell_chams", opts::chell_chams);
+        push_chams_opts("wheatley_chams", opts::wheatley_chams);
+
+        read("config"); // load default cfg
+    }
+
+    void apply_rainbow() {
+        for (auto* col : _cols) {
+            if (!col->rainbow)
+                continue;
+
+            col->rainbow_value += 0.0001093f;
+            if (col->rainbow_value > 1.f)
+                col->rainbow_value = 0.f;
+
+            auto new_col = color_t::from_hsb(col->rainbow_value, 0.99f, 1.f);
+            col->apply(new_col.r, new_col.g, new_col.b, col->a);
+        }
     }
 
     std::string& get_path(std::string& path) {
