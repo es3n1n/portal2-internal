@@ -53,7 +53,7 @@ namespace hack::menu {
         if (!opened)
             return;
 
-        ImGui::SetNextWindowPos(ImVec2(kMenuWidth + 15.f, kMenuHeight + 15.f), ImGuiCond_Once, ImVec2(0.5f, 0.5f));
+        ImGui::SetNextWindowPos(ImGui::GetIO().DisplaySize * 0.5f, ImGuiCond_Once, ImVec2(0.5f, 0.5f));
         ImGui::SetNextWindowSize(ImVec2(kMenuWidth, kMenuHeight), ImGuiCond_Once);
 
         if (!ImGui::Begin("portal2 cheeto", &opened, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
@@ -96,7 +96,7 @@ namespace hack::menu {
             ImGui::Checkbox(name.data(), &ptr->m_enabled);
             ImGui::SameLine();
             color_edit("Color", &ptr->m_color, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_NoLabel);
-            ImGui::Combo("Type", &ptr->m_material, "Normal\0Flat");
+            ImGui::Combo("Type", &ptr->m_material, "Normal\0Flat\0");
             ImGui::PopID();
         };
 

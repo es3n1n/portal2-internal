@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <format>
 #include <fstream>
+#include <imgui.h>
 
 namespace hack::cfg {
     // @fixme: -
@@ -39,7 +40,7 @@ namespace hack::cfg {
             if (!col->rainbow)
                 continue;
 
-            col->rainbow_value += 0.0001093f;
+            col->rainbow_value += 0.1 * ImGui::GetIO().DeltaTime;
             if (col->rainbow_value > 1.f)
                 col->rainbow_value = 0.f;
 

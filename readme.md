@@ -10,7 +10,7 @@ A simple Portal 2/Portal Reloaded internal cheat base with imgui-based menu code
  - support for the vulkan game version
 
 ## Menu:
-![menu-preview](https://i.imgur.com/CtgsaGe.png)
+![menu-preview](https://i.imgur.com/piaiUIb.png)
 
 ## Contributing
 

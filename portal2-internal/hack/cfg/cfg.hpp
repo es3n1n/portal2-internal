@@ -25,6 +25,7 @@ namespace hack::cfg {
     //
     inline std::vector<cfg_item_t<bool>> _bools = {};
     inline std::vector<cfg_item_t<float>> _floats = {};
+    inline std::vector<cfg_item_t<int>> _ints = {};
     inline std::vector<color_t*> _cols = {};
 
     //
@@ -34,9 +35,9 @@ namespace hack::cfg {
             return _bools.emplace_back(cfg_item_t(ptr, name));
         } else if constexpr (std::is_same_v<t, float>) {
             return _floats.emplace_back(cfg_item_t(ptr, name));
+        } else if constexpr (std::is_same_v<t, int> || std::is_same_v<t, int32_t>) {
+            return _ints.emplace_back(cfg_item_t(ptr, name));
         }
-
-        __assume(0);
     }
 
     //

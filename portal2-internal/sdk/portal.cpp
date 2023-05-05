@@ -69,6 +69,9 @@ namespace portal {
                 modules::client.find_pattern("55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ?? ?? ?? ?? 6A 04").cast<util::valve::calc_cmd_crc_t>();
 
             airmove_velocity_check = modules::server.find_pattern("F3 0F 10 ?? 40 F3 0F 10 25");
+            if (!airmove_velocity_check)
+                airmove_velocity_check = modules::server.find_pattern("B8 ?? ?? ?? ?? FF E0 10 25"); // in case we already patched this function smh
+            
             airmove_velocity_check_exit = modules::server.find_pattern("F3 0F 10 55 E4 F3 0F 10 ?? E8 F3 0F 58 ?? C8");
 
             get_clientmode = modules::client.find_pattern("E8 ?? ?? ?? ?? 83 3E 01").jmp(1);
