@@ -58,6 +58,9 @@ namespace portal {
     inline c_model_render* model_render;
     inline c_material_system* material_system;
     inline c_studio_renderer* studio_renderer;
+    inline i_render_beams* beams;
+    inline i_model_info_client* model_info;
+    inline c_global_vars* global_vars;
 
     void _capture();
     void _dump();

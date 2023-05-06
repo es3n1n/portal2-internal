@@ -38,6 +38,9 @@ namespace hack::cfg {
         push(&opts::mat_ambient_light_enabled, "misc_mat_ambient");
         push_color(&opts::mat_ambient_light_value, "misc_mat_ambient");
 
+        push(&opts::trails, "misc_trails");
+        push_color(&opts::trails_color, "misc_trails");
+
         read("config"); // load default cfg
     }
 
@@ -46,7 +49,7 @@ namespace hack::cfg {
             if (!col->rainbow)
                 continue;
 
-            col->rainbow_value += 0.1 * ImGui::GetIO().DeltaTime;
+            col->rainbow_value += 0.1f * ImGui::GetIO().DeltaTime;
             if (col->rainbow_value > 1.f)
                 col->rainbow_value = 0.f;
 

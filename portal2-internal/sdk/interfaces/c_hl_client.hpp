@@ -4,7 +4,7 @@
 
 class c_hl_client {
 public:
-    c_clientclass* GetAllClasses() {
+    c_clientclass* get_all_classes() {
         return util::mem::virtual_function<c_clientclass*(__thiscall*)(void*)>(this, 8)(this);
     };
 };

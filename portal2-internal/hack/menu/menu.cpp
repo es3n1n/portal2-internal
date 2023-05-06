@@ -17,7 +17,7 @@ namespace hack::menu {
 
             bool openPopup = ImGui::ColorButton("##btn", clr, ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_AlphaPreview);
             ImGui::SameLine();
-            ImGui::TextUnformatted(label);
+            ImGui::Text(label);
 
             if (openPopup)
                 ImGui::OpenPopup("##popup");
@@ -108,7 +108,13 @@ namespace hack::menu {
 
         ImGui::Checkbox("Mat Ambient Light modification", &opts::mat_ambient_light_enabled);
         ImGui::SameLine();
-        color_edit("Value", &opts::mat_ambient_light_value, ImGuiColorEditFlags_NoLabel);
+        color_edit("##matambientlightcolor", &opts::mat_ambient_light_value, ImGuiColorEditFlags_NoLabel);
+
+        ImGui::Spacing();
+
+        ImGui::Checkbox("Trails", &opts::trails);
+        ImGui::SameLine();
+        color_edit("##trailscolor", &opts::trails_color, ImGuiColorEditFlags_NoLabel);
 
         ImGui::Spacing();
 

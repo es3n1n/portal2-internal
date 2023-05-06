@@ -71,7 +71,7 @@ namespace portal {
             airmove_velocity_check = modules::server.find_pattern("F3 0F 10 ?? 40 F3 0F 10 25");
             if (!airmove_velocity_check)
                 airmove_velocity_check = modules::server.find_pattern("B8 ?? ?? ?? ?? FF E0 10 25"); // in case we already patched this function smh
-            
+
             airmove_velocity_check_exit = modules::server.find_pattern("F3 0F 10 55 E4 F3 0F 10 ?? E8 F3 0F 58 ?? C8");
 
             get_clientmode = modules::client.find_pattern("E8 ?? ?? ?? ?? 83 3E 01").jmp(1);
@@ -90,7 +90,7 @@ namespace portal {
     void _capture() {
         TRACE_FN;
 
-        dx9 = modules::get_shaderapi().find_pattern("89 1D ?? ? ? ? E8 ?? ?? ?? ?? 8B 55").offset(2).self_get(2).ptr<IDirect3DDevice9>();
+        dx9 = modules::get_shaderapi().find_pattern("89 1D ?? ?? ?? ?? E8 ?? ?? ?? ?? 8B 55").offset(2).self_get(2).ptr<IDirect3DDevice9>();
         input = modules::client.find_pattern("8B 0D ?? ?? ?? ?? 8B 01 F3 0F 10 45 ?? 8B 40 0C").offset(2).self_get(2).ptr<c_input>();
 
         engine_client = modules::engine.capture_interface<c_engine_client>("VEngineClient015");
@@ -105,6 +105,12 @@ namespace portal {
         studio_renderer = modules::studiorender.capture_interface<c_studio_renderer>("VStudioRender026");
 
         clientmode = sig::get_clientmode.cast<c_clientmode*(__cdecl*)()>()();
+
+        beams = modules::client.find_pattern("89 86 ?? ?? ?? ?? 8B 0D ?? ?? ?? ?? 8B 01 8B 10").offset(8).self_get(2).ptr<i_render_beams>();
+
+        model_info = modules::engine.capture_interface<i_model_info_client>("VModelInfoClient004");
+
+        global_vars = modules::client.find_pattern("FF D0 8B 0D ?? ?? ?? ?? 8B 51 04 52").offset(4).self_get(2).ptr<c_global_vars>();
 
         _dump();
     }
@@ -123,6 +129,9 @@ namespace portal {
         DUMP(model_render);
         DUMP(material_system);
         DUMP(studio_renderer);
+        DUMP(beams);
+        DUMP(model_info);
+        DUMP(global_vars);
     }
 
     void initial() {

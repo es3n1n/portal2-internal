@@ -17,6 +17,9 @@ namespace opts {
 
     inline bool mat_ambient_light_enabled = false;
     inline constinit color_t mat_ambient_light_value = {0, 0, 0};
+
+    inline bool trails = false;
+    inline constinit color_t trails_color = {255, 100, 255};
     
     inline constinit chams_opts_t portal_gun_chams;
     inline constinit chams_opts_t chell_chams;

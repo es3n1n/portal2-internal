@@ -20,6 +20,7 @@
     <ClCompile Include="hack\features\misc\airacceleration.cpp" />
     <ClCompile Include="hack\features\visuals\mat_ambient_light.cpp" />
     <ClCompile Include="hack\features\visuals\chams.cpp" />
+    <ClCompile Include="hack\features\visuals\trails.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
     <ClCompile Include="hack\hooks\hooked\draw_model_execute.cpp" />
     <ClCompile Include="hack\hooks\hooked\override_view.cpp" />
@@ -82,6 +83,9 @@
     <ClInclude Include="sdk\interfaces\c_model_render.hpp" />
     <ClInclude Include="sdk\interfaces\c_studio_renderer.hpp" />
     <ClInclude Include="sdk\interfaces\interfaces.hpp" />
+    <ClInclude Include="sdk\interfaces\c_global_vars.hpp" />
+    <ClInclude Include="sdk\interfaces\i_model_info_client.hpp" />
+    <ClInclude Include="sdk\interfaces\i_render_beams.hpp" />
     <ClInclude Include="sdk\interfaces\i_surface.hpp" />
     <ClInclude Include="sdk\misc\ang_t.hpp" />
     <ClInclude Include="sdk\misc\client_class.hpp" />
