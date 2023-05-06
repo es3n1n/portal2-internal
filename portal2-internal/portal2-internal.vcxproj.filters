@@ -120,6 +120,9 @@
     <ClCompile Include="hack\features\visuals\chams.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hack\features\visuals\mat_ambient_light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\hack.hpp">

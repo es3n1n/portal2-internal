@@ -106,6 +106,12 @@ namespace hack::menu {
 
         ImGui::Spacing();
 
+        ImGui::Checkbox("Mat Ambient Light modification", &opts::mat_ambient_light_enabled);
+        ImGui::SameLine();
+        color_edit("Value", &opts::mat_ambient_light_value, ImGuiColorEditFlags_NoLabel);
+
+        ImGui::Spacing();
+
         if (ImGui::Button("save"))
             cfg::save("config");
         ImGui::SameLine();

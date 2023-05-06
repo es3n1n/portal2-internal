@@ -10,4 +10,8 @@ namespace hack::features {
     __forceinline void draw_model_execute(c_model_render* pthis, void* ctx, void* state, model_render_info_t* info, void* matrix, void* original_dme) {
         visuals::draw_model_execute(pthis, ctx, state, info, matrix, original_dme);
     }
+
+    __forceinline void present() {
+        visuals::present();
+    }
 } // namespace hack::features

@@ -14,6 +14,9 @@ namespace opts {
     inline bool airacceleration_fix = false;
     inline float airacceleration_value = 5.f;
     inline float fov_value = 90.f;
+
+    inline bool mat_ambient_light_enabled = false;
+    inline constinit color_t mat_ambient_light_value = {0, 0, 0};
     
     inline constinit chams_opts_t portal_gun_chams;
     inline constinit chams_opts_t chell_chams;

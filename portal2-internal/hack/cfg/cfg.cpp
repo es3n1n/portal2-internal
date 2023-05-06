@@ -7,18 +7,21 @@
 
 namespace hack::cfg {
     // @fixme: -
-    __forceinline void push_chams_opts(const std::string_view prefix, opts::chams_opts_t& opts) {
-        push(&opts.m_enabled, std::format("{}_enabled", prefix));
+    __forceinline void push_color(color_t* col, const std::string_view prefix) {
+        push(&col->r, std::format("{}_r", prefix));
+        push(&col->g, std::format("{}_g", prefix));
+        push(&col->b, std::format("{}_b", prefix));
+        push(&col->a, std::format("{}_a", prefix));
+        push(&col->rainbow, std::format("{}_rainbow", prefix));
+        
+        _cols.emplace_back(col);
+    }
 
-        push(&opts.m_material, std::format("{}_material", prefix));
-
-        push(&opts.m_color.r, std::format("{}_r", prefix));
-        push(&opts.m_color.g, std::format("{}_g", prefix));
-        push(&opts.m_color.b, std::format("{}_b", prefix));
-        push(&opts.m_color.a, std::format("{}_a", prefix));
-        push(&opts.m_color.rainbow, std::format("{}_rainbow", prefix));
-
-        _cols.emplace_back(&opts.m_color);
+    // @fixme: -
+    __forceinline void push_chams(opts::chams_opts_t* opts, const std::string_view prefix) {
+        push(&opts->m_enabled, std::format("{}_enabled", prefix));
+        push(&opts->m_material, std::format("{}_material", prefix));
+        push_color(&opts->m_color, prefix);
     }
 
     void init() {
@@ -28,9 +31,12 @@ namespace hack::cfg {
         push(&opts::airacceleration_value, "misc_airacceleration_value");
         push(&opts::fov_value, "misc_fov_value");
 
-        push_chams_opts("portal_gun_chams", opts::portal_gun_chams);
-        push_chams_opts("chell_chams", opts::chell_chams);
-        push_chams_opts("wheatley_chams", opts::wheatley_chams);
+        push_chams(&opts::portal_gun_chams, "portal_gun_chams");
+        push_chams(&opts::chell_chams, "chell_chams");
+        push_chams(&opts::wheatley_chams, "wheatley_chams");
+
+        push(&opts::mat_ambient_light_enabled, "misc_mat_ambient");
+        push_color(&opts::mat_ambient_light_value, "misc_mat_ambient");
 
         read("config"); // load default cfg
     }
@@ -78,6 +84,7 @@ namespace hack::cfg {
 
         deserialize(data, _bools);
         deserialize(data, _floats);
+        deserialize(data, _ints);
     }
 
     void save(std::string path) {
@@ -89,6 +96,8 @@ namespace hack::cfg {
             data[b.m_name] = *b.m_ptr;
         for (auto& f : _floats)
             data[f.m_name] = *f.m_ptr;
+        for (auto& i : _ints)
+            data[i.m_name] = *i.m_ptr;
 
         std::ofstream reader(path);
         reader.clear();

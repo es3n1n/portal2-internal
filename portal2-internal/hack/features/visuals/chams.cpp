@@ -36,7 +36,9 @@ namespace hack::features::visuals {
             material = mat_flat;
             break;
         default:
+#ifdef _DEBUG
             __debugbreak(); // unknown material
+#endif
             break;
         }
 
@@ -66,7 +68,7 @@ namespace hack::features::visuals {
             break;
 
         default:
-            util::logger::debug("Ignoring model '%s'", info->m_model->m_name);
+            // util::logger::debug("Ignoring model '%s'", info->m_model->m_name);
             break;
         }
     }
