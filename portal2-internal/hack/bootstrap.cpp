@@ -49,8 +49,9 @@ namespace hack {
             TRACE_FN;
             hooks::unhook();
             util::input::deinit();
+            if (menu::opened)
+                util::game::unlock_cursor();
             FreeLibraryAndExitThread(static_cast<HMODULE>(_dll_handle), 0x1);
         }
-
     } // namespace bootstrap
 } // namespace hack

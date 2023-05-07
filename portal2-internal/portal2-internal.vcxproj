@@ -47,7 +47,7 @@
     <ClCompile Include="util\logger\logger.cpp" />
     <ClCompile Include="util\math\math.cpp" />
     <ClCompile Include="util\mem\mem.cpp" />
-    <ClCompile Include="util\valve\valve.cpp" />
+    <ClCompile Include="util\game\game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\cfg\cfg.hpp" />
@@ -116,7 +116,7 @@
     <ClInclude Include="util\mem\mem.hpp" />
     <ClInclude Include="util\mem\module\module.hpp" />
     <ClInclude Include="util\util.hpp" />
-    <ClInclude Include="util\valve\valve.hpp" />
+    <ClInclude Include="util\game\game.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

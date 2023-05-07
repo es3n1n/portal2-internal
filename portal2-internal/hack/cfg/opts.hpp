@@ -20,6 +20,7 @@ namespace opts {
 
     inline bool trails = false;
     inline constinit color_t trails_color = {255, 100, 255};
+    inline float trails_life_time = 1.f;
     
     inline constinit chams_opts_t portal_gun_chams;
     inline constinit chams_opts_t chell_chams;

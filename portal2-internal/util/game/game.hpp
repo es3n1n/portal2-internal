@@ -2,7 +2,7 @@
 
 struct InputContext_t;
 
-namespace util::valve {
+namespace util::game {
     using crc32_t = unsigned int;
     using calc_cmd_crc_t = crc32_t(__thiscall*)(void*);
 

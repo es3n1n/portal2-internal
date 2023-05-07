@@ -65,8 +65,8 @@ namespace portal {
         void capture() {
             TRACE_FN;
 
-            util::valve::calc_cmd_crc =
-                modules::client.find_pattern("55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ?? ?? ?? ?? 6A 04").cast<util::valve::calc_cmd_crc_t>();
+            util::game::calc_cmd_crc =
+                modules::client.find_pattern("55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ?? ?? ?? ?? 6A 04").cast<util::game::calc_cmd_crc_t>();
 
             airmove_velocity_check = modules::server.find_pattern("F3 0F 10 ?? 40 F3 0F 10 25");
             if (!airmove_velocity_check)
@@ -80,7 +80,7 @@ namespace portal {
         }
 
         void _dump() {
-            DUMP(util::valve::calc_cmd_crc);
+            DUMP(util::game::calc_cmd_crc);
             DUMP(airmove_velocity_check);
             DUMP(airmove_velocity_check_exit);
             DUMP(get_clientmode);

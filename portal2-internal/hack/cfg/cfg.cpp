@@ -13,7 +13,7 @@ namespace hack::cfg {
         push(&col->b, std::format("{}_b", prefix));
         push(&col->a, std::format("{}_a", prefix));
         push(&col->rainbow, std::format("{}_rainbow", prefix));
-        
+
         _cols.emplace_back(col);
     }
 
@@ -39,6 +39,7 @@ namespace hack::cfg {
         push_color(&opts::mat_ambient_light_value, "misc_mat_ambient");
 
         push(&opts::trails, "misc_trails");
+        push(&opts::trails_life_time, "misc_trails_life_time");
         push_color(&opts::trails_color, "misc_trails");
 
         read("config"); // load default cfg

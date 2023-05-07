@@ -26,6 +26,6 @@ namespace hack::hooks::hooked {
         features::create_move(cmd);
 
         verified_cmd->m_command = *cmd;
-        verified_cmd->m_crc32 = util::valve::calc_cmd_crc(cmd);
+        verified_cmd->m_crc32 = util::game::calc_cmd_crc(cmd);
     }
 } // namespace hack::hooks::hooked

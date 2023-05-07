@@ -115,6 +115,7 @@ namespace hack::menu {
         ImGui::Checkbox("Trails", &opts::trails);
         ImGui::SameLine();
         color_edit("##trailscolor", &opts::trails_color, ImGuiColorEditFlags_NoLabel);
+        ImGui::SliderFloat("Trails life time", &opts::trails_life_time, 1.f, 15.f);
 
         ImGui::Spacing();
 
@@ -133,7 +134,7 @@ namespace hack::menu {
             return;
 
         opened ^= true;
-        return opened ? util::valve::lock_cursor() : util::valve::unlock_cursor();
+        return opened ? util::game::lock_cursor() : util::game::unlock_cursor();
     }
 
     void setup() {
