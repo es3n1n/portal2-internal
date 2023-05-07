@@ -40,6 +40,7 @@ namespace portal {
         inline util::mem::addr_t airmove_velocity_check;
         inline util::mem::addr_t airmove_velocity_check_exit;
         inline util::mem::addr_t get_clientmode; // GetClientMode
+        inline util::mem::addr_t draw_portal; // C_Prop_Portal::DrawPortal
 
         void capture();
         void _dump();
@@ -61,6 +62,7 @@ namespace portal {
     inline i_render_beams* beams;
     inline i_model_info_client* model_info;
     inline c_global_vars* global_vars;
+    inline c_prop_portal* prop_portal;
 
     void _capture();
     void _dump();

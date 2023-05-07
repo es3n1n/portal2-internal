@@ -10,6 +10,7 @@
 #include "c_input_system.hpp"
 #include "c_mat_system.hpp"
 #include "c_model_render.hpp"
+#include "c_prop_portal.hpp"
 #include "c_studio_renderer.hpp"
 #include "i_model_info_client.hpp"
 #include "i_render_beams.hpp"

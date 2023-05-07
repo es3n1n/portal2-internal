@@ -11,11 +11,15 @@ namespace hack::menu {
     constexpr float_t kDefaultFOVValue = 90.f;
 
     namespace {
-        inline bool color_edit(const char* label, color_t* col, ImGuiColorEditFlags flags) {
-            ImGui::PushID(label);
+        inline bool color_edit(const char* label, color_t* col, ImGuiColorEditFlags flags, const char* id = nullptr) {
+            ImGui::PushID(!id ? label : id);
             auto clr = ImVec4(col->r / 255.f, col->g / 255.f, col->b / 255.f, col->a / 255.f);
 
-            bool openPopup = ImGui::ColorButton("##btn", clr, ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_AlphaPreview);
+            ImGuiColorEditFlags color_button_flags = ImGuiColorEditFlags_NoTooltip;
+            if (!(flags & ImGuiColorEditFlags_NoAlpha))
+                color_button_flags |= ImGuiColorEditFlags_AlphaPreview;
+
+            bool openPopup = ImGui::ColorButton("##btn", clr, color_button_flags);
             ImGui::SameLine();
             ImGui::Text(label);
 
@@ -23,8 +27,11 @@ namespace hack::menu {
                 ImGui::OpenPopup("##popup");
 
             if (ImGui::BeginPopup("##popup")) {
-                if (ImGui::ColorPicker4("##picker", &clr.x,
-                                        ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar))
+                ImGuiColorEditFlags color_picker_flags = ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoInputs;
+                if (!(flags & ImGuiColorEditFlags_NoAlpha))
+                    color_picker_flags |= ImGuiColorEditFlags_AlphaBar;
+
+                if (ImGui::ColorPicker4("##picker", &clr.x, color_picker_flags))
                     col->apply(clr.x, clr.y, clr.z, clr.w);
 
                 ImGui::Separator();
@@ -43,8 +50,8 @@ namespace hack::menu {
 
                 ImGui::EndPopup();
             }
-            ImGui::PopID();
 
+            ImGui::PopID();
             return false;
         }
     } // namespace
@@ -95,7 +102,7 @@ namespace hack::menu {
             ImGui::PushID(name.data());
             ImGui::Checkbox(name.data(), &ptr->m_enabled);
             ImGui::SameLine();
-            color_edit("Color", &ptr->m_color, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_NoLabel);
+            color_edit("Color", &ptr->m_color, 0);
             ImGui::Combo("Type", &ptr->m_material, "Normal\0Flat\0");
             ImGui::PopID();
         };
@@ -108,14 +115,34 @@ namespace hack::menu {
 
         ImGui::Checkbox("Mat Ambient Light modification", &opts::mat_ambient_light_enabled);
         ImGui::SameLine();
-        color_edit("Mat Ambient color", &opts::mat_ambient_light_value, ImGuiColorEditFlags_NoLabel);
+        color_edit("Color", &opts::mat_ambient_light_value, 0, "matambient");
 
         ImGui::Spacing();
 
         ImGui::Checkbox("Trails", &opts::trails);
         ImGui::SameLine();
-        color_edit("Trails color", &opts::trails_color, ImGuiColorEditFlags_NoLabel);
+        color_edit("Colors", &opts::trails_color, 0, "trails");
         ImGui::SliderFloat("Trails life time", &opts::trails_life_time, 1.f, 15.f);
+
+        ImGui::Spacing();
+
+        // @fixme: @es3n1n: remove prefix_col_1/prefix_col_2
+        const auto portal_colors_settings = [](const std::string_view prefix, std::size_t index, const std::string_view prefix_col_1,
+                                               const std::string_view prefix_col_2) [[msvc::forceinline]] -> void {
+            ImGui::PushID(prefix.data());
+
+            ImGui::Text(prefix.data());
+            ImGui::SameLine();
+
+            color_edit("Portal 1", &opts::portal_colors[index].m_portal_1, ImGuiColorEditFlags_NoAlpha, prefix_col_1.data());
+            ImGui::SameLine();
+            color_edit("Portal 2", &opts::portal_colors[index].m_portal_2, ImGuiColorEditFlags_NoAlpha, prefix_col_2.data());
+
+            ImGui::PopID();
+        };
+
+        portal_colors_settings("Player1:", 0, "p1c1", "p1c2");
+        portal_colors_settings("Player2:", 1, "p2c1", "p2c2");
 
         ImGui::Spacing();
 

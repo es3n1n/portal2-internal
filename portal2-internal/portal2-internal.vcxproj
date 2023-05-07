@@ -18,6 +18,7 @@
     <ClCompile Include="hack\features\misc\bhop.cpp" />
     <ClCompile Include="hack\features\misc\autostrafer.cpp" />
     <ClCompile Include="hack\features\misc\airacceleration.cpp" />
+    <ClCompile Include="hack\features\visuals\change_portal_colors.cpp" />
     <ClCompile Include="hack\features\visuals\mat_ambient_light.cpp" />
     <ClCompile Include="hack\features\visuals\chams.cpp" />
     <ClCompile Include="hack\features\visuals\trails.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="sdk\interfaces\c_input_system.hpp" />
     <ClInclude Include="sdk\interfaces\c_mat_system.hpp" />
     <ClInclude Include="sdk\interfaces\c_model_render.hpp" />
+    <ClInclude Include="sdk\interfaces\c_prop_portal.hpp" />
     <ClInclude Include="sdk\interfaces\c_studio_renderer.hpp" />
     <ClInclude Include="sdk\interfaces\interfaces.hpp" />
     <ClInclude Include="sdk\interfaces\c_global_vars.hpp" />

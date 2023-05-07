@@ -76,6 +76,8 @@ namespace portal {
 
             get_clientmode = modules::client.find_pattern("E8 ?? ?? ?? ?? 83 3E 01").jmp(1);
 
+            draw_portal = modules::client.find_pattern("55 8B EC 83 EC 14 53 8B D9 8B 0D");
+
             _dump();
         }
 
@@ -84,6 +86,7 @@ namespace portal {
             DUMP(airmove_velocity_check);
             DUMP(airmove_velocity_check_exit);
             DUMP(get_clientmode);
+            DUMP(draw_portal);
         }
     } // namespace sig
 
@@ -111,6 +114,7 @@ namespace portal {
         model_info = modules::engine.capture_interface<i_model_info_client>("VModelInfoClient004");
 
         global_vars = modules::client.find_pattern("FF D0 8B 0D ?? ?? ?? ?? 8B 51 04 52").offset(4).self_get(2).ptr<c_global_vars>();
+        prop_portal = modules::client.find_pattern("76 3A 8B 15").offset(4).self_get(2).ptr<c_prop_portal>();
 
         _dump();
     }
@@ -132,6 +136,7 @@ namespace portal {
         DUMP(beams);
         DUMP(model_info);
         DUMP(global_vars);
+        DUMP(prop_portal);
     }
 
     void initial() {
