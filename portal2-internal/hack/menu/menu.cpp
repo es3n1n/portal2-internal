@@ -108,13 +108,13 @@ namespace hack::menu {
 
         ImGui::Checkbox("Mat Ambient Light modification", &opts::mat_ambient_light_enabled);
         ImGui::SameLine();
-        color_edit("##matambientlightcolor", &opts::mat_ambient_light_value, ImGuiColorEditFlags_NoLabel);
+        color_edit("Mat Ambient color", &opts::mat_ambient_light_value, ImGuiColorEditFlags_NoLabel);
 
         ImGui::Spacing();
 
         ImGui::Checkbox("Trails", &opts::trails);
         ImGui::SameLine();
-        color_edit("##trailscolor", &opts::trails_color, ImGuiColorEditFlags_NoLabel);
+        color_edit("Trails color", &opts::trails_color, ImGuiColorEditFlags_NoLabel);
         ImGui::SliderFloat("Trails life time", &opts::trails_life_time, 1.f, 15.f);
 
         ImGui::Spacing();
