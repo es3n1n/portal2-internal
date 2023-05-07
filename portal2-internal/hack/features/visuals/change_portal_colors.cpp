@@ -14,10 +14,12 @@ namespace hack::features::visuals {
         bool found = false;
         i_material_var* var;
 
-        // @fixme: @es3n1n: ghetto workaround to fix lights
-        // for a proper fix we should hook DrawSimplePortalMesh or
-        // any other shit and replace colors before applying them because
-        // we have only one tinted material for both portals
+        // @fixme: @es3n1n: ghetto workaround to fix lights.
+        // for a proper fix we should hook DrawSimplePortalMesh(or any other shit 
+        // that gets called before/at the time of applying the tinted material)
+        // and replace colours there, before applying the tinted material on the 
+        // portal textures.
+        // we only have one tinted material for both portals, smh
         color_t dark_col = {0.f, 0.f, 0.f};
         for (auto* name : {"$PortalColorGradientLight", "$PortalColorGradientDark"}) {
             if (var = mat->find_var(name, &found); var && found)
