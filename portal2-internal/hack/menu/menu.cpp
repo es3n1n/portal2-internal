@@ -73,7 +73,9 @@ namespace hack::menu {
         if (ImGui::Checkbox("airacceleration_fix", &opts::airacceleration_fix) || (first_render && opts::airacceleration_fix))
             hack::features::misc::airacceleration_fix();
 
-        ImGui::SetNextItemWidth(150.f);
+        ImGui::Separator();
+
+        ImGui::SetNextItemWidth(120.f);
         if (ImGui::InputFloat("airacceleration", &opts::airacceleration_value, 1.f, 5.f, "%1.f") ||
             (first_render && opts::airacceleration_value != kDefaultAirAccelerationValue))
             features::misc::apply_acceleration();
@@ -89,21 +91,25 @@ namespace hack::menu {
         custom_acceleration_btn("CSGO", kCSGOAirAccelerationValue);
         custom_acceleration_btn("BHOP", kBhopAirAccelerationValue);
 
-        ImGui::Spacing();
+        ImGui::Separator();
 
         ImGui::SliderFloat("FOV", &opts::fov_value, 10.f, 160.f);
         ImGui::SameLine();
         if (ImGui::Button("Reset"))
             opts::fov_value = kDefaultFOVValue;
 
-        ImGui::Spacing();
+        ImGui::Separator();
 
         auto chams_settings = [=](const std::string_view name, opts::chams_opts_t* ptr) [[msvc::forceinline]] -> void {
             ImGui::PushID(name.data());
             ImGui::Checkbox(name.data(), &ptr->m_enabled);
             ImGui::SameLine();
             color_edit("Color", &ptr->m_color, 0);
+            ImGui::SameLine();
+
+            ImGui::SetNextItemWidth(120.f);
             ImGui::Combo("Type", &ptr->m_material, "Normal\0Flat\0");
+
             ImGui::PopID();
         };
 
@@ -111,20 +117,23 @@ namespace hack::menu {
         chams_settings("Chell Chams", &opts::chell_chams);
         chams_settings("Wheatley Chams", &opts::wheatley_chams);
 
-        ImGui::Spacing();
+        ImGui::Separator();
 
         ImGui::Checkbox("Mat Ambient Light modification", &opts::mat_ambient_light_enabled);
         ImGui::SameLine();
         color_edit("Color", &opts::mat_ambient_light_value, 0, "matambient");
 
-        ImGui::Spacing();
+        ImGui::Separator();
 
         ImGui::Checkbox("Trails", &opts::trails);
         ImGui::SameLine();
-        color_edit("Colors", &opts::trails_color, 0, "trails");
-        ImGui::SliderFloat("Trails life time", &opts::trails_life_time, 1.f, 15.f);
+        color_edit("Color", &opts::trails_color, 0, "trails");
+        ImGui::SameLine();
 
-        ImGui::Spacing();
+        ImGui::SetNextItemWidth(120.f);
+        ImGui::SliderFloat("Life time", &opts::trails_life_time, 1.f, 15.f);
+
+        ImGui::Separator();
 
         // @fixme: @es3n1n: remove prefix_col_1/prefix_col_2
         const auto portal_colors_settings = [](const std::string_view prefix, std::size_t index, const std::string_view prefix_col_1,
@@ -144,7 +153,7 @@ namespace hack::menu {
         portal_colors_settings("Player1:", 0, "p1c1", "p1c2");
         portal_colors_settings("Player2:", 1, "p2c1", "p2c2");
 
-        ImGui::Spacing();
+        ImGui::Separator();
 
         if (ImGui::Button("save"))
             cfg::save("config");
