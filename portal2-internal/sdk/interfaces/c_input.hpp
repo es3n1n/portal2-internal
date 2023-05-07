@@ -6,6 +6,10 @@
 #define READ_VERIFIED_COMMANDS(off) *reinterpret_cast<c_verified_usercmd**>(reinterpret_cast<uint32_t>(this) + off)
 
 class c_input {
+private:
+    std::uint8_t _pad[0xAD];
+public:
+    bool m_camera_in_third_person;
 public:
     c_usercmd* get_command(int sequence_num) {
         // @xref: 55 8B EC 83 EC 60 0F 57 C0 33 C0 56  [client.dll]

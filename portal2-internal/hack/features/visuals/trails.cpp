@@ -14,10 +14,11 @@ namespace hack::features::visuals {
 
         /*
             @note: @es3n1n:
-            For some mysterious reasons the game won't allow me to query a model index
-            of "sprites/glow1.vmt" in multiplayer, but "sprites/glow01.vmt" instead.
-            And as you may predict already, for the same mysterious reason glow01 won't
-            work in singleplayer.
+            certified valve moment: 
+            I have no idea why, but the game won't allow me to query model indexes of:
+                - glow01.vmt in multiplayer
+                - glow1.vmt in singleplayer
+            ^^^^^^^^^^^^^^^^ these are the same models by the way lol.
         */
         constexpr const char* kGlowBeamSinglePlayer = "sprites/glow1.vmt";
         constexpr const char* kGlowBeamMultiPlayer = "sprites/glow01.vmt";
