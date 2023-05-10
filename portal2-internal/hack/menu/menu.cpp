@@ -161,6 +161,14 @@ namespace hack::menu {
         if (ImGui::Button("load"))
             cfg::read("config");
 
+        ImGui::Separator();
+        
+        if (ImGui::Button("randomize rainbow"))
+            cfg::randomize_rainbow();
+        ImGui::SameLine();
+        if (ImGui::Button("sync rainbow"))
+            cfg::sync_rainbow();
+
         ImGui::End();
         first_render = false;
     }

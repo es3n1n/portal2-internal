@@ -4,6 +4,7 @@
 #include <format>
 #include <fstream>
 #include <imgui.h>
+#include <random>
 
 namespace hack::cfg {
     // @fixme: -
@@ -52,6 +53,8 @@ namespace hack::cfg {
         push_portals(&opts::portal_colors[1], "misc_portal_2");
 
         read("config"); // load default cfg
+
+        randomize_rainbow();
     }
 
     void apply_rainbow() {
@@ -66,6 +69,18 @@ namespace hack::cfg {
             auto new_col = color_t::from_hsb(col->rainbow_value, 0.99f, 1.f);
             col->apply(new_col.r, new_col.g, new_col.b, col->a);
         }
+    }
+
+    void sync_rainbow() {
+        for (auto* col : _cols)
+            col->rainbow_value = 0.f;
+    }
+
+    void randomize_rainbow() {
+        static std::mt19937 _rnd(static_cast<unsigned int>(time(nullptr)));
+
+        for (auto* col : _cols)
+            col->rainbow_value = (_rnd() % 100) / 100.f;
     }
 
     std::string& get_path(std::string& path) {
