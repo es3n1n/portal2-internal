@@ -1,6 +1,6 @@
 #pragma once
-#include "util/mem/mem.hpp"
 #include "sdk/structs/c_base_player.hpp"
+#include "util/mem/mem.hpp"
 
 class c_entitylist {
 public:
@@ -10,7 +10,6 @@ public:
     }
 
     int get_highest_entity_index() {
-        auto f = util::mem::virtual_function<int(__thiscall*)(void*)>(this, 6);
-        return f(this);
+        return util::mem::virtual_function<int(__thiscall*)(void*)>(this, 6)(this);
     }
 };
