@@ -77,7 +77,7 @@ namespace hack::menu {
 
         ImGui::SetNextItemWidth(120.f);
         if (ImGui::InputFloat("airacceleration", &opts::airacceleration_value, 1.f, 5.f, "%1.f") ||
-            (first_render && opts::airacceleration_value != kDefaultAirAccelerationValue))
+            (first_render && std::fabsf(opts::airacceleration_value - kDefaultAirAccelerationValue) > 0.01f))
             features::misc::apply_acceleration();
 
         auto custom_acceleration_btn = [](const char* name, const float_t value) [[msvc::forceinline]] -> void {
@@ -162,7 +162,7 @@ namespace hack::menu {
             cfg::read("config");
 
         ImGui::Separator();
-        
+
         if (ImGui::Button("randomize rainbow"))
             cfg::randomize_rainbow();
         ImGui::SameLine();

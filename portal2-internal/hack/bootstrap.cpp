@@ -34,7 +34,8 @@ namespace hack {
         bool startup(HANDLE dll_handle) {
             TRACE_FN;
             _dll_handle = dll_handle;
-            CreateThread(nullptr, 0, LPTHREAD_START_ROUTINE(_initial_routine), 0, 0, nullptr);
+
+            std::thread([=]() -> void { _initial_routine(dll_handle); }).detach();
             return true;
         }
 

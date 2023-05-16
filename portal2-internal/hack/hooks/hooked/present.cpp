@@ -56,7 +56,7 @@ namespace hack::hooks::hooked {
         }
 
         __forceinline void draw(IDirect3DDevice9* device) {
-            auto color_correction_fix = scoped_color_correction_disabler_t(device);
+            scoped_color_correction_disabler_t color_correction_fix(device);
 
             ImGui_ImplDX9_NewFrame();
             ImGui_ImplWin32_NewFrame();

@@ -11,7 +11,8 @@ namespace hack::features::misc {
                 0xB8, 0x37, 0x13, 0x37, 0x13, // mov eax, portal::sig::airmove_velocity_check_exit
                 0xFF, 0xE0 // jmp eax
             };
-            *reinterpret_cast<std::uintptr_t*>(shellcode + 1) = portal::sig::airmove_velocity_check_exit;
+
+            *util::mem::addr_t(shellcode).offset(1).ptr<std::uintptr_t>() = portal::sig::airmove_velocity_check_exit;
 
             static_assert(sizeof(shellcode) == sizeof(orig_bytes));
             util::mem::patch_text_section(portal::sig::airmove_velocity_check, shellcode, sizeof(shellcode), orig_bytes);

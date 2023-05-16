@@ -25,7 +25,7 @@ namespace hack::features::visuals {
             return false;
         }
 
-        __forceinline void draw_beam_paw(vec3_t src, vec3_t dst, color_t col) {
+        __forceinline void draw_beam_paw(const vec3_t& src, const vec3_t& dst, const color_t& col) {
             beam_info_t beam_info = {0};
 
             beam_info.m_type = 0x0; // TE_BEAMPOINTS

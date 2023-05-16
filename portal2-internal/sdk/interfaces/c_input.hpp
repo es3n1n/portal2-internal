@@ -3,7 +3,7 @@
 #include "util/mem/mem.hpp"
 
 #define MULTIPLAYER_BACKUP 150
-#define READ_VERIFIED_COMMANDS(off) *reinterpret_cast<c_verified_usercmd**>(reinterpret_cast<uint32_t>(this) + off)
+#define READ_VERIFIED_COMMANDS(off) *reinterpret_cast<c_verified_usercmd**>(reinterpret_cast<uint32_t>(this) + (off))
 
 class c_input {
 private:

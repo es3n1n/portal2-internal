@@ -51,7 +51,7 @@ namespace hack::features::visuals {
             };
 
             // @todo: @es3n1n: sig the multiplayer branch instead
-            *reinterpret_cast<uintptr_t*>(patch + 1) = portal::sig::draw_portal_single_player_color_branch.offset(-12);
+            *util::mem::addr_t(patch).offset(1).ptr<uintptr_t>() = portal::sig::draw_portal_single_player_color_branch.offset(-12);
 
             util::mem::patch_text_section(portal::sig::draw_portal_single_player_color_branch, patch, sizeof(patch));
         });

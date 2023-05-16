@@ -77,6 +77,8 @@ namespace hack::cfg {
     }
 
     void randomize_rainbow() {
+        // @note: @es3n1n:
+        // ayo shout out to kaspersky lab and their extremely-safe password generators
         static std::mt19937 _rnd(static_cast<unsigned int>(time(nullptr)));
 
         for (auto* col : _cols)

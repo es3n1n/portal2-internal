@@ -42,6 +42,9 @@ namespace hack::features::visuals {
             break;
         }
 
+        if (!material) [[unlikely]]
+            return;
+
         material->color_modulate(opts.m_color.r / 255.f, opts.m_color.g / 255.f, opts.m_color.b / 255.f);
         material->alpha_modulate(opts.m_color.a / 255.f);
 
