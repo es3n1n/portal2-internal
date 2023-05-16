@@ -14,7 +14,7 @@ A simple Portal 2/Portal Reloaded internal cheat base with imgui-based menu code
  - trails
 
 ## Menu:
-![menu-preview](https://i.imgur.com/WbQx2L3.png)
+![menu-preview](https://i.imgur.com/RqOjrqH.png)
 
 ## Contributing
 
