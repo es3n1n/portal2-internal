@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 #include <cstdint>
 
 struct color_t {
@@ -39,7 +40,7 @@ struct color_t {
     }
 
     static color_t from_hsb(float hue, float saturation, float brightness) {
-        float h = hue == 1.0f ? 0 : hue * 6.0f;
+        float h = std::fabsf(hue - 1.0f) <= 0.001f ? 0.f : hue * 6.0f;
         float f = h - (int)h;
         float p = brightness * (1.0f - saturation);
         float q = brightness * (1.0f - saturation * f);

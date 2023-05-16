@@ -45,7 +45,7 @@ namespace util::mem {
         //
         // utils
         //
-        memory_address_t<ptr_type> offset(ptr_type off) {
+        memory_address_t<ptr_type> offset(ptrdiff_t off) {
             if (!m_ptr)
                 return m_ptr;
             return memory_address_t<ptr_type>(m_ptr + off);

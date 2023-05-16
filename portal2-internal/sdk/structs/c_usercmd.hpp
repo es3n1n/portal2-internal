@@ -1,6 +1,6 @@
 #pragma once
 #include "sdk/misc/ang_t.hpp"
-#include "util/valve/valve.hpp"
+#include "util/game/game.hpp"
 #include <cstdint>
 
 class c_usercmd {
@@ -25,5 +25,5 @@ public:
 class c_verified_usercmd {
 public:
     c_usercmd m_command;
-    util::valve::crc32_t m_crc32;
+    util::game::crc32_t m_crc32;
 };

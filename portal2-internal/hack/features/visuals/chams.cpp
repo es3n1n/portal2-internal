@@ -36,9 +36,14 @@ namespace hack::features::visuals {
             material = mat_flat;
             break;
         default:
+#ifdef _DEBUG
             __debugbreak(); // unknown material
+#endif
             break;
         }
+
+        if (!material) [[unlikely]]
+            return;
 
         material->color_modulate(opts.m_color.r / 255.f, opts.m_color.g / 255.f, opts.m_color.b / 255.f);
         material->alpha_modulate(opts.m_color.a / 255.f);
@@ -66,7 +71,7 @@ namespace hack::features::visuals {
             break;
 
         default:
-            util::logger::debug("Ignoring model '%s'", info->m_model->m_name);
+            // util::logger::debug("Ignoring model '%s'", info->m_model->m_name);
             break;
         }
     }

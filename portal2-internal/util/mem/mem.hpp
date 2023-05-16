@@ -9,4 +9,6 @@ namespace util::mem {
     Fn virtual_function(void* inst, size_t index) {
         return reinterpret_cast<Fn>(virtual_table(inst)[index]);
     }
+
+    void patch_text_section(mem::addr_t dst, uint8_t* src, size_t len, uint8_t* orig = nullptr);
 } // namespace util::mem

@@ -6,7 +6,10 @@ class i_material_var {
 public:
     char* sz;
     int i;
-    vec4_t vec;
+    union {
+        vec4_t vec4;
+        vec3_t vec3;
+    };
 };
 
 class i_material {

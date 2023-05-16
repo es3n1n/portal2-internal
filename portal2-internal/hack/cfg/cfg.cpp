@@ -4,21 +4,31 @@
 #include <format>
 #include <fstream>
 #include <imgui.h>
+#include <random>
 
 namespace hack::cfg {
     // @fixme: -
-    __forceinline void push_chams_opts(const std::string_view prefix, opts::chams_opts_t& opts) {
-        push(&opts.m_enabled, std::format("{}_enabled", prefix));
+    __forceinline void push_color(color_t* col, const std::string_view prefix) {
+        push(&col->r, std::format("{}_r", prefix));
+        push(&col->g, std::format("{}_g", prefix));
+        push(&col->b, std::format("{}_b", prefix));
+        push(&col->a, std::format("{}_a", prefix));
+        push(&col->rainbow, std::format("{}_rainbow", prefix));
 
-        push(&opts.m_material, std::format("{}_material", prefix));
+        _cols.emplace_back(col);
+    }
 
-        push(&opts.m_color.r, std::format("{}_r", prefix));
-        push(&opts.m_color.g, std::format("{}_g", prefix));
-        push(&opts.m_color.b, std::format("{}_b", prefix));
-        push(&opts.m_color.a, std::format("{}_a", prefix));
-        push(&opts.m_color.rainbow, std::format("{}_rainbow", prefix));
+    // @fixme: -
+    __forceinline void push_chams(opts::chams_opts_t* opts, const std::string_view prefix) {
+        push(&opts->m_enabled, std::format("{}_enabled", prefix));
+        push(&opts->m_material, std::format("{}_material", prefix));
+        push_color(&opts->m_color, prefix);
+    }
 
-        _cols.emplace_back(&opts.m_color);
+    // @fixme: -
+    __forceinline void push_portals(opts::portal_colors_t* opts, const std::string_view prefix) {
+        push_color(&opts->m_portal_1, std::format("{}_1", prefix));
+        push_color(&opts->m_portal_2, std::format("{}_2", prefix));
     }
 
     void init() {
@@ -28,11 +38,23 @@ namespace hack::cfg {
         push(&opts::airacceleration_value, "misc_airacceleration_value");
         push(&opts::fov_value, "misc_fov_value");
 
-        push_chams_opts("portal_gun_chams", opts::portal_gun_chams);
-        push_chams_opts("chell_chams", opts::chell_chams);
-        push_chams_opts("wheatley_chams", opts::wheatley_chams);
+        push_chams(&opts::portal_gun_chams, "portal_gun_chams");
+        push_chams(&opts::chell_chams, "chell_chams");
+        push_chams(&opts::wheatley_chams, "wheatley_chams");
+
+        push(&opts::mat_ambient_light_enabled, "misc_mat_ambient");
+        push_color(&opts::mat_ambient_light_value, "misc_mat_ambient");
+
+        push(&opts::trails, "misc_trails");
+        push(&opts::trails_life_time, "misc_trails_life_time");
+        push_color(&opts::trails_color, "misc_trails");
+
+        push_portals(&opts::portal_colors[0], "misc_portal_1");
+        push_portals(&opts::portal_colors[1], "misc_portal_2");
 
         read("config"); // load default cfg
+
+        randomize_rainbow();
     }
 
     void apply_rainbow() {
@@ -40,13 +62,27 @@ namespace hack::cfg {
             if (!col->rainbow)
                 continue;
 
-            col->rainbow_value += 0.1 * ImGui::GetIO().DeltaTime;
+            col->rainbow_value += 0.1f * ImGui::GetIO().DeltaTime;
             if (col->rainbow_value > 1.f)
                 col->rainbow_value = 0.f;
 
             auto new_col = color_t::from_hsb(col->rainbow_value, 0.99f, 1.f);
             col->apply(new_col.r, new_col.g, new_col.b, col->a);
         }
+    }
+
+    void sync_rainbow() {
+        for (auto* col : _cols)
+            col->rainbow_value = 0.f;
+    }
+
+    void randomize_rainbow() {
+        // @note: @es3n1n:
+        // ayo shout out to kaspersky lab and their extremely-safe password generators
+        static std::mt19937 _rnd(static_cast<unsigned int>(time(nullptr)));
+
+        for (auto* col : _cols)
+            col->rainbow_value = (_rnd() % 100) / 100.f;
     }
 
     std::string& get_path(std::string& path) {
@@ -78,6 +114,7 @@ namespace hack::cfg {
 
         deserialize(data, _bools);
         deserialize(data, _floats);
+        deserialize(data, _ints);
     }
 
     void save(std::string path) {
@@ -89,6 +126,8 @@ namespace hack::cfg {
             data[b.m_name] = *b.m_ptr;
         for (auto& f : _floats)
             data[f.m_name] = *f.m_ptr;
+        for (auto& i : _ints)
+            data[i.m_name] = *i.m_ptr;
 
         std::ofstream reader(path);
         reader.clear();

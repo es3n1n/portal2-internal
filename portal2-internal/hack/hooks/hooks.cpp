@@ -2,12 +2,8 @@
 
 namespace hack::hooks {
     namespace detours {
-        void setup() {
-            TRACE_FN;
-        }
-        void unhook() {
-            TRACE_FN;
-        }
+        void setup() { }
+        void unhook() { }
     } // namespace detours
 
     namespace vmt {

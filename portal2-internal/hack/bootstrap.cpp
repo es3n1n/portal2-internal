@@ -34,7 +34,8 @@ namespace hack {
         bool startup(HANDLE dll_handle) {
             TRACE_FN;
             _dll_handle = dll_handle;
-            CreateThread(nullptr, 0, LPTHREAD_START_ROUTINE(_initial_routine), 0, 0, nullptr);
+
+            std::thread([=]() -> void { _initial_routine(dll_handle); }).detach();
             return true;
         }
 
@@ -49,8 +50,9 @@ namespace hack {
             TRACE_FN;
             hooks::unhook();
             util::input::deinit();
+            if (menu::opened)
+                util::game::unlock_cursor();
             FreeLibraryAndExitThread(static_cast<HMODULE>(_dll_handle), 0x1);
         }
-
     } // namespace bootstrap
 } // namespace hack

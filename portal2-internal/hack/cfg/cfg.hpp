@@ -16,7 +16,10 @@ namespace hack::cfg {
     };
 
     void init();
+
     void apply_rainbow();
+    void sync_rainbow();
+    void randomize_rainbow();
 
     void read(std::string path);
     void save(std::string path);
@@ -37,6 +40,8 @@ namespace hack::cfg {
             return _floats.emplace_back(cfg_item_t(ptr, name));
         } else if constexpr (std::is_same_v<t, int> || std::is_same_v<t, int32_t>) {
             return _ints.emplace_back(cfg_item_t(ptr, name));
+        } else {
+            return _ints.emplace_back(cfg_item_t(ptr, name)); // oh no
         }
     }
 

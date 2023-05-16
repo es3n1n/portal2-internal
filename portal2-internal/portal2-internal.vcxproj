@@ -18,7 +18,10 @@
     <ClCompile Include="hack\features\misc\bhop.cpp" />
     <ClCompile Include="hack\features\misc\autostrafer.cpp" />
     <ClCompile Include="hack\features\misc\airacceleration.cpp" />
+    <ClCompile Include="hack\features\visuals\change_portal_colors.cpp" />
+    <ClCompile Include="hack\features\visuals\mat_ambient_light.cpp" />
     <ClCompile Include="hack\features\visuals\chams.cpp" />
+    <ClCompile Include="hack\features\visuals\trails.cpp" />
     <ClCompile Include="hack\hooks\hooked\create_move.cpp" />
     <ClCompile Include="hack\hooks\hooked\draw_model_execute.cpp" />
     <ClCompile Include="hack\hooks\hooked\override_view.cpp" />
@@ -45,7 +48,7 @@
     <ClCompile Include="util\logger\logger.cpp" />
     <ClCompile Include="util\math\math.cpp" />
     <ClCompile Include="util\mem\mem.cpp" />
-    <ClCompile Include="util\valve\valve.cpp" />
+    <ClCompile Include="util\game\game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hack\cfg\cfg.hpp" />
@@ -79,8 +82,12 @@
     <ClInclude Include="sdk\interfaces\c_input_system.hpp" />
     <ClInclude Include="sdk\interfaces\c_mat_system.hpp" />
     <ClInclude Include="sdk\interfaces\c_model_render.hpp" />
+    <ClInclude Include="sdk\interfaces\c_prop_portal.hpp" />
     <ClInclude Include="sdk\interfaces\c_studio_renderer.hpp" />
     <ClInclude Include="sdk\interfaces\interfaces.hpp" />
+    <ClInclude Include="sdk\interfaces\c_global_vars.hpp" />
+    <ClInclude Include="sdk\interfaces\i_model_info_client.hpp" />
+    <ClInclude Include="sdk\interfaces\i_render_beams.hpp" />
     <ClInclude Include="sdk\interfaces\i_surface.hpp" />
     <ClInclude Include="sdk\misc\ang_t.hpp" />
     <ClInclude Include="sdk\misc\client_class.hpp" />
@@ -111,7 +118,7 @@
     <ClInclude Include="util\mem\mem.hpp" />
     <ClInclude Include="util\mem\module\module.hpp" />
     <ClInclude Include="util\util.hpp" />
-    <ClInclude Include="util\valve\valve.hpp" />
+    <ClInclude Include="util\game\game.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

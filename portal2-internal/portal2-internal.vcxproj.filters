@@ -99,7 +99,7 @@
     <ClCompile Include="util\math\math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="util\valve\valve.cpp">
+    <ClCompile Include="util\game\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hack\features\misc\autostrafer.cpp">
@@ -118,6 +118,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hack\features\visuals\chams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hack\features\visuals\mat_ambient_light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hack\features\visuals\trails.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hack\features\visuals\change_portal_colors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -194,7 +203,7 @@
     <ClInclude Include="hack\features\misc\misc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="util\valve\valve.hpp">
+    <ClInclude Include="util\game\game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\structs\c_base_entity.hpp">
@@ -312,6 +321,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util\hash\fnv.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\i_render_beams.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\i_model_info_client.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_global_vars.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\c_prop_portal.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

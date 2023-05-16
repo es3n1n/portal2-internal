@@ -51,9 +51,13 @@ namespace util::hooking {
             return;
 
         auto guard = detail::region_protector{class_base, sizeof(std::uintptr_t), PAGE_READWRITE};
+
         try {
             *reinterpret_cast<std::uintptr_t**>(class_base) = old_vftbl;
-        } catch (...) { }
+        } catch (...) {
+            logger::warn("Suppressing vmt::unhook exception!");
+        }
+
         old_vftbl = nullptr;
     }
 } // namespace util::hooking

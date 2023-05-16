@@ -18,72 +18,73 @@ namespace util::input {
 
     unsigned long __stdcall wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
         for (auto i = 0; i < 256; i++) {
-            if (m_keys.at(i).m_state != e_button_state::pressed)
+            auto& key = m_keys[i];
+
+            if (key.m_state != e_button_state::pressed)
                 continue;
-            m_keys.at(i).m_state = e_button_state::held;
+
+            key.m_state = e_button_state::held;
         }
 
+        // @todo: @es3n1n: recode this mess and wrap it into macros
+        //
         switch (msg) {
             /// "Normal" keys
         case WM_KEYDOWN:
-            if (wparam >= 0 && wparam < 256)
-                m_keys.at(wparam).m_state = e_button_state::pressed;
+            m_keys[wparam].m_state = e_button_state::pressed;
             break;
         case WM_KEYUP:
-            if (wparam >= 0 && wparam < 256)
-                m_keys.at(wparam).m_state = e_button_state::idle;
+            m_keys[wparam].m_state = e_button_state::idle;
             break;
 
             /// Side mouse buttons
         case WM_XBUTTONDOWN:
         case WM_XBUTTONDBLCLK:
             if (GET_XBUTTON_WPARAM(wparam) & XBUTTON1)
-                m_keys.at(VK_XBUTTON1).m_state = e_button_state::pressed;
+                m_keys[VK_XBUTTON1].m_state = e_button_state::pressed;
             else if (GET_XBUTTON_WPARAM(wparam) & XBUTTON2)
-                m_keys.at(VK_XBUTTON2).m_state = e_button_state::pressed;
+                m_keys[VK_XBUTTON2].m_state = e_button_state::pressed;
             break;
         case WM_XBUTTONUP:
             if (GET_XBUTTON_WPARAM(wparam) & XBUTTON1)
-                m_keys.at(VK_XBUTTON1).m_state = e_button_state::idle;
+                m_keys[VK_XBUTTON1].m_state = e_button_state::idle;
             else if (GET_XBUTTON_WPARAM(wparam) & XBUTTON2)
-                m_keys.at(VK_XBUTTON2).m_state = e_button_state::idle;
+                m_keys[VK_XBUTTON2].m_state = e_button_state::idle;
             break;
 
             /// System keys
         case WM_SYSKEYDOWN:
-            if (wparam >= 0 && wparam < 256)
-                m_keys.at(wparam).m_state = e_button_state::pressed;
+            m_keys[wparam].m_state = e_button_state::pressed;
             break;
         case WM_SYSKEYUP:
-            if (wparam >= 0 && wparam < 256)
-                m_keys.at(wparam).m_state = e_button_state::idle;
+            m_keys[wparam].m_state = e_button_state::idle;
             break;
 
             /// Middle button
         case WM_MBUTTONDOWN:
         case WM_MBUTTONDBLCLK:
-            m_keys.at(VK_MBUTTON).m_state = e_button_state::pressed;
+            m_keys[VK_MBUTTON].m_state = e_button_state::pressed;
             break;
         case WM_MBUTTONUP:
-            m_keys.at(VK_MBUTTON).m_state = e_button_state::idle;
+            m_keys[VK_MBUTTON].m_state = e_button_state::idle;
             break;
 
             /// Left mouse button
         case WM_LBUTTONDOWN:
         case WM_LBUTTONDBLCLK:
-            m_keys.at(VK_LBUTTON).m_state = e_button_state::pressed;
+            m_keys[VK_LBUTTON].m_state = e_button_state::pressed;
             break;
         case WM_LBUTTONUP:
-            m_keys.at(VK_LBUTTON).m_state = e_button_state::idle;
+            m_keys[VK_LBUTTON].m_state = e_button_state::idle;
             break;
 
             /// Right mouse button
         case WM_RBUTTONDOWN:
         case WM_RBUTTONDBLCLK:
-            m_keys.at(VK_RBUTTON).m_state = e_button_state::pressed;
+            m_keys[VK_RBUTTON].m_state = e_button_state::pressed;
             break;
         case WM_RBUTTONUP:
-            m_keys.at(VK_RBUTTON).m_state = e_button_state::idle;
+            m_keys[VK_RBUTTON].m_state = e_button_state::idle;
             break;
         default:
             break;

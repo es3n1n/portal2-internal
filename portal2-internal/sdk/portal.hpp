@@ -39,7 +39,13 @@ namespace portal {
         // @note: @es3n1n: CPortalGameMovement::AirMove
         inline util::mem::addr_t airmove_velocity_check;
         inline util::mem::addr_t airmove_velocity_check_exit;
+
         inline util::mem::addr_t get_clientmode; // GetClientMode
+
+        inline util::mem::addr_t draw_portal; // C_Prop_Portal::DrawPortal
+        inline util::mem::addr_t draw_portal_single_player_color_branch;
+
+        inline util::mem::addr_t is_2_guns_coop; // CPortalMPGameRules::Is2GunsCoOp
 
         void capture();
         void _dump();
@@ -58,6 +64,10 @@ namespace portal {
     inline c_model_render* model_render;
     inline c_material_system* material_system;
     inline c_studio_renderer* studio_renderer;
+    inline i_render_beams* beams;
+    inline i_model_info_client* model_info;
+    inline c_global_vars* global_vars;
+    inline c_prop_portal* prop_portal;
 
     void _capture();
     void _dump();

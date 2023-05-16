@@ -1,8 +1,8 @@
-#include "valve.hpp"
+#include "game.hpp"
 #include "hack/menu/imgui/imgui.h"
 #include "sdk/portal.hpp"
 
-namespace util::valve {
+namespace util::game {
     namespace {
         InputContext_t* context = nullptr;
     }

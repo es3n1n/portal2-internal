@@ -8,9 +8,13 @@ A simple Portal 2/Portal Reloaded internal cheat base with imgui-based menu code
  - quite simple(but still) configs-system
  - bunnyhop and autostrafer along with some patches that would bring csgolike movement to portal2
  - support for the vulkan game version
+ - chams
+ - portal color changer
+ - mat ambient light modifications
+ - trails
 
 ## Menu:
-![menu-preview](https://i.imgur.com/piaiUIb.png)
+![menu-preview](https://i.imgur.com/RqOjrqH.png)
 
 ## Contributing
 
