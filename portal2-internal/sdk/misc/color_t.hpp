@@ -1,13 +1,10 @@
 #pragma once
-#include "sdk/misc/flt_range_t.hpp"
-
 #include <cmath>
 #include <cstdint>
 
 #include "hack/menu/imgui/imgui.h"
+#include "sdk/misc/flt_range_t.hpp"
 
-#pragma warning(push)
-#pragma warning(disable:26495) /* shut up stupid msvc, i don't need to init `raw` prop of the union */
 struct color_t {
     using channel_t = std::uint8_t;
     using channel_flt_t = flt_range_t;
@@ -161,8 +158,7 @@ public:
 
 #undef DECL_COLOR
 };
-#pragma warning(push)
 
 static_assert(!std::is_same_v<color_t::channel_t, color_t::channel_flt_t> && xstd::is_floating_point_v<color_t::channel_flt_t> &&
                   !xstd::is_floating_point_v<color_t::channel_t>,
-              "please adjust color channel type");
+              "please adjust color channel types");
