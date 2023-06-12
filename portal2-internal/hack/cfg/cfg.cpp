@@ -65,7 +65,7 @@ namespace hack::cfg {
                 continue;
 
             col->rainbow.increment();
-            col->apply(color_t::from_hsb(col->rainbow.value, .99f, 1.f).replace_a(col->a)); // true - ignoring alpha channel
+            col->apply(color_t::from_hsb(col->rainbow.value, .99f, 1.f).replace_a(col->a));
         }
     }
 
