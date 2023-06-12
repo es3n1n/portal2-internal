@@ -10,6 +10,7 @@ namespace hack::cfg {
     public:
         t* m_ptr{};
         std::string m_name{};
+
     public:
         cfg_item_t(t* ptr, std::string_view name): m_ptr(ptr), m_name(name) { }
         ~cfg_item_t() = default;
@@ -29,19 +30,22 @@ namespace hack::cfg {
     inline std::vector<cfg_item_t<bool>> _bools = {};
     inline std::vector<cfg_item_t<float>> _floats = {};
     inline std::vector<cfg_item_t<int>> _ints = {};
+    inline std::vector<cfg_item_t<std::uint8_t>> _bytes = {};
     inline std::vector<color_t*> _cols = {};
 
     //
     template <typename t>
-    inline cfg_item_t<t>& push(t* ptr, std::string_view name) {
-        if constexpr (std::is_same_v<t, bool>) {
-            return _bools.emplace_back(cfg_item_t(ptr, name));
-        } else if constexpr (std::is_same_v<t, float>) {
-            return _floats.emplace_back(cfg_item_t(ptr, name));
-        } else if constexpr (std::is_same_v<t, int> || std::is_same_v<t, int32_t>) {
-            return _ints.emplace_back(cfg_item_t(ptr, name));
+    inline void push(t* ptr, std::string_view name) {
+        if constexpr (std::is_same_v<std::remove_cv_t<t>, bool>) {
+            _bools.emplace_back(cfg_item_t(ptr, name));
+        } else if constexpr (std::is_same_v<std::remove_cv_t<t>, float>) {
+            _floats.emplace_back(cfg_item_t(ptr, name));
+        } else if constexpr (std::is_same_v<std::remove_cv_t<t>, std::uint8_t>) {
+            _bytes.emplace_back(cfg_item_t(ptr, name));
+        } else if constexpr (std::is_integral_v<std::remove_cv_t<t>> && sizeof(t) <= sizeof(int)) {
+            _ints.emplace_back(cfg_item_t(ptr, name));
         } else {
-            return _ints.emplace_back(cfg_item_t(ptr, name)); // oh no
+            _ints.emplace_back(cfg_item_t(ptr, name)); // oh no
         }
     }
 

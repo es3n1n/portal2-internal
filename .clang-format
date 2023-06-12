@@ -1,4 +1,4 @@
-# es3n1n's clang-format, last upd 13 aug 2022 23:07:09
+# es3n1n's clang-format, last upd 13 may 2023 17:45:37
 ---
 AlignAfterOpenBracket: Align
 AlignEscapedNewlines: Left
@@ -20,7 +20,7 @@ BasedOnStyle: WebKit
 BinPackArguments: true
 BinPackParameters: true
 BitFieldColonSpacing: None
-BraceWrapping:
+BraceWrapping: 
   AfterCaseLabel: false
   AfterClass: false
   AfterControlStatement: false
@@ -57,7 +57,7 @@ ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
 DeriveLineEnding: true
 DerivePointerAlignment: false
-EmptyLineBeforeAccessModifier: Never
+EmptyLineBeforeAccessModifier: Always
 ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
 IncludeBlocks: Preserve
@@ -108,4 +108,3 @@ SpacesInSquareBrackets: false
 Standard: Latest
 TabWidth: 8
 UseCRLF: false
-...

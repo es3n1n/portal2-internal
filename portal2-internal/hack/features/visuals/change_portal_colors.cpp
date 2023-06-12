@@ -20,7 +20,7 @@ namespace hack::features::visuals {
         // and replace colours there, before applying the tinted material on the
         // portal textures.
         // we only have one tinted material for both portals, smh
-        color_t dark_col = {0.f, 0.f, 0.f};
+        color_t dark_col = color_t::black();
         for (auto* name : {"$PortalColorGradientLight", "$PortalColorGradientDark"}) {
             if (var = mat->find_var(name, &found); var && found)
                 apply_color(&var->vec3, dark_col);
