@@ -38,6 +38,10 @@ Any contributions you make are **greatly appreciated**.
 		msbuild portal2-internal.sln /p:Configuration=Release
 		```
 	- Building from Visual Studio Interface using `msvc\portal2-internal.sln`
+	- Creating sln file using cmake and building from it `build\portal2-internal.sln`
+		```commandline
+		cmake -B build -A Win32
+		```
 
 ## Special thanks:
 - [nlohmann/json](https://github.com/nlohmann/json)
