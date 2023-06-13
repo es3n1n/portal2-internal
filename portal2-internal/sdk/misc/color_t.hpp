@@ -96,7 +96,7 @@ public:
     // @credits: https://github.com/znsoftm/xtd/blob/master/src/xtd.drawing/src/xtd/drawing/color.cpp#L186
     [[nodiscard]] static color_t from_hsb(flt_range_t hue, flt_range_t saturation, flt_range_t brightness) {
         if (!saturation)
-            return color_t(brightness, brightness, brightness, util::safe_cast<channel_flt_t>(1.f));
+            return color_t(brightness, brightness, brightness, channel_flt_t(1.f));
 
         hue = std::fabsf(hue - 1.0f) <= 0.001f ? 0.f : hue * 6.0f;
 
