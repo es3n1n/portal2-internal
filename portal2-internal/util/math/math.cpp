@@ -29,7 +29,7 @@ namespace util::math {
         const auto speed = std::sqrt(side_move * side_move + forward_move * forward_move);
         const auto yaw = std::atan2(side_move, forward_move) + delta;
 
-        forward_move = std::cos(yaw) * speed;
-        side_move = std::sin(yaw) * speed;
+        forwardmove = static_cast<float>(std::cos(yaw) * speed); // @note: kehrazy: float to float - should be safe
+        sidemove = static_cast<float>(std::sin(yaw) * speed);
     }
 } // namespace util::math

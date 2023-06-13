@@ -1,10 +1,11 @@
 #pragma once
+#include "util/cast/cast.hpp"
 
 #include <limits>
 #include <numbers>
 
 namespace util::math {
-    constexpr double e = std::numbers::e;
+    constexpr auto e = std::numbers::e;
     constexpr auto pi = std::numbers::pi;
     constexpr auto radpi = 180.f / pi;
     constexpr auto sqrpi = pi * pi;

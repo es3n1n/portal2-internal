@@ -335,6 +335,7 @@
     <ClInclude Include="sdk\interfaces\c_prop_portal.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="util\util\util.hpp">
     <ClInclude Include="sdk\misc\flt_range_t.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

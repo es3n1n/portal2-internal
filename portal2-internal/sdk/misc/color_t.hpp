@@ -4,6 +4,7 @@
 
 #include "hack/menu/imgui/imgui.h"
 #include "sdk/misc/flt_range_t.hpp"
+#include "util/cast/cast.hpp"
 
 struct color_t {
     using channel_t = std::uint8_t;
@@ -50,6 +51,8 @@ public:
         //
         // @todo: @es3n1n: find more convinient way to forward all colors
         //
+        // @note: @kehrazy: there is no way to iterate thru structs in c++23
+        //
         converter.r = r;
         converter.g = g;
         converter.b = b;
@@ -71,8 +74,8 @@ public:
 
     inline color_t& apply(channel_flt_t r = channel_flt_limit_t::max(), channel_flt_t g = channel_flt_limit_t::max(),
                           channel_flt_t b = channel_flt_limit_t::max(), channel_flt_t a = channel_flt_limit_t::max()) {
-        return apply(channel_t(r * channel_limit_t::max()), channel_t(g * channel_limit_t::max()), channel_t(b * channel_limit_t::max()),
-                     channel_t(a * channel_limit_t::max()));
+        return apply(static_cast<channel_t>(r * channel_limit_t::max()), static_cast<channel_t>(g * channel_limit_t::max()),
+                     static_cast<channel_t>(b * channel_limit_t::max()), static_cast<channel_t>(a * channel_limit_t::max()));
     }
 
     inline color_t& apply(color_t src) {
@@ -85,7 +88,7 @@ public:
     }
 
     inline color_t& replace_a(channel_flt_t a) {
-        this->a = channel_t(a * channel_limit_t::max());
+        this->a = static_cast<channel_t>(a * channel_limit_t::max());
         return *this;
     }
 
@@ -93,30 +96,36 @@ public:
     // @credits: https://github.com/znsoftm/xtd/blob/master/src/xtd.drawing/src/xtd/drawing/color.cpp#L186
     [[nodiscard]] static color_t from_hsb(flt_range_t hue, flt_range_t saturation, flt_range_t brightness) {
         if (!saturation)
-            return color_t(brightness, brightness, brightness, static_cast<channel_flt_t>(1.f));
+            return color_t(brightness, brightness, brightness, util::safe_cast<channel_flt_t>(1.f));
 
         hue = std::fabsf(hue - 1.0f) <= 0.001f ? 0.f : hue * 6.0f;
 
-        float f = hue - std::trunc(hue);
-        float p = brightness * (1.f - saturation);
-        float q = brightness * (1.f - (saturation * f));
-        float t = brightness * (1.f - (saturation * (1.f - f)));
+        constexpr float f = hue - std::trunc(hue);
+        constexpr float p = brightness * (1.f - saturation);
+        constexpr float q = brightness * (1.f - (saturation * f));
+        constexpr float t = brightness * (1.f - (saturation * (1.f - f)));
 
         constexpr channel_t chan_max = channel_limit_t::max();
 
-        switch (static_cast<int>(std::trunc(hue))) {
+        switch (util::safe_cast<int>(std::trunc(hue))) {
         case 0:
-            return color_t(static_cast<channel_t>(brightness * chan_max), static_cast<channel_t>(t * chan_max), static_cast<channel_t>(p * chan_max));
+            return color_t(util::safe_cast<channel_t>(brightness * chan_max), util::safe_cast<channel_t>(t * chan_max),
+                           util::safe_cast<channel_t>(p * chan_max));
         case 1:
-            return color_t(static_cast<channel_t>(q * chan_max), static_cast<channel_t>(brightness * chan_max), static_cast<channel_t>(p * chan_max));
+            return color_t(util::safe_cast<channel_t>(q * chan_max), util::safe_cast<channel_t>(brightness * chan_max),
+                           util::safe_cast<channel_t>(p * chan_max));
         case 2:
-            return color_t(static_cast<channel_t>(p * chan_max), static_cast<channel_t>(brightness * chan_max), static_cast<channel_t>(t * chan_max));
+            return color_t(util::safe_cast<channel_t>(p * chan_max), util::safe_cast<channel_t>(brightness * chan_max),
+                           util::safe_cast<channel_t>(t * chan_max));
         case 3:
-            return color_t(static_cast<channel_t>(p * chan_max), static_cast<channel_t>(q * chan_max), static_cast<channel_t>(brightness * chan_max));
+            return color_t(util::safe_cast<channel_t>(p * chan_max), util::safe_cast<channel_t>(q * chan_max),
+                           util::safe_cast<channel_t>(brightness * chan_max));
         case 4:
-            return color_t(static_cast<channel_t>(t * chan_max), static_cast<channel_t>(p * chan_max), static_cast<channel_t>(brightness * chan_max));
+            return color_t(util::safe_cast<channel_t>(t * chan_max), util::safe_cast<channel_t>(p * chan_max),
+                           util::safe_cast<channel_t>(brightness * chan_max));
         default:
-            return color_t(static_cast<channel_t>(brightness * chan_max), static_cast<channel_t>(p * chan_max), static_cast<channel_t>(q * chan_max));
+            return color_t(util::safe_cast<channel_t>(brightness * chan_max), util::safe_cast<channel_t>(p * chan_max),
+                           util::safe_cast<channel_t>(q * chan_max));
         }
     }
 
