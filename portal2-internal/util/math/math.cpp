@@ -28,7 +28,7 @@ namespace util::math {
         auto speed = math::sqrt(sidemove * sidemove + forwardmove * forwardmove);
         auto yaw = math::atan2(sidemove, forwardmove) + delta;
 
-        forwardmove = static_cast<float>(math::cos(yaw) * speed);
+        forwardmove = static_cast<float>(math::cos(yaw) * speed); // @note: kehrazy: float to float - should be safe
         sidemove = static_cast<float>(math::sin(yaw) * speed);
     }
 } // namespace util::math

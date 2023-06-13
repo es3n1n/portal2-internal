@@ -1,4 +1,5 @@
 #pragma once
+#include "util/cast/cast.hpp"
 
 // https://gist.github.com/es3n1n/1601c7b74d03abe36ee2cc5790409ccc
 namespace util::math {
@@ -9,11 +10,11 @@ namespace util::math {
     constexpr auto round_error = 0.5;
 
     double __forceinline deg2rad(double x) {
-        return x * (static_cast<double>(pi) / 180.0);
+        return x * (util::safe_cast<double>(pi) / 180.0);
     }
 
     double __forceinline rad2deg(double x) {
-        return x * (180.0 / static_cast<double>(pi));
+        return x * (180.0 / util::safe_cast<double>(pi));
     }
 
     double __forceinline __declspec(naked) __fastcall sin(double x) {

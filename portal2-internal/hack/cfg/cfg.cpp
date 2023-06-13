@@ -1,5 +1,6 @@
 #include "cfg.hpp"
 #include "detail/json.hpp"
+#include "util/cast/cast.hpp"
 #include <filesystem>
 #include <format>
 #include <fstream>
@@ -77,7 +78,7 @@ namespace hack::cfg {
     void randomize_rainbow() {
         // @note: @es3n1n:
         // ayo shout out to kaspersky lab and their extremely-safe password generators
-        static std::mt19937 _rnd(static_cast<unsigned int>(time(nullptr)));
+        static std::mt19937 _rnd(util::safe_cast<unsigned int>(time(nullptr)));
 
         for (auto* col : _cols)
             col->rainbow.value = (_rnd() % 100) / 100.f;

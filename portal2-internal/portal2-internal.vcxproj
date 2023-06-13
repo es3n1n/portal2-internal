@@ -120,7 +120,7 @@
     <ClInclude Include="util\mem\module\module.hpp" />
     <ClInclude Include="util\util.hpp" />
     <ClInclude Include="util\game\game.hpp" />
-    <ClInclude Include="util\util\util.hpp" />
+    <ClInclude Include="util\cast\cast.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
