@@ -100,10 +100,10 @@ public:
 
         hue = std::fabsf(hue - 1.0f) <= 0.001f ? 0.f : hue * 6.0f;
 
-        constexpr float f = hue - std::trunc(hue);
-        constexpr float p = brightness * (1.f - saturation);
-        constexpr float q = brightness * (1.f - (saturation * f));
-        constexpr float t = brightness * (1.f - (saturation * (1.f - f)));
+        const float f = hue - std::trunc(hue);
+        const float p = brightness * (1.f - saturation);
+        const float q = brightness * (1.f - (saturation * f));
+        const float t = brightness * (1.f - (saturation * (1.f - f)));
 
         constexpr channel_t chan_max = channel_limit_t::max();
 
