@@ -13,7 +13,7 @@ namespace util {
         template <typename T> concept is_binary_radix = binary_radix<T>;
         template <typename T> concept ieee754_compliant = std::numeric_limits<T>::is_iec559;
 
-        template <typename T> concept is_safe_castable = is_binary_radix && ieee754_compliant;
+        template <typename T> concept is_safe_castable = is_binary_radix<T> && ieee754_compliant<T>;
 
         template <typename T>
         requires is_safe_castable<T>
