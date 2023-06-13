@@ -37,7 +37,9 @@ Any contributions you make are **greatly appreciated**.
 		```commandline
 		msbuild portal2-internal.sln /p:Configuration=Release
 		```
-	- Building from Visual Studio Interface using `portal2-internal.sln`
+	- Building from Visual Studio Interface using `msvc\portal2-internal.sln`
 
 ## Special thanks:
-- [spirthack](https://github.com/spirthack) / [CSGOSimple](https://github.com/spirthack/csgosimple)
+- [nlohmann/json](https://github.com/nlohmann/json)
+- [ocornut/imgui](https://github.com/ocornut/imgui)
+- [spirthack/CSGOSimple](https://github.com/spirthack/CSGOSimple)
