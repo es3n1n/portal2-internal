@@ -349,3 +349,10 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /enc_temp_folder
+
+# cmkr
+build/
+cmake-build-debug/
+build/
+
+

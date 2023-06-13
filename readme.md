@@ -26,5 +26,13 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## Building
+
+If you want to build with cmake, run
+```commandline
+cmake -B build -A Win32
+cmake --build build
+```
+
 ## Special thanks:
 - [spirthack](https://github.com/spirthack) / [CSGOSimple](https://github.com/spirthack/csgosimple)

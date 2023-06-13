@@ -1,0 +1,58 @@
+[cmake]
+version = "3.15"
+cmkr-include = "cmake/cmkr.cmake"
+
+[project]
+name = "portal2-internal"
+languages = ["C", "CXX"]
+description = "Portal 2\\MEL\\Reloaded internal modification"
+
+[options]
+P2_BUILD_INJECTOR = false
+
+[conditions]
+build-injector = "P2_BUILD_INJECTOR"
+
+[target.minhook]
+type = "static"
+alias = "TsudaKageyu::minhook"
+sources = [
+    "portal2-internal/util/hooking/detours/mh/**.c"
+]
+headers = [
+    "portal2-internal/util/hooking/detours/mh/**.h"
+]
+
+#
+# dll
+#
+[target.portal2-internal]
+type                = "shared"
+condition           = "windows"
+include-directories = [
+    "portal2-internal/",
+    "portal2-internal/hack/menu/imgui",
+    "portal2-internal/hack/menu/imgui/impls",
+]
+sources             = [
+    "portal2-internal/**.cpp", "portal2-internal/**.hpp"
+]
+compile-features    = ["cxx_std_23"]
+link-libraries = ["TsudaKageyu::minhook"]
+
+msvc.private-compile-options = []
+clang.private-compile-options = []
+gcc.private-compile-options = []
+
+#
+# injector
+#
+[target.portal2-injector]
+condition           = "build-injector"
+type                = "executable"
+sources             = ["portal2-injector/**.cpp", "portal2-injector/**.hpp"]
+compile-features    = ["cxx_std_23"]
+
+msvc.private-compile-options    = []
+clang.private-compile-options   = []
+gcc.private-compile-options     = []
