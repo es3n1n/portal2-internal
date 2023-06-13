@@ -1,6 +1,4 @@
 #pragma once
-#define MATH_PI 3.14159265358979323846f
-
 #include "cast/cast.hpp"
 #include "game/game.hpp"
 #include "hooking/hooking.hpp"
@@ -8,3 +6,5 @@
 #include "logger/logger.hpp"
 #include "math/math.hpp"
 #include "mem/mem.hpp"
+#include "mem/mem.hpp"
+#include "util/util.hpp"
