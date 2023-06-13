@@ -8,7 +8,7 @@ public:
     float y;
 
     float length() const {
-        return _mm_cvtss_f32(_mm_sqrt_ss(_mm_set_ss(x * x + y * y)));
+        return std::sqrt(x * x + y * y);
     }
 };
 
@@ -19,11 +19,11 @@ public:
     float z;
 
     float length() const {
-        return _mm_cvtss_f32(_mm_sqrt_ss(_mm_set_ss(x * x + y * y + z * z)));
+        return std::sqrt(x * x + y * y + z * z);
     }
 
     float length_2d() const {
-        return _mm_cvtss_f32(_mm_sqrt_ss(_mm_set_ss(x * x + y * y)));
+        return std::sqrt(x * x + y * y);
     }
 
     bool operator==(vec3_t& rhs) {
