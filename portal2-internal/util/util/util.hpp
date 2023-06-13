@@ -76,7 +76,7 @@ namespace util {
 
         constexpr int to_bits = to_limits::digits;
 
-          if constexpr (detail::exp_bits<from_t>() >= to_bits) {
+        if constexpr (detail::exp_bits<from_t>() >= to_bits) {
             return detail::exp2<from_t>(to_bits);
         } else {
             return from_limits::infinity;
@@ -98,5 +98,4 @@ namespace util {
 
         return static_cast<to_t>(from);
     }
-
-}
+} // namespace util
