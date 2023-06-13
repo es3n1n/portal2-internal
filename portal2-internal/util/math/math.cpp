@@ -20,15 +20,16 @@ namespace util::math {
         return x;
     }
 
-    void movement_fix(float& forwardmove, float& sidemove, ang_t& angles, ang_t wish_angles) {
-        auto delta = angles.y - wish_angles.y;
+    // @note: kehrazy: use std::move damn it
+    void movement_fix(float& forward_move, float& side_move, const ang_t& angles, const ang_t& wish_angles) {
+        const auto delta = angles.y - wish_angles.y;
         if (delta < 0.001f)
             return;
 
-        auto speed = math::sqrt(sidemove * sidemove + forwardmove * forwardmove);
-        auto yaw = math::atan2(sidemove, forwardmove) + delta;
+        const auto speed = std::sqrt(side_move * side_move + forward_move * forward_move);
+        const auto yaw = std::atan2(side_move, forward_move) + delta;
 
-        forwardmove = static_cast<float>(math::cos(yaw) * speed);
-        sidemove = static_cast<float>(math::sin(yaw) * speed);
+        forward_move = std::cos(yaw) * speed;
+        side_move = std::sin(yaw) * speed;
     }
 } // namespace util::math
