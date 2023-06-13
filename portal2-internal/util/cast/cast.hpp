@@ -57,9 +57,9 @@ namespace util {
         if constexpr (to_limits::is_signed) {
             constexpr int to_bits = to_limits::digits;
             if constexpr (detail::exp_bits<from_t>() >= to_bits) {
-                return -detail::exp2<from_t>();
+                return -detail::exp2<from_t>(to_bits);
             } else {
-                return from_limits::lowest;
+                return from_limits::lowest();
             }
         }
 
@@ -83,17 +83,19 @@ namespace util {
         }
     }
 
-    // courtesy of @e00E
-    template <typename from_t, typename to_t>
-    constexpr from_t safe_cast(const to_t from) {
-        if (is_nan(from)) {
+    // @credits: https://github.com/e00E/cpp-clamp-cast/blob/master/clamp-cast.hpp
+    template <typename to_t, typename from_t>
+    constexpr to_t safe_cast(const from_t from) {
+        if (util::is_nan<from_t>(from)) {
             return 0;
         }
+
         if (from < lower_bound<to_t, from_t>()) {
-            return std::numeric_limits<to_t>::min;
+            return std::numeric_limits<to_t>::min();
         }
+
         if (from >= upper_bound<to_t, from_t>()) {
-            return std::numeric_limits<to_t>::max;
+            return std::numeric_limits<to_t>::max();
         }
 
         return static_cast<to_t>(from);
