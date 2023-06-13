@@ -90,10 +90,10 @@ namespace util {
             return 0;
         }
         if (from < lower_bound<to_t, from_t>()) {
-            return std::numeric_limits<to_t>::min();
+            return std::numeric_limits<to_t>::min;
         }
         if (from >= upper_bound<to_t, from_t>()) {
-            return std::numeric_limits<to_t>::max();
+            return std::numeric_limits<to_t>::max;
         }
 
         return static_cast<to_t>(from);
