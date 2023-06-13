@@ -13,6 +13,10 @@ P2_BUILD_INJECTOR = false
 [conditions]
 build-injector = "P2_BUILD_INJECTOR"
 
+#
+# Dependencies
+#
+
 [target.minhook]
 type = "static"
 alias = "TsudaKageyu::minhook"
@@ -24,7 +28,7 @@ headers = [
 ]
 
 #
-# dll
+# portal2-internal dll
 #
 [target.portal2-internal]
 type                = "shared"
@@ -38,11 +42,11 @@ sources             = [
     "portal2-internal/**.cpp", "portal2-internal/**.hpp"
 ]
 compile-features    = ["cxx_std_23"]
-link-libraries = ["TsudaKageyu::minhook"]
+link-libraries 		= ["TsudaKageyu::minhook"]
 
-msvc.private-compile-options = []
-clang.private-compile-options = []
-gcc.private-compile-options = []
+msvc.private-compile-options    = ["/MP"]
+clang.private-compile-options   = []
+gcc.private-compile-options     = []
 
 #
 # injector
@@ -53,6 +57,6 @@ type                = "executable"
 sources             = ["portal2-injector/**.cpp", "portal2-injector/**.hpp"]
 compile-features    = ["cxx_std_23"]
 
-msvc.private-compile-options    = []
+msvc.private-compile-options    = ["/MP"]
 clang.private-compile-options   = []
 gcc.private-compile-options     = []

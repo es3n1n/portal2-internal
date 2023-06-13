@@ -160,6 +160,9 @@ if(WIN32) # windows
 	)
 
 	if(MSVC) # msvc
+		target_compile_options(portal2-internal PRIVATE
+			"/MP"
+		)
 	endif()
 
 	if((CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$") OR (CMAKE_C_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_C_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$")) # clang
@@ -197,6 +200,9 @@ if(P2_BUILD_INJECTOR) # build-injector
 	)
 
 	if(MSVC) # msvc
+		target_compile_options(portal2-injector PRIVATE
+			"/MP"
+		)
 	endif()
 
 	if((CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$") OR (CMAKE_C_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_C_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$")) # clang
