@@ -15,7 +15,8 @@ public:
     stored_value_with_backup_t<std::uint32_t> m_width; // 0x10
     stored_value_with_backup_t<std::uint32_t> m_height; // 0x18
 private:
-    std::uint8_t __pad[0x48]; // 0x20
+    [[maybe_unused]] std::uint8_t __pad[0x48]; // 0x20
+
 public:
     float_t m_fov; // 0x68
     float_t m_viewmodel_fov; // 0x6C

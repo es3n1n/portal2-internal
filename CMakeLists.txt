@@ -35,153 +35,126 @@ project(portal2-internal
 		"Portal 2\\MEL\\Reloaded internal modification"
 )
 
-# Target: minhook
-set(minhook_SOURCES
-	"portal2-internal/util/hooking/detours/mh/buffer.c"
-	"portal2-internal/util/hooking/detours/mh/hde/hde32.c"
-	"portal2-internal/util/hooking/detours/mh/hde/hde64.c"
-	"portal2-internal/util/hooking/detours/mh/hook.c"
-	"portal2-internal/util/hooking/detours/mh/trampoline.c"
-	"portal2-internal/util/hooking/detours/mh/buffer.h"
-	"portal2-internal/util/hooking/detours/mh/hde/hde32.h"
-	"portal2-internal/util/hooking/detours/mh/hde/hde64.h"
-	"portal2-internal/util/hooking/detours/mh/hde/pstdint.h"
-	"portal2-internal/util/hooking/detours/mh/hde/table32.h"
-	"portal2-internal/util/hooking/detours/mh/hde/table64.h"
-	"portal2-internal/util/hooking/detours/mh/minhook.h"
-	"portal2-internal/util/hooking/detours/mh/trampoline.h"
+# Target: portal2-internal
+set(portal2-internal_SOURCES
+	"portal2-internal/dllmain.cpp"
+	"portal2-internal/hack/bootstrap.cpp"
+	"portal2-internal/hack/cfg/cfg.cpp"
+	"portal2-internal/hack/features/misc/airacceleration.cpp"
+	"portal2-internal/hack/features/misc/airacceleration_fix.cpp"
+	"portal2-internal/hack/features/misc/autostrafer.cpp"
+	"portal2-internal/hack/features/misc/bhop.cpp"
+	"portal2-internal/hack/features/visuals/chams.cpp"
+	"portal2-internal/hack/features/visuals/change_portal_colors.cpp"
+	"portal2-internal/hack/features/visuals/mat_ambient_light.cpp"
+	"portal2-internal/hack/features/visuals/trails.cpp"
+	"portal2-internal/hack/hooks/hooked/create_move.cpp"
+	"portal2-internal/hack/hooks/hooked/draw_model_execute.cpp"
+	"portal2-internal/hack/hooks/hooked/override_view.cpp"
+	"portal2-internal/hack/hooks/hooked/present.cpp"
+	"portal2-internal/hack/hooks/hooked/reset.cpp"
+	"portal2-internal/hack/hooks/hooks.cpp"
+	"portal2-internal/hack/menu/imgui/imgui.cpp"
+	"portal2-internal/hack/menu/imgui/imgui_draw.cpp"
+	"portal2-internal/hack/menu/imgui/imgui_tables.cpp"
+	"portal2-internal/hack/menu/imgui/imgui_widgets.cpp"
+	"portal2-internal/hack/menu/imgui/impls/imgui_impl_dx9.cpp"
+	"portal2-internal/hack/menu/imgui/impls/imgui_impl_win32.cpp"
+	"portal2-internal/hack/menu/menu.cpp"
+	"portal2-internal/hack/menu/ui/imgui_custom.cpp"
+	"portal2-internal/sdk/portal.cpp"
+	"portal2-internal/util/game/game.cpp"
+	"portal2-internal/util/hooking/detours/detours.cpp"
+	"portal2-internal/util/hooking/vmt/vmt.cpp"
+	"portal2-internal/util/input/input.cpp"
+	"portal2-internal/util/logger/logger.cpp"
+	"portal2-internal/util/math/math.cpp"
+	"portal2-internal/util/mem/mem.cpp"
+	"portal2-internal/hack/cfg/cfg.hpp"
+	"portal2-internal/hack/cfg/detail/json.hpp"
+	"portal2-internal/hack/cfg/opts.hpp"
+	"portal2-internal/hack/features/features.hpp"
+	"portal2-internal/hack/features/misc/misc.hpp"
+	"portal2-internal/hack/features/visuals/visuals.hpp"
+	"portal2-internal/hack/hack.hpp"
+	"portal2-internal/hack/hooks/hooks.hpp"
+	"portal2-internal/hack/menu/menu.hpp"
+	"portal2-internal/hack/menu/ui/imgui_custom.hpp"
+	"portal2-internal/sdk/enums/e_cmd_buttons.hpp"
+	"portal2-internal/sdk/enums/e_ent_flags.hpp"
+	"portal2-internal/sdk/enums/enums.hpp"
+	"portal2-internal/sdk/interfaces/c_clientmode.hpp"
+	"portal2-internal/sdk/interfaces/c_cvar.hpp"
+	"portal2-internal/sdk/interfaces/c_engine_client.hpp"
+	"portal2-internal/sdk/interfaces/c_entitylist.hpp"
+	"portal2-internal/sdk/interfaces/c_global_vars.hpp"
+	"portal2-internal/sdk/interfaces/c_hl_client.hpp"
+	"portal2-internal/sdk/interfaces/c_input.hpp"
+	"portal2-internal/sdk/interfaces/c_input_stacksystem.hpp"
+	"portal2-internal/sdk/interfaces/c_input_system.hpp"
+	"portal2-internal/sdk/interfaces/c_mat_system.hpp"
+	"portal2-internal/sdk/interfaces/c_model_render.hpp"
+	"portal2-internal/sdk/interfaces/c_prop_portal.hpp"
+	"portal2-internal/sdk/interfaces/c_studio_renderer.hpp"
+	"portal2-internal/sdk/interfaces/i_model_info_client.hpp"
+	"portal2-internal/sdk/interfaces/i_render_beams.hpp"
+	"portal2-internal/sdk/interfaces/i_surface.hpp"
+	"portal2-internal/sdk/interfaces/interfaces.hpp"
+	"portal2-internal/sdk/misc/ang_t.hpp"
+	"portal2-internal/sdk/misc/client_class.hpp"
+	"portal2-internal/sdk/misc/color_t.hpp"
+	"portal2-internal/sdk/misc/flt_range_t.hpp"
+	"portal2-internal/sdk/misc/recv.hpp"
+	"portal2-internal/sdk/misc/vec_t.hpp"
+	"portal2-internal/sdk/portal.hpp"
+	"portal2-internal/sdk/structs/c_base_entity.hpp"
+	"portal2-internal/sdk/structs/c_base_player.hpp"
+	"portal2-internal/sdk/structs/c_usercmd.hpp"
+	"portal2-internal/util/cast/cast.hpp"
+	"portal2-internal/util/game/game.hpp"
+	"portal2-internal/util/hash/fnv.hpp"
+	"portal2-internal/util/hooking/detours/detours.hpp"
+	"portal2-internal/util/hooking/hooking.hpp"
+	"portal2-internal/util/hooking/vmt/vmt.hpp"
+	"portal2-internal/util/input/input.hpp"
+	"portal2-internal/util/logger/logger.hpp"
+	"portal2-internal/util/math/base.hpp"
+	"portal2-internal/util/math/math.hpp"
+	"portal2-internal/util/mem/addr/addr.hpp"
+	"portal2-internal/util/mem/mem.hpp"
+	"portal2-internal/util/mem/module/module.hpp"
+	"portal2-internal/util/platform.hpp"
+	"portal2-internal/util/util.hpp"
 	cmake.toml
 )
 
-add_library(minhook STATIC)
+add_library(portal2-internal SHARED)
 
-target_sources(minhook PRIVATE ${minhook_SOURCES})
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${minhook_SOURCES})
+target_sources(portal2-internal PRIVATE ${portal2-internal_SOURCES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${portal2-internal_SOURCES})
 
-add_library(TsudaKageyu::minhook ALIAS minhook)
-# Target: portal2-internal
-if(WIN32) # windows
-	set(portal2-internal_SOURCES
-		"portal2-internal/dllmain.cpp"
-		"portal2-internal/hack/bootstrap.cpp"
-		"portal2-internal/hack/cfg/cfg.cpp"
-		"portal2-internal/hack/features/misc/airacceleration.cpp"
-		"portal2-internal/hack/features/misc/airacceleration_fix.cpp"
-		"portal2-internal/hack/features/misc/autostrafer.cpp"
-		"portal2-internal/hack/features/misc/bhop.cpp"
-		"portal2-internal/hack/features/visuals/chams.cpp"
-		"portal2-internal/hack/features/visuals/change_portal_colors.cpp"
-		"portal2-internal/hack/features/visuals/mat_ambient_light.cpp"
-		"portal2-internal/hack/features/visuals/trails.cpp"
-		"portal2-internal/hack/hooks/hooked/create_move.cpp"
-		"portal2-internal/hack/hooks/hooked/draw_model_execute.cpp"
-		"portal2-internal/hack/hooks/hooked/override_view.cpp"
-		"portal2-internal/hack/hooks/hooked/present.cpp"
-		"portal2-internal/hack/hooks/hooked/reset.cpp"
-		"portal2-internal/hack/hooks/hooks.cpp"
-		"portal2-internal/hack/menu/imgui/imgui.cpp"
-		"portal2-internal/hack/menu/imgui/imgui_draw.cpp"
-		"portal2-internal/hack/menu/imgui/imgui_tables.cpp"
-		"portal2-internal/hack/menu/imgui/imgui_widgets.cpp"
-		"portal2-internal/hack/menu/imgui/impls/imgui_impl_dx9.cpp"
-		"portal2-internal/hack/menu/imgui/impls/imgui_impl_win32.cpp"
-		"portal2-internal/hack/menu/menu.cpp"
-		"portal2-internal/hack/menu/ui/imgui_custom.cpp"
-		"portal2-internal/sdk/portal.cpp"
-		"portal2-internal/util/game/game.cpp"
-		"portal2-internal/util/hooking/detours/detours.cpp"
-		"portal2-internal/util/hooking/vmt/vmt.cpp"
-		"portal2-internal/util/input/input.cpp"
-		"portal2-internal/util/logger/logger.cpp"
-		"portal2-internal/util/math/math.cpp"
-		"portal2-internal/util/mem/mem.cpp"
-		"portal2-internal/hack/cfg/cfg.hpp"
-		"portal2-internal/hack/cfg/detail/json.hpp"
-		"portal2-internal/hack/cfg/opts.hpp"
-		"portal2-internal/hack/features/features.hpp"
-		"portal2-internal/hack/features/misc/misc.hpp"
-		"portal2-internal/hack/features/visuals/visuals.hpp"
-		"portal2-internal/hack/hack.hpp"
-		"portal2-internal/hack/hooks/hooks.hpp"
-		"portal2-internal/hack/menu/menu.hpp"
-		"portal2-internal/hack/menu/ui/imgui_custom.hpp"
-		"portal2-internal/sdk/enums/e_cmd_buttons.hpp"
-		"portal2-internal/sdk/enums/e_ent_flags.hpp"
-		"portal2-internal/sdk/enums/enums.hpp"
-		"portal2-internal/sdk/interfaces/c_clientmode.hpp"
-		"portal2-internal/sdk/interfaces/c_cvar.hpp"
-		"portal2-internal/sdk/interfaces/c_engine_client.hpp"
-		"portal2-internal/sdk/interfaces/c_entitylist.hpp"
-		"portal2-internal/sdk/interfaces/c_global_vars.hpp"
-		"portal2-internal/sdk/interfaces/c_hl_client.hpp"
-		"portal2-internal/sdk/interfaces/c_input.hpp"
-		"portal2-internal/sdk/interfaces/c_input_stacksystem.hpp"
-		"portal2-internal/sdk/interfaces/c_input_system.hpp"
-		"portal2-internal/sdk/interfaces/c_mat_system.hpp"
-		"portal2-internal/sdk/interfaces/c_model_render.hpp"
-		"portal2-internal/sdk/interfaces/c_prop_portal.hpp"
-		"portal2-internal/sdk/interfaces/c_studio_renderer.hpp"
-		"portal2-internal/sdk/interfaces/i_model_info_client.hpp"
-		"portal2-internal/sdk/interfaces/i_render_beams.hpp"
-		"portal2-internal/sdk/interfaces/i_surface.hpp"
-		"portal2-internal/sdk/interfaces/interfaces.hpp"
-		"portal2-internal/sdk/misc/ang_t.hpp"
-		"portal2-internal/sdk/misc/client_class.hpp"
-		"portal2-internal/sdk/misc/color_t.hpp"
-		"portal2-internal/sdk/misc/recv.hpp"
-		"portal2-internal/sdk/misc/vec_t.hpp"
-		"portal2-internal/sdk/portal.hpp"
-		"portal2-internal/sdk/structs/c_base_entity.hpp"
-		"portal2-internal/sdk/structs/c_base_player.hpp"
-		"portal2-internal/sdk/structs/c_usercmd.hpp"
-		"portal2-internal/util/game/game.hpp"
-		"portal2-internal/util/hash/fnv.hpp"
-		"portal2-internal/util/hooking/detours/detours.hpp"
-		"portal2-internal/util/hooking/hooking.hpp"
-		"portal2-internal/util/hooking/vmt/vmt.hpp"
-		"portal2-internal/util/input/input.hpp"
-		"portal2-internal/util/logger/logger.hpp"
-		"portal2-internal/util/math/base.hpp"
-		"portal2-internal/util/math/math.hpp"
-		"portal2-internal/util/mem/addr/addr.hpp"
-		"portal2-internal/util/mem/mem.hpp"
-		"portal2-internal/util/mem/module/module.hpp"
-		"portal2-internal/util/util.hpp"
-		cmake.toml
+target_compile_features(portal2-internal PUBLIC
+	cxx_std_20
+)
+
+if(MSVC) # msvc
+	target_compile_options(portal2-internal PRIVATE
+		"/MP"
 	)
-
-	add_library(portal2-internal SHARED)
-
-	target_sources(portal2-internal PRIVATE ${portal2-internal_SOURCES})
-	source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${portal2-internal_SOURCES})
-
-	target_compile_features(portal2-internal PUBLIC
-		cxx_std_23
-	)
-
-	if(MSVC) # msvc
-		target_compile_options(portal2-internal PRIVATE
-			"/MP"
-		)
-	endif()
-
-	if((CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$") OR (CMAKE_C_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_C_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$")) # clang
-	endif()
-
-	if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "GNU") # gcc
-	endif()
-
-	target_include_directories(portal2-internal PUBLIC
-		"portal2-internal/"
-		"portal2-internal/hack/menu/imgui"
-		"portal2-internal/hack/menu/imgui/impls"
-	)
-
-	target_link_libraries(portal2-internal PUBLIC
-		TsudaKageyu::minhook
-	)
-
 endif()
+
+if((CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$") OR (CMAKE_C_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_C_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$")) # clang
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "GNU") # gcc
+endif()
+
+target_include_directories(portal2-internal PUBLIC
+	"portal2-internal/"
+	"portal2-internal/hack/menu/imgui"
+	"portal2-internal/hack/menu/imgui/impls"
+)
+
 # Target: portal2-injector
 if(P2_BUILD_INJECTOR) # build-injector
 	set(portal2-injector_SOURCES

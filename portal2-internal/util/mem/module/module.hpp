@@ -17,7 +17,7 @@ namespace util::mem {
         //
         // exports related
         mem::addr_t find_export(const char* name) {
-            return mem::addr_t(static_cast<void*>(GetProcAddress(m_addr.cast<HMODULE>(), name)));
+            return mem::addr_t(uintptr_t(GetProcAddress(m_addr.cast<HMODULE>(), name)));
         }
 
         template <typename T>
@@ -56,7 +56,7 @@ namespace util::mem {
                 return ret;
             }
 
-            L_ERROR("Signature from %s '%s' not found", m_name, pattern.data());
+            // L_ERROR("Signature from %s '%s' not found", m_name, pattern.data());
             return mem::addr_t();
         }
     protected:

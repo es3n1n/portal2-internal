@@ -14,25 +14,10 @@ P2_BUILD_INJECTOR = false
 build-injector = "P2_BUILD_INJECTOR"
 
 #
-# Dependencies
-#
-
-[target.minhook]
-type = "static"
-alias = "TsudaKageyu::minhook"
-sources = [
-    "portal2-internal/util/hooking/detours/mh/**.c"
-]
-headers = [
-    "portal2-internal/util/hooking/detours/mh/**.h"
-]
-
-#
 # portal2-internal dll
 #
 [target.portal2-internal]
 type                = "shared"
-condition           = "windows"
 include-directories = [
     "portal2-internal/",
     "portal2-internal/hack/menu/imgui",
@@ -41,8 +26,7 @@ include-directories = [
 sources             = [
     "portal2-internal/**.cpp", "portal2-internal/**.hpp"
 ]
-compile-features    = ["cxx_std_23"]
-link-libraries 		= ["TsudaKageyu::minhook"]
+compile-features    = ["cxx_std_20"]
 
 msvc.private-compile-options    = ["/MP"]
 clang.private-compile-options   = []

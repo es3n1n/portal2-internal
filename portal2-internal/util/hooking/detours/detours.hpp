@@ -1,5 +1,4 @@
 #pragma once
-#include "mh/minhook.h"
 #include "util/mem/mem.hpp"
 
 namespace util::hooking::detour {

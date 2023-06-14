@@ -92,7 +92,6 @@ bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg) {
 
     const bool hovered = IsItemHovered();
     const bool edit_requested = hovered && io->MouseClicked[0];
-    const bool style_requested = hovered && io->MouseClicked[1];
 
     if (edit_requested) {
         if (g.ActiveId != id) {

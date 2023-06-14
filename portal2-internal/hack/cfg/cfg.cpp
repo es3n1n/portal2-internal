@@ -15,6 +15,8 @@ namespace hack::cfg {
         public:
             T* ptr;
             std::string_view fmt;
+
+            constexpr packed_var_t(T* ptr, const std::string_view fmt): ptr(ptr), fmt(fmt) {}
         };
 
         template <typename T, typename... Variadic>
@@ -121,7 +123,7 @@ namespace hack::cfg {
             std::for_each(vec.begin(), vec.end(), [json](const auto& it) -> void {
                 if (json.find(it.m_name) == json.end())
                     return;
-                *it.m_ptr = json[it.m_name].get<t>();
+                *it.m_ptr = json[it.m_name].template get<t>();
             });
         }
     } // namespace

@@ -4,14 +4,14 @@
 
 struct model_info_t {
 private:
-    std::uint8_t __pad[4];
+    [[maybe_unused]] std::uint8_t __pad[4];
 public:
     char m_name[260];
 };
 
 struct model_render_info_t {
 private:
-    std::uint8_t __pad[0x1C];
+    [[maybe_unused]] std::uint8_t __pad[0x1C];
 public:
     model_info_t* m_model;
 };

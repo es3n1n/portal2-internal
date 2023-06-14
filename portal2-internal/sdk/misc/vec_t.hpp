@@ -7,6 +7,8 @@ public:
     float x;
     float y;
 
+    constexpr vec2_t(float x, float y): x(x), y(y) { }
+
     float length() const {
         return std::sqrt(x * x + y * y);
     }
@@ -17,6 +19,8 @@ public:
     float x;
     float y;
     float z;
+
+    constexpr vec3_t(float x = 0.f, float y = 0.f, float z = 0.f): x(x), y(y), z(z) { }
 
     float length() const {
         return std::sqrt(x * x + y * y + z * z);
@@ -37,4 +41,6 @@ public:
     float y;
     float z;
     float w;
+
+    constexpr vec4_t(float x, float y, float z, float w): x(x), y(y), z(z), w(w) { }
 };
