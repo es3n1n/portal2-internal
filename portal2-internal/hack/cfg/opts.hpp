@@ -15,13 +15,24 @@ namespace opts {
         color_t m_portal_1 = {255, 255, 100, 255};
         color_t m_portal_2 = {100, 255, 255, 255};
 
+    public:
+        enum e_identifier : std::size_t {
+            PORTAL_1 = 0,
+            PORTAL_2,
+            PORTAL_MAX,
+
+            PLAYER_1 = 0,
+            PLAYER_2,
+            PLAYER_MAX
+        };
+
         color_t& operator[](size_t index) {
             return at(index);
         }
 
         color_t& at(size_t index) {
             switch (index) {
-            case 0:
+            case PORTAL_1:
                 return m_portal_1;
             default:
                 return m_portal_2;

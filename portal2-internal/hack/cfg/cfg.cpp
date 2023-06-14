@@ -54,7 +54,7 @@ namespace hack::cfg {
 
         // @fixme: -
         void push_portals(opts::portal_colors_t* opts, const std::string_view prefix) {
-            for (std::size_t i = 0; i < 2; ++i)
+            for (std::size_t i = opts::portal_colors_t::PORTAL_1; i < opts::portal_colors_t::PORTAL_MAX; ++i)
                 push_color(&opts->at(i), std::vformat("{}_{}", std::make_format_args(prefix, i)));
         }
     } // namespace
@@ -77,8 +77,8 @@ namespace hack::cfg {
         push(&opts::trails_life_time, "misc_trails_life_time");
         push_color(&opts::trails_color, "misc_trails");
 
-        push_portals(&opts::portal_colors[0], "misc_portal_1");
-        push_portals(&opts::portal_colors[1], "misc_portal_2");
+        for (std::size_t i = opts::portal_colors_t::PORTAL_1; i < opts::portal_colors_t::PORTAL_MAX; ++i)
+            push_portals(&opts::portal_colors[i], "misc_portal_1");
 
         read("config"); // load default cfg
 
