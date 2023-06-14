@@ -1,36 +1,61 @@
-#include "cfg.hpp"
-#include "detail/json.hpp"
-#include "util/cast/cast.hpp"
 #include <filesystem>
 #include <format>
 #include <fstream>
 #include <imgui.h>
 #include <random>
 
+#include "hack/cfg/cfg.hpp"
+#include "hack/cfg/detail/json.hpp"
+#include "util/cast/cast.hpp"
+
 namespace hack::cfg {
     namespace {
+        template <typename T>
+        struct packed_var_t {
+        public:
+            T* ptr;
+            std::string_view fmt;
+        };
+
+        template <typename T, typename... Variadic>
+        inline void push_packed_vars(const std::string_view prefix, packed_var_t<T> var, Variadic... variadic) {
+            push(var.ptr, std::vformat(var.fmt, std::make_format_args(prefix)));
+
+            if constexpr (sizeof...(Variadic))
+                push_packed_vars(prefix, variadic...);
+        }
+
         // @fixme: -
         void push_color(color_t* col, const std::string_view prefix) {
-            push(&col->r, std::format("{}_r", prefix));
-            push(&col->g, std::format("{}_g", prefix));
-            push(&col->b, std::format("{}_b", prefix));
-            push(&col->a, std::format("{}_a", prefix));
-            push(&col->rainbow.enabled, std::format("{}_rainbow", prefix));
+            // clang-format off
+            push_packed_vars(prefix, 
+                packed_var_t{&col->r, "{}_r"},
+                packed_var_t{&col->g, "{}_g"},
+                packed_var_t{&col->b, "{}_b"},
+                packed_var_t{&col->a, "{}_a"},
+                packed_var_t{&col->rainbow.enabled, "{}_rainbow"}
+            );
+            // clang-format on
 
             _cols.emplace_back(col);
         }
 
         // @fixme: -
         void push_chams(opts::chams_opts_t* opts, const std::string_view prefix) {
-            push(&opts->m_enabled, std::format("{}_enabled", prefix));
-            push(&opts->m_material, std::format("{}_material", prefix));
+            // clang-format off
+            push_packed_vars(prefix, 
+                packed_var_t{&opts->m_enabled, "{}_enabled"},
+                packed_var_t{&opts->m_material, "{}_material"}
+            );
+            // clang-format on
+
             push_color(&opts->m_color, prefix);
         }
 
         // @fixme: -
         void push_portals(opts::portal_colors_t* opts, const std::string_view prefix) {
-            push_color(&opts->m_portal_1, std::format("{}_1", prefix));
-            push_color(&opts->m_portal_2, std::format("{}_2", prefix));
+            for (std::size_t i = 0; i < 2; ++i)
+                push_color(&opts->at(i), std::vformat("{}_{}", std::make_format_args(prefix, i)));
         }
     } // namespace
 
@@ -72,13 +97,13 @@ namespace hack::cfg {
 
     void sync_rainbow() {
         for (auto* col : _cols)
-            col->rainbow.value = 0.f;
+            col->rainbow.reset();
     }
 
     void randomize_rainbow() {
         // @note: @es3n1n:
         // ayo shout out to kaspersky lab and their extremely-safe password generators
-        static std::mt19937 _rnd(util::safe_cast<unsigned int>(time(nullptr)));
+        static std::mt19937 _rnd(static_cast<unsigned int>(time(nullptr)));
 
         for (auto* col : _cols)
             col->rainbow.value = (_rnd() % 100) / 100.f;

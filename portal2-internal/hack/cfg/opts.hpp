@@ -16,6 +16,10 @@ namespace opts {
         color_t m_portal_2 = {100, 255, 255, 255};
 
         color_t& operator[](size_t index) {
+            return at(index);
+        }
+
+        color_t& at(size_t index) {
             switch (index) {
             case 0:
                 return m_portal_1;
