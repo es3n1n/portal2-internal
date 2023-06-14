@@ -18,8 +18,8 @@ namespace util::game {
     }
 
     void unlock_cursor() {
-        int width = util::safe_cast<int>(ImGui::GetIO().DisplaySize.x / 2);
-        int height = util::safe_cast<int>(ImGui::GetIO().DisplaySize.y / 2);
+        int width = util::clamp_cast<int>(ImGui::GetIO().DisplaySize.x / 2);
+        int height = util::clamp_cast<int>(ImGui::GetIO().DisplaySize.y / 2);
 
         if (context) {
             if (portal::input_stacksys->is_topmost_enabled_context(context))

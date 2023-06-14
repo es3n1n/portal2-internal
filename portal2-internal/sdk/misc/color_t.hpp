@@ -107,25 +107,25 @@ public:
 
         constexpr channel_t chan_max = channel_limit_t::max();
 
-        switch (util::safe_cast<int>(std::trunc(hue))) {
+        switch (util::clamp_cast<int>(std::trunc(hue))) {
         case 0:
-            return color_t(util::safe_cast<channel_t>(brightness * chan_max), util::safe_cast<channel_t>(t * chan_max),
-                           util::safe_cast<channel_t>(p * chan_max));
+            return color_t(util::clamp_cast<channel_t>(brightness * chan_max), util::clamp_cast<channel_t>(t * chan_max),
+                           util::clamp_cast<channel_t>(p * chan_max));
         case 1:
-            return color_t(util::safe_cast<channel_t>(q * chan_max), util::safe_cast<channel_t>(brightness * chan_max),
-                           util::safe_cast<channel_t>(p * chan_max));
+            return color_t(util::clamp_cast<channel_t>(q * chan_max), util::clamp_cast<channel_t>(brightness * chan_max),
+                           util::clamp_cast<channel_t>(p * chan_max));
         case 2:
-            return color_t(util::safe_cast<channel_t>(p * chan_max), util::safe_cast<channel_t>(brightness * chan_max),
-                           util::safe_cast<channel_t>(t * chan_max));
+            return color_t(util::clamp_cast<channel_t>(p * chan_max), util::clamp_cast<channel_t>(brightness * chan_max),
+                           util::clamp_cast<channel_t>(t * chan_max));
         case 3:
-            return color_t(util::safe_cast<channel_t>(p * chan_max), util::safe_cast<channel_t>(q * chan_max),
-                           util::safe_cast<channel_t>(brightness * chan_max));
+            return color_t(util::clamp_cast<channel_t>(p * chan_max), util::clamp_cast<channel_t>(q * chan_max),
+                           util::clamp_cast<channel_t>(brightness * chan_max));
         case 4:
-            return color_t(util::safe_cast<channel_t>(t * chan_max), util::safe_cast<channel_t>(p * chan_max),
-                           util::safe_cast<channel_t>(brightness * chan_max));
+            return color_t(util::clamp_cast<channel_t>(t * chan_max), util::clamp_cast<channel_t>(p * chan_max),
+                           util::clamp_cast<channel_t>(brightness * chan_max));
         default:
-            return color_t(util::safe_cast<channel_t>(brightness * chan_max), util::safe_cast<channel_t>(p * chan_max),
-                           util::safe_cast<channel_t>(q * chan_max));
+            return color_t(util::clamp_cast<channel_t>(brightness * chan_max), util::clamp_cast<channel_t>(p * chan_max),
+                           util::clamp_cast<channel_t>(q * chan_max));
         }
     }
 
