@@ -1,35 +1,63 @@
-#include "cfg.hpp"
-#include "detail/json.hpp"
 #include <filesystem>
 #include <format>
 #include <fstream>
 #include <imgui.h>
 #include <random>
 
+#include "hack/cfg/cfg.hpp"
+#include "hack/cfg/detail/json.hpp"
+#include "util/cast/cast.hpp"
+
 namespace hack::cfg {
-    // @fixme: -
-    __forceinline void push_color(color_t* col, const std::string_view prefix) {
-        push(&col->r, std::format("{}_r", prefix));
-        push(&col->g, std::format("{}_g", prefix));
-        push(&col->b, std::format("{}_b", prefix));
-        push(&col->a, std::format("{}_a", prefix));
-        push(&col->rainbow, std::format("{}_rainbow", prefix));
+    namespace {
+        template <typename T>
+        struct packed_var_t {
+        public:
+            T* ptr;
+            std::string_view fmt;
+        };
 
-        _cols.emplace_back(col);
-    }
+        template <typename T, typename... Variadic>
+        inline void push_packed_vars(const std::string_view prefix, packed_var_t<T> var, Variadic... variadic) {
+            push(var.ptr, std::vformat(var.fmt, std::make_format_args(prefix)));
 
-    // @fixme: -
-    __forceinline void push_chams(opts::chams_opts_t* opts, const std::string_view prefix) {
-        push(&opts->m_enabled, std::format("{}_enabled", prefix));
-        push(&opts->m_material, std::format("{}_material", prefix));
-        push_color(&opts->m_color, prefix);
-    }
+            if constexpr (sizeof...(Variadic))
+                push_packed_vars(prefix, variadic...);
+        }
 
-    // @fixme: -
-    __forceinline void push_portals(opts::portal_colors_t* opts, const std::string_view prefix) {
-        push_color(&opts->m_portal_1, std::format("{}_1", prefix));
-        push_color(&opts->m_portal_2, std::format("{}_2", prefix));
-    }
+        // @fixme: -
+        void push_color(color_t* col, const std::string_view prefix) {
+            // clang-format off
+            push_packed_vars(prefix, 
+                packed_var_t{&col->r, "{}_r"},
+                packed_var_t{&col->g, "{}_g"},
+                packed_var_t{&col->b, "{}_b"},
+                packed_var_t{&col->a, "{}_a"},
+                packed_var_t{&col->rainbow.enabled, "{}_rainbow"}
+            );
+            // clang-format on
+
+            _cols.emplace_back(col);
+        }
+
+        // @fixme: -
+        void push_chams(opts::chams_opts_t* opts, const std::string_view prefix) {
+            // clang-format off
+            push_packed_vars(prefix, 
+                packed_var_t{&opts->m_enabled, "{}_enabled"},
+                packed_var_t{&opts->m_material, "{}_material"}
+            );
+            // clang-format on
+
+            push_color(&opts->m_color, prefix);
+        }
+
+        // @fixme: -
+        void push_portals(opts::portal_colors_t* opts, const std::string_view prefix) {
+            for (std::size_t i = opts::portal_colors_t::PORTAL_1; i < opts::portal_colors_t::PORTAL_MAX; ++i)
+                push_color(&opts->at(i), std::vformat("{}_{}", std::make_format_args(prefix, i)));
+        }
+    } // namespace
 
     void init() {
         push(&opts::bhop, "misc_bhop");
@@ -49,8 +77,8 @@ namespace hack::cfg {
         push(&opts::trails_life_time, "misc_trails_life_time");
         push_color(&opts::trails_color, "misc_trails");
 
-        push_portals(&opts::portal_colors[0], "misc_portal_1");
-        push_portals(&opts::portal_colors[1], "misc_portal_2");
+        for (std::size_t i = opts::portal_colors_t::PORTAL_1; i < opts::portal_colors_t::PORTAL_MAX; ++i)
+            push_portals(&opts::portal_colors[i], "misc_portal_1");
 
         read("config"); // load default cfg
 
@@ -59,21 +87,17 @@ namespace hack::cfg {
 
     void apply_rainbow() {
         for (auto* col : _cols) {
-            if (!col->rainbow)
+            if (!col->rainbow.enabled)
                 continue;
 
-            col->rainbow_value += 0.1f * ImGui::GetIO().DeltaTime;
-            if (col->rainbow_value > 1.f)
-                col->rainbow_value = 0.f;
-
-            auto new_col = color_t::from_hsb(col->rainbow_value, 0.99f, 1.f);
-            col->apply(new_col.r, new_col.g, new_col.b, col->a);
+            col->rainbow.increment();
+            col->apply(color_t::from_hsb(col->rainbow.value, .99f, 1.f).replace_a(col->a));
         }
     }
 
     void sync_rainbow() {
         for (auto* col : _cols)
-            col->rainbow_value = 0.f;
+            col->rainbow.reset();
     }
 
     void randomize_rainbow() {
@@ -82,7 +106,7 @@ namespace hack::cfg {
         static std::mt19937 _rnd(static_cast<unsigned int>(time(nullptr)));
 
         for (auto* col : _cols)
-            col->rainbow_value = (_rnd() % 100) / 100.f;
+            col->rainbow.value = (_rnd() % 100) / 100.f;
     }
 
     std::string& get_path(std::string& path) {
@@ -93,7 +117,7 @@ namespace hack::cfg {
 
     namespace {
         template <typename t>
-        __forceinline void deserialize(const nlohmann::json& json, std::vector<cfg_item_t<t>> vec) {
+        inline void deserialize(const nlohmann::json& json, std::vector<cfg_item_t<t>> vec) {
             std::for_each(vec.begin(), vec.end(), [json](const auto& it) -> void {
                 if (json.find(it.m_name) == json.end())
                     return;
@@ -115,23 +139,28 @@ namespace hack::cfg {
         deserialize(data, _bools);
         deserialize(data, _floats);
         deserialize(data, _ints);
+        deserialize(data, _bytes);
     }
+
+#define SERIALIZE_TYPE(name) \
+    for (auto& x : name)     \
+        data[x.m_name] = *x.m_ptr;
 
     void save(std::string path) {
         path = get_path(path);
 
         nlohmann::json data;
 
-        for (auto& b : _bools)
-            data[b.m_name] = *b.m_ptr;
-        for (auto& f : _floats)
-            data[f.m_name] = *f.m_ptr;
-        for (auto& i : _ints)
-            data[i.m_name] = *i.m_ptr;
+        SERIALIZE_TYPE(_bools);
+        SERIALIZE_TYPE(_floats);
+        SERIALIZE_TYPE(_ints);
+        SERIALIZE_TYPE(_bytes);
 
         std::ofstream reader(path);
         reader.clear();
         reader << std::setw(4) << data << std::endl;
         reader.close();
     }
+
+#undef SERIALIZE_TYPE
 } // namespace hack::cfg

@@ -20,23 +20,23 @@ namespace hack::features::visuals {
         // and replace colours there, before applying the tinted material on the
         // portal textures.
         // we only have one tinted material for both portals, smh
-        color_t dark_col = {0.f, 0.f, 0.f};
+        color_t dark_col = color_t::black();
         for (auto* name : {"$PortalColorGradientLight", "$PortalColorGradientDark"}) {
             if (var = mat->find_var(name, &found); var && found)
                 apply_color(&var->vec3, dark_col);
         }
 
         if (var = mat->find_var("$PortalCoopColorPlayerOnePortalOne", &found); var && found)
-            apply_color(&var->vec3, opts::portal_colors[0][0]);
+            apply_color(&var->vec3, opts::portal_colors[opts::portal_colors_t::PLAYER_1][opts::portal_colors_t::PORTAL_1]);
 
         if (var = mat->find_var("$PortalCoopColorPlayerOnePortalTwo", &found); var && found)
-            apply_color(&var->vec3, opts::portal_colors[0][1]);
+            apply_color(&var->vec3, opts::portal_colors[opts::portal_colors_t::PLAYER_1][opts::portal_colors_t::PORTAL_2]);
 
         if (var = mat->find_var("$PortalCoopColorPlayerTwoPortalOne", &found); var && found)
-            apply_color(&var->vec3, opts::portal_colors[1][0]);
+            apply_color(&var->vec3, opts::portal_colors[opts::portal_colors_t::PLAYER_2][opts::portal_colors_t::PORTAL_1]);
 
         if (var = mat->find_var("$PortalCoopColorPlayerTwoPortalTwo", &found); var && found)
-            apply_color(&var->vec3, opts::portal_colors[1][1]);
+            apply_color(&var->vec3, opts::portal_colors[opts::portal_colors_t::PLAYER_2][opts::portal_colors_t::PORTAL_2]);
     }
 
     __forceinline void patch_single_player_branch() {
@@ -63,16 +63,16 @@ namespace hack::features::visuals {
 
         apply_color(portal::prop_portal->m_materials.m_portal_static_overlay_tinted);
 
-        for (std::size_t i = 0; i < 2; i++)
-            apply_color(portal::prop_portal->m_materials.m_portal_static_overlay[i]);
+        for (auto* material : portal::prop_portal->m_materials.m_portal_static_overlay)
+            apply_color(material);
 
         apply_color(portal::prop_portal->m_materials.m_portal_depth_doubler);
 
-        for (std::size_t i = 0; i < 2; i++)
+        for (std::size_t i = opts::portal_colors_t::PORTAL_1; i < opts::portal_colors_t::PORTAL_MAX; i++)
             apply_color(&portal::prop_portal->m_materials.m_single_player_portal_colors[i], opts::portal_colors[0][i]);
 
-        for (std::size_t i = 0; i < 2; i++) {
-            for (std::size_t j = 0; j < 2; j++)
+        for (std::size_t i = opts::portal_colors_t::PLAYER_1; i < opts::portal_colors_t::PLAYER_MAX; ++i) {
+            for (std::size_t j = opts::portal_colors_t::PORTAL_1; j < opts::portal_colors_t::PORTAL_MAX; ++j)
                 apply_color(&portal::prop_portal->m_materials.m_coop_player_portal_colors[i][j], opts::portal_colors[i][j]);
         }
 

@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "hack/menu/imgui/imgui.h"
 #include "sdk/portal.hpp"
+#include "util/cast/cast.hpp"
 
 namespace util::game {
     namespace {
@@ -17,8 +18,8 @@ namespace util::game {
     }
 
     void unlock_cursor() {
-        int width = static_cast<int>(ImGui::GetIO().DisplaySize.x / 2);
-        int height = static_cast<int>(ImGui::GetIO().DisplaySize.y / 2);
+        int width = util::clamp_cast<int>(ImGui::GetIO().DisplaySize.x / 2);
+        int height = util::clamp_cast<int>(ImGui::GetIO().DisplaySize.y / 2);
 
         if (context) {
             if (portal::input_stacksys->is_topmost_enabled_context(context))
@@ -29,4 +30,4 @@ namespace util::game {
 
         portal::input_sys->get_raw_mouse_accumulators(&width, &height);
     }
-} // namespace util::valve
+} // namespace util::game

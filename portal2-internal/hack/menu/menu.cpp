@@ -32,7 +32,8 @@ namespace hack::menu {
                     color_picker_flags |= ImGuiColorEditFlags_AlphaBar;
 
                 if (ImGui::ColorPicker4("##picker", &clr.x, color_picker_flags))
-                    col->apply(clr.x, clr.y, clr.z, clr.w);
+                    col->apply(static_cast<color_t::channel_flt_t>(clr.x), static_cast<color_t::channel_flt_t>(clr.y),
+                               static_cast<color_t::channel_flt_t>(clr.z), static_cast<color_t::channel_flt_t>(clr.w));
 
                 ImGui::Separator();
                 ImGui::BeginColumns("##colsinpopup", 4, ImGuiOldColumnFlags_NoBorder);
@@ -46,7 +47,7 @@ namespace hack::menu {
                 ImGui::EndColumns();
                 ImGui::Separator();
 
-                ImGui::Checkbox("Rainbow", &col->rainbow);
+                ImGui::Checkbox("Rainbow", &col->rainbow.enabled);
 
                 ImGui::EndPopup();
             }

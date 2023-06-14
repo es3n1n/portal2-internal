@@ -13,7 +13,6 @@ A simple Portal 2/Portal Reloaded internal cheat base with imgui-based menu code
  - mat ambient light modifications
  - trails
 
-## Menu:
 ![menu-preview](https://i.imgur.com/RqOjrqH.png)
 
 ## Contributing
@@ -26,5 +25,25 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## Building
+
+- CMake
+	```commandline
+	cmake -B build -A Win32
+	cmake --build build --config Release
+	```
+- Visual Studio
+	- Building from command line
+		```commandline
+		msbuild portal2-internal.sln /p:Configuration=Release
+		```
+	- Building from Visual Studio Interface using `msvc\portal2-internal.sln`
+	- Creating sln file using cmake and building from it `build\portal2-internal.sln`
+		```commandline
+		cmake -B build -A Win32
+		```
+
 ## Special thanks:
-- [spirthack](https://github.com/spirthack) / [CSGOSimple](https://github.com/spirthack/csgosimple)
+- [nlohmann/json](https://github.com/nlohmann/json)
+- [ocornut/imgui](https://github.com/ocornut/imgui)
+- [spirthack/CSGOSimple](https://github.com/spirthack/CSGOSimple)
