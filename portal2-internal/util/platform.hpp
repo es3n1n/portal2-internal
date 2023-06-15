@@ -27,9 +27,9 @@
 #endif
 
 namespace platform {
-    constexpr bool win = IS_WIN;
-    constexpr bool win32 = IS_WIN32;
-    constexpr bool win64 = IS_WIN64;
-    constexpr bool linux = IS_LINUX;
-    constexpr bool apple = IS_APPLE;
+    constexpr bool is_win = IS_WIN;
+    constexpr bool is_win32 = IS_WIN32;
+    constexpr bool is_win64 = IS_WIN64;
+    constexpr bool is_linux = IS_LINUX;
+    constexpr bool is_apple = IS_APPLE;
 } // namespace platform

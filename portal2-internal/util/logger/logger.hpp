@@ -1,5 +1,9 @@
 #pragma once
+#include "util/platform.hpp"
+
+#if IS_WIN
 #include <Windows.h>
+#endif
 #include <cstdint>
 #include <functional>
 #include <mutex>
@@ -18,7 +22,7 @@
         char buf[1024];                               \
         va_list va;                                   \
         va_start(va, fmt);                            \
-        _vsnprintf_s(buf, 1024, fmt, va);             \
+        vsnprintf(buf, 1024, fmt, va);             \
         va_end(va);                                   \
         log(#n, e_level_color::level_color_##n, buf); \
     }

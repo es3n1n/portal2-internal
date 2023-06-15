@@ -76,7 +76,7 @@ namespace util::mem {
         }
 
         template <typename T = std::int32_t>
-        __forceinline memory_address_t<ptr_type> jmp(ptrdiff_t offset = 0x1) const {
+        memory_address_t<ptr_type> jmp(ptrdiff_t offset = 0x1) const {
             if (!m_ptr)
                 return ptr_type(0);
 

@@ -1,7 +1,11 @@
 #pragma once
 #include "util/logger/logger.hpp"
 #include "util/mem/addr/addr.hpp"
-#include <Windows.h>
+#include "util/platform.hpp"
+
+#if IS_WIN
+    #include <Windows.h>
+#endif
 #include <string>
 #include <vector>
 
@@ -13,6 +17,7 @@ namespace util::mem {
         module_t(): m_name("none"), m_addr(){};
         module_t(const char* module_name): m_name(module_name), m_addr(GetModuleHandleA(module_name)){};
         ~module_t() = default;
+
     public:
         //
         // exports related
@@ -27,6 +32,7 @@ namespace util::mem {
 
         //
         // pattern scan related
+
     public:
         mem::addr_t find_pattern(std::string_view pattern) {
             unsigned long image_size = get_nt_headers()->OptionalHeader.SizeOfImage;
@@ -59,6 +65,7 @@ namespace util::mem {
             // L_ERROR("Signature from %s '%s' not found", m_name, pattern.data());
             return mem::addr_t();
         }
+
     protected:
         IMAGE_DOS_HEADER* get_dos_headers() {
             return m_addr.ptr<IMAGE_DOS_HEADER>();
@@ -67,6 +74,7 @@ namespace util::mem {
         IMAGE_NT_HEADERS* get_nt_headers() {
             return m_addr.offset(get_dos_headers()->e_lfanew).ptr<IMAGE_NT_HEADERS>();
         }
+
     protected:
         std::vector<int> pattern_to_byte(std::string_view pattern) {
             auto bytes = std::vector<int>{};
@@ -89,6 +97,7 @@ namespace util::mem {
 
         // some getters
         //
+
     public:
         __forceinline mem::addr_t base() const {
             return m_addr;
@@ -96,6 +105,7 @@ namespace util::mem {
 
         // utils
         //
+
     public:
         inline operator bool() noexcept {
             return static_cast<bool>(m_addr);
@@ -104,6 +114,7 @@ namespace util::mem {
         inline bool operator!() noexcept {
             return !static_cast<bool>(m_addr);
         }
+
     private:
         const char* m_name;
         mem::addr_t m_addr;

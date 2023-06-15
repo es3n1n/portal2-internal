@@ -98,7 +98,7 @@ public:
         if (!saturation)
             return color_t(brightness, brightness, brightness, channel_flt_t(1.f));
 
-        hue = std::fabsf(hue - 1.0f) <= 0.001f ? 0.f : hue * 6.0f;
+        hue = fabsf(hue - 1.0f) <= 0.001f ? 0.f : hue * 6.0f;
 
         const float f = hue - std::trunc(hue);
         const float p = brightness * (1.f - saturation);

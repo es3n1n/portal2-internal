@@ -6,15 +6,23 @@ namespace util {
             void* m_console_handle = nullptr;
 
             bool ensure_handle() {
+#ifndef IS_WIN
+                return false;
+#else
                 if (!m_console_handle)
                     m_console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
                 return static_cast<bool>(m_console_handle);
+#endif
             }
 
             void apply(uint32_t clr) {
+#ifndef IS_WIN
+                return;
+#else
                 if (!ensure_handle())
                     return;
                 SetConsoleTextAttribute(m_console_handle, clr);
+#endif
             }
 
             void reset() {
@@ -37,7 +45,11 @@ namespace util {
 
         void startup() {
 #ifdef ALLOC_CONSOLE
+    #ifndef IS_WIN
+            return;
+    #else
             AllocConsole();
+    #endif
             freopen_s(reinterpret_cast<FILE**>(stdin), "CONIN$", "r", stdin);
             freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
 #endif

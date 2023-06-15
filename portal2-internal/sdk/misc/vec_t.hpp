@@ -1,6 +1,5 @@
 #pragma once
 #include <cmath>
-#include <intrin.h>
 
 struct vec2_t {
 public:
