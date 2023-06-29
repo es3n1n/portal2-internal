@@ -151,13 +151,13 @@ target_compile_features(portal2-internal PUBLIC
 )
 
 if(MSVC) # msvc
-	target_compile_options(portal2-internal PRIVATE
+	target_compile_options(portal2-internal PUBLIC
 		"/MP"
 	)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "GNU") # gcc
-	target_compile_options(portal2-internal PRIVATE
+	target_compile_options(portal2-internal PUBLIC
 		-Wno-deprecated-enum-enum-conversion
 		-Wno-stringop-overflow
 	)

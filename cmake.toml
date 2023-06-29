@@ -28,18 +28,18 @@ build-injector = "P2_BUILD_INJECTOR"
 ## Main .dll modification configuration
 #
 [target.portal2-internal]
-type                            = "shared"
+type = "shared"
 
-include-directories             = ["portal2-internal/"]
-sources                         = ["portal2-internal/**.cpp", "portal2-internal/**.hpp"]
+include-directories = ["portal2-internal/"]
+sources = ["portal2-internal/**.cpp", "portal2-internal/**.hpp"]
 
-compile-features                = ["cxx_std_20"]
-compile-definitions             = ["NOMINMAX", "IMGUI_DEFINE_MATH_OPERATORS"]
+compile-features = ["cxx_std_20"]
+compile-definitions = ["NOMINMAX", "IMGUI_DEFINE_MATH_OPERATORS"]
 
-link-libraries                  = ["fmt", "imgui"]
+link-libraries = ["fmt", "imgui"]
 
-msvc.private-compile-options    = ["/MP"]
-gcc.private-compile-options     = [
+msvc.compile-options = ["/MP"]
+gcc.compile-options = [
     "-Wno-deprecated-enum-enum-conversion",  # imgui warn
     "-Wno-stringop-overflow",  # fmtlib warn
 ]
@@ -47,13 +47,13 @@ gcc.private-compile-options     = [
 ## Injector configuration
 #
 [target.portal2-injector]
-condition                       = "build-injector"
-type                            = "executable"
+condition = "build-injector"
+type = "executable"
 
-include-directories             = ["portal2-injector/"]
-sources                         = ["portal2-injector/**.cpp", "portal2-injector/**.hpp"]
+include-directories = ["portal2-injector/"]
+sources = ["portal2-injector/**.cpp", "portal2-injector/**.hpp"]
 
-compile-features                = ["cxx_std_20"]
-compile-definitions             = ["NOMINMAX"]
+compile-features = ["cxx_std_20"]
+compile-definitions = ["NOMINMAX"]
 
-msvc.private-compile-options    = ["/MP"]
+msvc.compile-options = ["/MP"]
