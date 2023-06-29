@@ -355,4 +355,6 @@ build/
 cmake-build-debug/
 build/
 
+# clion
+.idea/*
 

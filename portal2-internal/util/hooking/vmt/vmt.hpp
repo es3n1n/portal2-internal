@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <cstdint>
 #include <stdexcept>
+#include <memory>
 
 namespace util::hooking {
     namespace detail {

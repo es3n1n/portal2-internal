@@ -1,46 +1,54 @@
 [cmake]
 version = "3.15"
 cmkr-include = "cmake/cmkr.cmake"
+cpp-flags = ["-m32"]  # always build x86 images
+c-flags = ["-m32"]  # always build x86 images
 
+## Project configuration
+#
 [project]
 name = "portal2-internal"
 languages = ["C", "CXX"]
 description = "Portal 2\\MEL\\Reloaded internal modification"
 
+## Custom build options
+#
 [options]
 P2_BUILD_INJECTOR = false
 
+## Custom conditions based on options
+#
 [conditions]
 build-injector = "P2_BUILD_INJECTOR"
 
+## Load libraries
 #
-# portal2-internal dll
+[subdir.vendor]
+
+## Main .dll modification configuration
 #
 [target.portal2-internal]
-type                = "shared"
-include-directories = [
+type                            = "shared"
+link-libraries                  = ["fmt"]
+include-directories             = [
     "portal2-internal/",
-    "portal2-internal/hack/menu/imgui",
+    "portal2-internal/hack/menu/imgui",  # todo: add imgui as submodule in `vendor` dir
     "portal2-internal/hack/menu/imgui/impls",
 ]
-sources             = [
+sources                         = [
     "portal2-internal/**.cpp", "portal2-internal/**.hpp"
 ]
-compile-features    = ["cxx_std_20"]
-
+compile-features                = ["cxx_std_20"]
+compile-definitions             = ["NOMINMAX"]
 msvc.private-compile-options    = ["/MP"]
-clang.private-compile-options   = []
-gcc.private-compile-options     = []
+gcc.private-compile-options     = ["-Wno-deprecated-enum-enum-conversion"]  # suppress warning in imgui
 
-#
-# injector
+## Injector configuration
 #
 [target.portal2-injector]
-condition           = "build-injector"
-type                = "executable"
-sources             = ["portal2-injector/**.cpp", "portal2-injector/**.hpp"]
-compile-features    = ["cxx_std_23"]
-
+condition                       = "build-injector"
+type                            = "executable"
+sources                         = ["portal2-injector/**.cpp", "portal2-injector/**.hpp"]
+compile-features                = ["cxx_std_20"]
+compile-definitions             = ["NOMINMAX"]
 msvc.private-compile-options    = ["/MP"]
-clang.private-compile-options   = []
-gcc.private-compile-options     = []

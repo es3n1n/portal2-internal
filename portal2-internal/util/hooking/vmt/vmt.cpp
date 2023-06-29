@@ -28,7 +28,7 @@ namespace util::hooking {
 
         new_vftbl = new std::uintptr_t[vftbl_len + 1]();
 
-        std::memcpy(&new_vftbl[1], old_vftbl, vftbl_len * sizeof(std::uintptr_t));
+        memcpy(&new_vftbl[1], old_vftbl, vftbl_len * sizeof(std::uintptr_t));
 
         auto guard = detail::region_protector{class_base, sizeof(std::uintptr_t), PAGE_READWRITE};
         new_vftbl[0] = old_vftbl[-1];

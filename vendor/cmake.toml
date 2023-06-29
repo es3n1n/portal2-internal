@@ -1,0 +1,4 @@
+[target.fmt]
+type = "interface"
+include-directories = ["fmt/include"]
+# sources = ["fmt/src/*.cc"]

@@ -1,5 +1,5 @@
 #include <filesystem>
-#include <format>
+#include <fmt/format.h>
 #include <fstream>
 #include <imgui.h>
 #include <random>
@@ -21,7 +21,7 @@ namespace hack::cfg {
 
         template <typename T, typename... Variadic>
         inline void push_packed_vars(const std::string_view prefix, packed_var_t<T> var, Variadic... variadic) {
-            push(var.ptr, std::vformat(var.fmt, std::make_format_args(prefix)));
+            push(var.ptr, fmt::vformat(var.fmt, fmt::make_format_args(prefix)));
 
             if constexpr (sizeof...(Variadic))
                 push_packed_vars(prefix, variadic...);
@@ -57,7 +57,7 @@ namespace hack::cfg {
         // @fixme: -
         void push_portals(opts::portal_colors_t* opts, const std::string_view prefix) {
             for (std::size_t i = opts::portal_colors_t::PORTAL_1; i < opts::portal_colors_t::PORTAL_MAX; ++i)
-                push_color(&opts->at(i), std::vformat("{}_{}", std::make_format_args(prefix, i)));
+                push_color(&opts->at(i), fmt::vformat("{}_{}", fmt::make_format_args(prefix, i)));
         }
     } // namespace
 

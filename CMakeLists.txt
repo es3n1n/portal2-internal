@@ -24,6 +24,10 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	configure_file(cmake.toml cmake.toml COPYONLY)
 endif()
 
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-m32 ")
+
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-m32 ")
+
 # Options
 option(P2_BUILD_INJECTOR "" OFF)
 
@@ -34,6 +38,16 @@ project(portal2-internal
 	DESCRIPTION
 		"Portal 2\\MEL\\Reloaded internal modification"
 )
+
+# Subdirectory: vendor
+set(CMKR_CMAKE_FOLDER ${CMAKE_FOLDER})
+if(CMAKE_FOLDER)
+	set(CMAKE_FOLDER "${CMAKE_FOLDER}/vendor")
+else()
+	set(CMAKE_FOLDER vendor)
+endif()
+add_subdirectory(vendor)
+set(CMAKE_FOLDER ${CMKR_CMAKE_FOLDER})
 
 # Target: portal2-internal
 set(portal2-internal_SOURCES
@@ -133,6 +147,10 @@ add_library(portal2-internal SHARED)
 target_sources(portal2-internal PRIVATE ${portal2-internal_SOURCES})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${portal2-internal_SOURCES})
 
+target_compile_definitions(portal2-internal PUBLIC
+	NOMINMAX
+)
+
 target_compile_features(portal2-internal PUBLIC
 	cxx_std_20
 )
@@ -143,16 +161,20 @@ if(MSVC) # msvc
 	)
 endif()
 
-if((CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$") OR (CMAKE_C_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_C_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$")) # clang
-endif()
-
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "GNU") # gcc
+	target_compile_options(portal2-internal PRIVATE
+		-Wno-deprecated-enum-enum-conversion
+	)
 endif()
 
 target_include_directories(portal2-internal PUBLIC
 	"portal2-internal/"
 	"portal2-internal/hack/menu/imgui"
 	"portal2-internal/hack/menu/imgui/impls"
+)
+
+target_link_libraries(portal2-internal PUBLIC
+	fmt
 )
 
 # Target: portal2-injector
@@ -168,20 +190,18 @@ if(P2_BUILD_INJECTOR) # build-injector
 	target_sources(portal2-injector PRIVATE ${portal2-injector_SOURCES})
 	source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${portal2-injector_SOURCES})
 
+	target_compile_definitions(portal2-injector PRIVATE
+		NOMINMAX
+	)
+
 	target_compile_features(portal2-injector PRIVATE
-		cxx_std_23
+		cxx_std_20
 	)
 
 	if(MSVC) # msvc
 		target_compile_options(portal2-injector PRIVATE
 			"/MP"
 		)
-	endif()
-
-	if((CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$") OR (CMAKE_C_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_C_COMPILER_FRONTEND_VARIANT MATCHES "^MSVC$")) # clang
-	endif()
-
-	if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "GNU") # gcc
 	endif()
 
 	get_directory_property(CMKR_VS_STARTUP_PROJECT DIRECTORY ${PROJECT_SOURCE_DIR} DEFINITION VS_STARTUP_PROJECT)

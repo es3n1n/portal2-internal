@@ -7,7 +7,7 @@
 
 class c_input {
 private:
-    [[maybe_unused]]std::uint8_t _pad[0xAD];
+    MAYBE_UNUSED_PAD std::uint8_t _pad[0xAD];
 public:
     bool m_camera_in_third_person;
 public:
