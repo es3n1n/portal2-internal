@@ -10,10 +10,10 @@
 #endif
 
 namespace hack::menu {
-    constexpr float_t kDefaultAirAccelerationValue = 5.f;
-    constexpr float_t kCSGOAirAccelerationValue = 12.f;
-    constexpr float_t kBhopAirAccelerationValue = 10000.f;
-    constexpr float_t kDefaultFOVValue = 90.f;
+    constexpr float kDefaultAirAccelerationValue = 5.f;
+    constexpr float kCSGOAirAccelerationValue = 12.f;
+    constexpr float kBhopAirAccelerationValue = 10000.f;
+    constexpr float kDefaultFOVValue = 90.f;
 
     namespace {
         inline bool color_edit(const char* label, color_t* col, ImGuiColorEditFlags flags, const char* id = nullptr) {
@@ -86,7 +86,7 @@ namespace hack::menu {
             (first_render && fabsf(opts::airacceleration_value - kDefaultAirAccelerationValue) > 0.01f))
             features::misc::apply_acceleration();
 
-        auto custom_acceleration_btn = [](const char* name, const float_t value) -> void {
+        auto custom_acceleration_btn = [](const char* name, const float value) -> void {
             ImGui::SameLine();
             if (!ImGui::Button(name))
                 return;

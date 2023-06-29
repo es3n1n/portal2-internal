@@ -4,7 +4,7 @@
 #include <algorithm>
 
 namespace hack::features::misc {
-    constexpr float_t kMoveLimit = 175.f;
+    constexpr float kMoveLimit = 175.f;
 
     void autostrafer(c_usercmd* cmd) {
         if (!opts::autostrafer)
