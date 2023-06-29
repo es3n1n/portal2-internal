@@ -7,9 +7,82 @@ if(CMKR_ROOT_PROJECT)
 endif()
 
 # Target: fmt
+set(fmt_SOURCES
+	"fmt/src/format.cc"
+	"fmt/src/os.cc"
+)
+
 add_library(fmt INTERFACE)
+
+target_sources(fmt INTERFACE ${fmt_SOURCES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${fmt_SOURCES})
+
+target_compile_features(fmt INTERFACE
+	cxx_std_20
+)
 
 target_include_directories(fmt INTERFACE
 	"fmt/include"
 )
 
+# Target: imgui
+if(WIN32) # windows
+	set(imgui_SOURCES "")
+
+	if(WIN32) # windows
+		list(APPEND imgui_SOURCES
+			"imgui/imgui.cpp"
+			"imgui/imgui_demo.cpp"
+			"imgui/imgui_draw.cpp"
+			"imgui/imgui_tables.cpp"
+			"imgui/imgui_widgets.cpp"
+			"imgui/imconfig.h"
+			"imgui/imgui.h"
+			"imgui/imgui_internal.h"
+			"imgui/imstb_rectpack.h"
+			"imgui/imstb_textedit.h"
+			"imgui/imstb_truetype.h"
+			"imgui/backends/imgui_impl_dx9.cpp"
+			"imgui/backends/imgui_impl_win32.cpp"
+		)
+	endif()
+
+	if(CMAKE_SYSTEM_NAME MATCHES "Linux") # linux
+		list(APPEND imgui_SOURCES
+			"imgui/imgui.cpp"
+			"imgui/imgui_demo.cpp"
+			"imgui/imgui_draw.cpp"
+			"imgui/imgui_tables.cpp"
+			"imgui/imgui_widgets.cpp"
+			"imgui/imconfig.h"
+			"imgui/imgui.h"
+			"imgui/imgui_internal.h"
+			"imgui/imstb_rectpack.h"
+			"imgui/imstb_textedit.h"
+			"imgui/imstb_truetype.h"
+			"imgui/backends/imgui_impl_dx9.cpp"
+			"imgui/backends/imgui_impl_win32.cpp"
+		)
+	endif()
+
+	add_library(imgui INTERFACE)
+
+	target_sources(imgui INTERFACE ${imgui_SOURCES})
+	source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${imgui_SOURCES})
+
+	target_compile_features(imgui INTERFACE
+		cxx_std_20
+	)
+
+	target_include_directories(imgui INTERFACE
+		"imgui/"
+		"imgui/backends/"
+	)
+
+	if(WIN32) # windows
+		target_link_libraries(imgui INTERFACE
+			dwmapi
+		)
+	endif()
+
+endif()

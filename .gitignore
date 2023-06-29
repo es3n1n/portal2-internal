@@ -353,7 +353,7 @@ MigrationBackup/
 # cmkr
 build/
 cmake-build-debug/
-build/
+cmake-build-release/
 
 # clion
 .idea/*

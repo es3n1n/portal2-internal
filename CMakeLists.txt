@@ -68,12 +68,6 @@ set(portal2-internal_SOURCES
 	"portal2-internal/hack/hooks/hooked/present.cpp"
 	"portal2-internal/hack/hooks/hooked/reset.cpp"
 	"portal2-internal/hack/hooks/hooks.cpp"
-	"portal2-internal/hack/menu/imgui/imgui.cpp"
-	"portal2-internal/hack/menu/imgui/imgui_draw.cpp"
-	"portal2-internal/hack/menu/imgui/imgui_tables.cpp"
-	"portal2-internal/hack/menu/imgui/imgui_widgets.cpp"
-	"portal2-internal/hack/menu/imgui/impls/imgui_impl_dx9.cpp"
-	"portal2-internal/hack/menu/imgui/impls/imgui_impl_win32.cpp"
 	"portal2-internal/hack/menu/menu.cpp"
 	"portal2-internal/hack/menu/ui/imgui_custom.cpp"
 	"portal2-internal/sdk/portal.cpp"
@@ -149,6 +143,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${portal2-internal_SOURCES})
 
 target_compile_definitions(portal2-internal PUBLIC
 	NOMINMAX
+	IMGUI_DEFINE_MATH_OPERATORS
 )
 
 target_compile_features(portal2-internal PUBLIC
@@ -164,17 +159,17 @@ endif()
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "GNU") # gcc
 	target_compile_options(portal2-internal PRIVATE
 		-Wno-deprecated-enum-enum-conversion
+		-Wno-stringop-overflow
 	)
 endif()
 
 target_include_directories(portal2-internal PUBLIC
 	"portal2-internal/"
-	"portal2-internal/hack/menu/imgui"
-	"portal2-internal/hack/menu/imgui/impls"
 )
 
 target_link_libraries(portal2-internal PUBLIC
 	fmt
+	imgui
 )
 
 # Target: portal2-injector
@@ -203,6 +198,10 @@ if(P2_BUILD_INJECTOR) # build-injector
 			"/MP"
 		)
 	endif()
+
+	target_include_directories(portal2-injector PRIVATE
+		"portal2-injector/"
+	)
 
 	get_directory_property(CMKR_VS_STARTUP_PROJECT DIRECTORY ${PROJECT_SOURCE_DIR} DEFINITION VS_STARTUP_PROJECT)
 	if(NOT CMKR_VS_STARTUP_PROJECT)
