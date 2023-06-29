@@ -1,10 +1,8 @@
-#include "mem.hpp"
+#include "util/mem/mem.hpp"
+#include "util/mem/addr/addr.hpp"
 
+#if IS_WIN
 namespace util::mem {
-    void** virtual_table(mem::addr_t inst) {
-        return inst.read<void**>();
-    }
-
     void patch_text_section(mem::addr_t dst, uint8_t* src, size_t len, uint8_t* orig) {
         // save orig bytes
         //
@@ -26,3 +24,4 @@ namespace util::mem {
         FlushInstructionCache(reinterpret_cast<HANDLE>(-1), dst.cast<void*>(), len);
     }
 } // namespace util::mem
+#endif

@@ -5,6 +5,5 @@
 #include "input/input.hpp"
 #include "logger/logger.hpp"
 #include "math/math.hpp"
-#include "mem/mem.hpp"
-#include "mem/mem.hpp"
+#include "util/mem/mem.hpp"
 #include "util/util.hpp"

@@ -1,6 +1,5 @@
 #pragma once
 #include "sdk/misc/color_t.hpp"
-#include <vcruntime.h>
 
 namespace opts {
     struct chams_opts_t {

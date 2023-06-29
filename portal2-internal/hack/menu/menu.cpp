@@ -4,11 +4,16 @@
 #include "util/util.hpp"
 #include <Windows.h>
 
+#if defined(__clang__)
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wformat-security" // ignore ImGui::Text formats
+#endif
+
 namespace hack::menu {
-    constexpr float_t kDefaultAirAccelerationValue = 5.f;
-    constexpr float_t kCSGOAirAccelerationValue = 12.f;
-    constexpr float_t kBhopAirAccelerationValue = 10000.f;
-    constexpr float_t kDefaultFOVValue = 90.f;
+    constexpr float kDefaultAirAccelerationValue = 5.f;
+    constexpr float kCSGOAirAccelerationValue = 12.f;
+    constexpr float kBhopAirAccelerationValue = 10000.f;
+    constexpr float kDefaultFOVValue = 90.f;
 
     namespace {
         inline bool color_edit(const char* label, color_t* col, ImGuiColorEditFlags flags, const char* id = nullptr) {
@@ -78,10 +83,10 @@ namespace hack::menu {
 
         ImGui::SetNextItemWidth(120.f);
         if (ImGui::InputFloat("airacceleration", &opts::airacceleration_value, 1.f, 5.f, "%1.f") ||
-            (first_render && std::fabsf(opts::airacceleration_value - kDefaultAirAccelerationValue) > 0.01f))
+            (first_render && fabsf(opts::airacceleration_value - kDefaultAirAccelerationValue) > 0.01f))
             features::misc::apply_acceleration();
 
-        auto custom_acceleration_btn = [](const char* name, const float_t value) [[msvc::forceinline]] -> void {
+        auto custom_acceleration_btn = [](const char* name, const float value) -> void {
             ImGui::SameLine();
             if (!ImGui::Button(name))
                 return;
@@ -101,7 +106,7 @@ namespace hack::menu {
 
         ImGui::Separator();
 
-        auto chams_settings = [=](const std::string_view name, opts::chams_opts_t* ptr) [[msvc::forceinline]] -> void {
+        auto chams_settings = [=](const std::string_view name, opts::chams_opts_t* ptr) -> void {
             ImGui::PushID(name.data());
             ImGui::Checkbox(name.data(), &ptr->m_enabled);
             ImGui::SameLine();
@@ -138,7 +143,7 @@ namespace hack::menu {
 
         // @fixme: @es3n1n: remove prefix_col_1/prefix_col_2
         const auto portal_colors_settings = [](const std::string_view prefix, std::size_t index, const std::string_view prefix_col_1,
-                                               const std::string_view prefix_col_2) [[msvc::forceinline]] -> void {
+                                               const std::string_view prefix_col_2) -> void {
             ImGui::PushID(prefix.data());
 
             ImGui::Text(prefix.data());
@@ -189,3 +194,7 @@ namespace hack::menu {
         io.ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange; // fix annoying cursor flickering
     }
 } // namespace hack::menu
+
+#if defined(__clang__)
+    #pragma clang diagnostic pop
+#endif

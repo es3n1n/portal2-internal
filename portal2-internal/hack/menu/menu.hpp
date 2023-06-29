@@ -2,8 +2,8 @@
 #include "ui/imgui_custom.hpp"
 
 namespace hack::menu {
-    constexpr float_t kMenuWidth = 429.f;
-    constexpr float_t kMenuHeight = 450.f;
+    constexpr float kMenuWidth = 429.f;
+    constexpr float kMenuHeight = 450.f;
 
     inline bool opened = true;
 

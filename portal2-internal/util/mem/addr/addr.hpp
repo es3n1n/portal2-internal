@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #include <cstdint>
 
 namespace util::mem {
@@ -15,7 +16,6 @@ namespace util::mem {
 
         //
         // operators
-        //
         inline operator ptr_type() {
             return m_ptr;
         }
@@ -44,7 +44,6 @@ namespace util::mem {
 
         //
         // utils
-        //
         memory_address_t<ptr_type> offset(ptrdiff_t off) {
             if (!m_ptr)
                 return m_ptr;
@@ -76,7 +75,7 @@ namespace util::mem {
         }
 
         template <typename T = std::int32_t>
-        __forceinline memory_address_t<ptr_type> jmp(ptrdiff_t offset = 0x1) const {
+        memory_address_t<ptr_type> jmp(ptrdiff_t offset = 0x1) const {
             if (!m_ptr)
                 return ptr_type(0);
 
@@ -91,5 +90,6 @@ namespace util::mem {
     private:
         ptr_type m_ptr;
     };
+
     using addr_t = mem::memory_address_t<std::uintptr_t>;
 } // namespace util::mem

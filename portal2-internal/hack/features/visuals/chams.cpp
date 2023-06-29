@@ -52,7 +52,7 @@ namespace hack::features::visuals {
     }
 
     void chams(c_model_render* pthis, void* ctx, void* state, model_render_info_t* info, void* matrix, void* original_dme) {
-        const auto orig = reinterpret_cast<void(__thiscall*)(c_model_render*, void*, void*, void*, void*)>(original_dme);
+        [[maybe_unused]] const auto orig = reinterpret_cast<void(__thiscall*)(c_model_render*, void*, void*, void*, void*)>(original_dme);
 
         ensure_init();
 

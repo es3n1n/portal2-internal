@@ -1,62 +1,59 @@
 [cmake]
 version = "3.15"
 cmkr-include = "cmake/cmkr.cmake"
+cpp-flags = ["-m32"]  # always build x86 images, todo: find out how to pass these flags only on gcc/clang
+c-flags = ["-m32"]
 
+## Project configuration
+#
 [project]
 name = "portal2-internal"
 languages = ["C", "CXX"]
 description = "Portal 2\\MEL\\Reloaded internal modification"
 
+## Custom build options
+#
 [options]
 P2_BUILD_INJECTOR = false
 
+## Custom conditions based on options
+#
 [conditions]
 build-injector = "P2_BUILD_INJECTOR"
 
+## Load libraries
 #
-# Dependencies
-#
+[subdir.vendor]
 
-[target.minhook]
-type = "static"
-alias = "TsudaKageyu::minhook"
-sources = [
-    "portal2-internal/util/hooking/detours/mh/**.c"
-]
-headers = [
-    "portal2-internal/util/hooking/detours/mh/**.h"
-]
-
-#
-# portal2-internal dll
+## Main .dll modification configuration
 #
 [target.portal2-internal]
-type                = "shared"
-condition           = "windows"
-include-directories = [
-    "portal2-internal/",
-    "portal2-internal/hack/menu/imgui",
-    "portal2-internal/hack/menu/imgui/impls",
-]
-sources             = [
-    "portal2-internal/**.cpp", "portal2-internal/**.hpp"
-]
-compile-features    = ["cxx_std_23"]
-link-libraries 		= ["TsudaKageyu::minhook"]
+type = "shared"
 
-msvc.private-compile-options    = ["/MP"]
-clang.private-compile-options   = []
-gcc.private-compile-options     = []
+include-directories = ["portal2-internal/"]
+sources = ["portal2-internal/**.cpp", "portal2-internal/**.hpp"]
 
-#
-# injector
+compile-features = ["cxx_std_20"]
+compile-definitions = ["NOMINMAX", "IMGUI_DEFINE_MATH_OPERATORS"]
+
+link-libraries = ["fmt", "imgui"]
+
+msvc.compile-options = ["/MP"]
+gcc.compile-options = [
+    "-Wno-deprecated-enum-enum-conversion",  # imgui warn
+    "-Wno-stringop-overflow",  # fmtlib warn
+]
+
+## Injector configuration
 #
 [target.portal2-injector]
-condition           = "build-injector"
-type                = "executable"
-sources             = ["portal2-injector/**.cpp", "portal2-injector/**.hpp"]
-compile-features    = ["cxx_std_23"]
+condition = "build-injector"
+type = "executable"
 
-msvc.private-compile-options    = ["/MP"]
-clang.private-compile-options   = []
-gcc.private-compile-options     = []
+include-directories = ["portal2-injector/"]
+sources = ["portal2-injector/**.cpp", "portal2-injector/**.hpp"]
+
+compile-features = ["cxx_std_20"]
+compile-definitions = ["NOMINMAX"]
+
+msvc.compile-options = ["/MP"]

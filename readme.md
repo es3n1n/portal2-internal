@@ -1,7 +1,8 @@
 # portal2-internal
-
+___
 A simple Portal 2/Portal Reloaded internal cheat base with imgui-based menu coded in a few days because why not
 
+___
 ## Features:
  - simple menu engine
  - wnd-proc based input system
@@ -15,6 +16,7 @@ A simple Portal 2/Portal Reloaded internal cheat base with imgui-based menu code
 
 ![menu-preview](https://i.imgur.com/RqOjrqH.png)
 
+___
 ## Contributing
 
 Any contributions you make are **greatly appreciated**.
@@ -25,6 +27,7 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+___
 ## Building
 
 - CMake
@@ -43,7 +46,13 @@ Any contributions you make are **greatly appreciated**.
 		cmake -B build -A Win32
 		```
 
-## Special thanks:
+___
+## Special thanks
+
+###### Used libraries
 - [nlohmann/json](https://github.com/nlohmann/json)
+- [fmtlib/fmt](https://github.com/fmtlib/fmt)
 - [ocornut/imgui](https://github.com/ocornut/imgui)
+
+###### Projects used as references
 - [spirthack/CSGOSimple](https://github.com/spirthack/CSGOSimple)

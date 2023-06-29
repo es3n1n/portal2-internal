@@ -1,5 +1,4 @@
 #pragma once
-#include <Windows.h>
 #include <array>
 
 namespace util::input {
@@ -19,20 +18,20 @@ namespace util::input {
             return ret;
         }
 
-        bool held() {
+        [[nodiscard]] bool held() const {
             return m_state == e_button_state::held;
         }
     };
 
-    inline WNDPROC _original;
-    inline HWND win;
+//    inline WNDPROC _original;
+//    inline HWND win;
 
     void init();
     void deinit();
 
-    unsigned long __stdcall wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+//    unsigned long __stdcall wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
     key_info_t& get(const int key);
 
-    inline std::array<key_info_t, 256> m_keys;
+//    inline std::array<key_info_t, 256> m_keys;
 } // namespace util::input
