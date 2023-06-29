@@ -1,14 +1,18 @@
 #include "vmt.hpp"
+#include "util/logger/logger.hpp"
 
 namespace util::hooking {
     namespace detail {
-        region_protector::region_protector(void* base, size_t len, std::uint32_t flags) {
+        region_protector::region_protector(void* base, size_t length, mem::e_mem_protection flags) {
             _base = base;
-            _length = len;
-            VirtualProtect(base, len, flags, (PDWORD)&_old);
+            _length = length;
+
+            // @todo: @es3n1n: we should probably old protection here too, but thing is that on linux i'd have to parse some strings in order to get page
+            //  protection. I'm looking for a more convenient way for now, not sure if that's possible though.
+            mem::protect_memory(_base, _length, flags);
         }
         region_protector::~region_protector() {
-            VirtualProtect(_base, _length, _old, (PDWORD)&_old);
+            mem::protect_memory(_base, _length, mem::MEM_READ);
         }
     } // namespace detail
 
@@ -24,39 +28,24 @@ namespace util::hooking {
             class_base = base;
 
         old_vftbl = *reinterpret_cast<std::uintptr_t**>(class_base);
-        vftbl_len = estimate_vftbl_length(old_vftbl) * sizeof(std::uintptr_t);
+        vftbl_len = mem::estimate_virtual_table_length(old_vftbl) * sizeof(std::uintptr_t);
 
         new_vftbl = new std::uintptr_t[vftbl_len + 1]();
 
         memcpy(&new_vftbl[1], old_vftbl, vftbl_len * sizeof(std::uintptr_t));
 
-        auto guard = detail::region_protector{class_base, sizeof(std::uintptr_t), PAGE_READWRITE};
+        auto guard = detail::region_protector{class_base, sizeof(std::uintptr_t), mem::MEM_READ_WRITE};
         new_vftbl[0] = old_vftbl[-1];
         *reinterpret_cast<std::uintptr_t**>(class_base) = &new_vftbl[1];
-    }
-
-    std::size_t vmt::estimate_vftbl_length(std::uintptr_t* vftbl_start) {
-        MEMORY_BASIC_INFORMATION memInfo = {NULL};
-        int m_nSize = -1;
-        do {
-            m_nSize++;
-            VirtualQuery(reinterpret_cast<LPCVOID>(vftbl_start[m_nSize]), &memInfo, sizeof(memInfo));
-        } while (memInfo.Protect == PAGE_EXECUTE_READ || memInfo.Protect == PAGE_EXECUTE_READWRITE);
-
-        return m_nSize;
     }
 
     void vmt::unhook() {
         if (old_vftbl == nullptr)
             return;
 
-        auto guard = detail::region_protector{class_base, sizeof(std::uintptr_t), PAGE_READWRITE};
+        auto guard = detail::region_protector{class_base, sizeof(std::uintptr_t), mem::MEM_READ_WRITE};
 
-        try {
-            *reinterpret_cast<std::uintptr_t**>(class_base) = old_vftbl;
-        } catch (...) {
-            logger::warn("Suppressing vmt::unhook exception!");
-        }
+        *reinterpret_cast<std::uintptr_t**>(class_base) = old_vftbl;
 
         old_vftbl = nullptr;
     }

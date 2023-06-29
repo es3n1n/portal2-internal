@@ -1,20 +1,18 @@
 #pragma once
 #include "util/mem/mem.hpp"
-#include <Windows.h>
 #include <cstdint>
-#include <stdexcept>
 #include <memory>
+#include <stdexcept>
 
 namespace util::hooking {
     namespace detail {
         class region_protector {
         public:
-            region_protector(void* base, size_t len, std::uint32_t flags);
+            region_protector(void* base, size_t length, mem::e_mem_protection flags);
             ~region_protector();
         private:
             void* _base;
             size_t _length;
-            std::uint32_t _old;
         };
     } // namespace detail
 
@@ -38,8 +36,6 @@ namespace util::hooking {
             return reinterpret_cast<T>(old_vftbl[index]);
         }
     private:
-        static inline std::size_t estimate_vftbl_length(std::uintptr_t* vftbl_start);
-
         void* class_base;
         std::size_t vftbl_len;
         std::uintptr_t* new_vftbl;

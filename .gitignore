@@ -352,8 +352,7 @@ MigrationBackup/
 
 # cmkr
 build/
-cmake-build-debug/
-cmake-build-release/
+cmake-build-*/
 
 # clion
 .idea/*

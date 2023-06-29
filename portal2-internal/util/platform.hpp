@@ -1,5 +1,7 @@
 #pragma once
 
+//
+// Systems
 #if defined(_WIN32)
     #define IS_WIN true
     #define IS_WIN32 true
@@ -26,6 +28,10 @@
     #define IS_APPLE true
 #endif
 
+#define IS_UNIX (IS_LINUX || IS_APPLE)
+
+//
+// Compilers
 #if defined(__GNUC__)
     #define IS_GCC true
     #define IS_CLANG false
@@ -40,12 +46,16 @@
     #define IS_MSVC true
 #endif
 
+//
+// Cxx interface
 namespace platform {
     constexpr bool is_win = IS_WIN;
     constexpr bool is_win32 = IS_WIN32;
     constexpr bool is_win64 = IS_WIN64;
+
     constexpr bool is_linux = IS_LINUX;
     constexpr bool is_apple = IS_APPLE;
+    constexpr bool is_unix = IS_UNIX;
 
     constexpr bool is_gcc = IS_GCC;
     constexpr bool is_clang = IS_CLANG;
@@ -64,3 +74,9 @@ namespace platform {
 #define MAYBE_UNUSED_PAD [[maybe_unused]]
 #endif
 
+
+//
+// Platform-specific includes
+#if IS_WIN
+#include <Windows.h>
+#endif

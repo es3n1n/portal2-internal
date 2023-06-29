@@ -1,5 +1,6 @@
 #pragma once
 #include "util/platform.hpp"
+#include <stdarg.h>
 
 #if IS_WIN
 #include <Windows.h>

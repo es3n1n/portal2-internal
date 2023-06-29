@@ -5,7 +5,6 @@ sources = ["fmt/src/format.cc", "fmt/src/os.cc"]
 compile-features = ["cxx_std_20"]
 
 [target.imgui]
-condition = "windows"
 type = "interface"
 compile-features = ["cxx_std_20"]
 include-directories = ["imgui/", "imgui/backends/"]
@@ -16,7 +15,7 @@ windows.sources = [
     "imgui/backends/imgui_impl_dx9.cpp",
     "imgui/backends/imgui_impl_win32.cpp",
 ]
-linux.sources = [
+unix.sources = [
     "imgui/*.cpp",
     "imgui/*.h",
     "imgui/backends/imgui_impl_dx9.cpp",

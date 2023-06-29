@@ -3,6 +3,7 @@
 #include "interfaces/interfaces.hpp"
 #include "misc/color_t.hpp"
 #include "util/util.hpp"
+
 #include <d3d9.h>
 
 namespace portal {

@@ -6,7 +6,7 @@ namespace util {
             void* m_console_handle = nullptr;
 
             bool ensure_handle() {
-#ifndef IS_WIN
+#if !IS_WIN
                 return false;
 #else
                 if (!m_console_handle)
@@ -16,8 +16,8 @@ namespace util {
             }
 
             void apply(uint32_t clr) {
-#ifndef IS_WIN
-                return;
+#if !IS_WIN
+
 #else
                 if (!ensure_handle())
                     return;

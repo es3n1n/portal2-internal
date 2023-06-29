@@ -1,5 +1,6 @@
 #pragma once
 #include "util/mem/mem.hpp"
+#include "util/mem/addr/addr.hpp"
 
 namespace util::hooking::detour {
     void init();
