@@ -1,8 +1,8 @@
 [cmake]
 version = "3.15"
 cmkr-include = "cmake/cmkr.cmake"
-cpp-flags = ["-m32"]  # always build x86 images
-c-flags = ["-m32"]  # always build x86 images
+cpp-flags = ["-m32"]  # always build x86 images, todo: find out how to pass these flags only on gcc/clang
+c-flags = ["-m32"]
 
 ## Project configuration
 #
