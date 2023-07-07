@@ -1,82 +1,42 @@
-# Development guide
+This document describes the process for running this application on your local computer.
 
-This document describes the process for setting up the utilities needed to build this project on your local machine.
+## Dependencies
 
-## Getting started
+Make sure you have the following dependencies installed:
 
-## Installing tools
+- [git](https://git-scm.com/)
+- [LLVM w/ clang-tools](https://github.com/llvm/llvm-project/releases/)
+- a C++23 compliant compiler ([LLVM](https://github.com/llvm/llvm-project/releases)/ [MSVC w/ Visual Studio](https://visualstudio.microsoft.com))
+- [CMake](https://cmake.org)
 
-[todo]: # "Add Linux install guide"
+## Getting the source code
 
----
-
-### chocolatey
-
-In PowerShell:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-```
-
-Restart PowerShell.
-
----
-
-### clang
-
-In PowerShell:
-
-```powershell
-choco install clang; refreshenv;
-```
-
----
-
-### cmake
-
-In PowerShell:
-
-```powershell
-choco install cmake; refreshenv;
-```
-
----
-
-## Coding conventions
-
-[todo]: # "Add/remove some."
-
-- We use C++23.
-- We use [cmkr](https://github.com/cpp-build/cmkr) for managing CMakeLists.txt. Click [here](https://cmkr.build/) for documentation.
-- We don't use non-standart extensions. `__attribute__`, `__forceinline`, inline assembly, `__COUNTER__`, `__PRETTY_FUNCTION__`, the `foo?:bar` operators.
-- We use `using` instead of `typedef`.
-
-## Contirbuting
-
-> Any contribution you make are **greatly** appreciated!
-
-1. Fork the project
-
+Once you have `Git` installed, run:
 ```commandline
-git clone https://github.com/es3n1n/portal2-internal && cd portal2-internal
+git clone https://github.com/es3n1n/portal2-internal
 ```
 
-2. Create your feature branch
+Once you've done that, the whole updated source should be available in the portal2-internal.
 
+## Building
+
+### On Windows
+
+#### With Visual Studio
+
+Using Visual Studio GUI
+- Open the `msvc/portal2-internal.sln` file. Compile.
+Using CMake
+- Open the `msvc/` directory in command line and run:
 ```commandline
-git checkout -b feat/{your-feature-name}
+cd portal2-internal/msvc
+msbuild portal2-internal.sln /p:Configuration=Debug
 ```
 
-3. Commit your changes
-
+#### With CMake
+Run from the command line:
 ```commandline
-git commit -m 'feat: add {your feature name}`
+cd portal2-internal/
+cmake -B build -A Win32
+cmake --build build --config Debug
 ```
-
-4. Push out the branch
-
-```commandline
-git push origin feat/{your-feature-name}
-```
-
-5. Open a Pull Request
