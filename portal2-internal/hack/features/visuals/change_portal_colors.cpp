@@ -43,6 +43,12 @@ namespace hack::features::visuals {
         // @note: @es3n1n: we are patching the "singleplayer" branch because the game won't apply
         // our dynamic colors on the singleplayer-portal materials, dunno why and i don't want to
         // spend any more time on this
+
+        /// In case something patched these bytes already (most likely SAR)
+        if (!portal::sig::draw_portal || !portal::sig::draw_portal_single_player_color_branch) {
+            return;
+        }
+
         static std::once_flag fl;
         std::call_once(fl, []() -> void {
             uint8_t patch[] = {

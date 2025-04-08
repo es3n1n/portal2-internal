@@ -69,8 +69,9 @@ namespace portal {
                 modules::client.find_pattern("55 8B EC 51 56 8D 45 FC 50 8B F1 E8 ?? ?? ?? ?? 6A 04").cast<util::game::calc_cmd_crc_t>();
 
             airmove_velocity_check = modules::server.find_pattern("F3 0F 10 ?? 40 F3 0F 10 25");
-            if (!airmove_velocity_check)
+            if (!airmove_velocity_check) {
                 airmove_velocity_check = modules::server.find_pattern("B8 ?? ?? ?? ?? FF E0 10 25"); // in case we already patched this function
+            }
 
             airmove_velocity_check_exit = modules::server.find_pattern("F3 0F 10 55 E4 F3 0F 10 ?? E8 F3 0F 58 ?? C8");
 
@@ -78,10 +79,10 @@ namespace portal {
 
             draw_portal = modules::client.find_pattern("55 8B EC 83 EC 14 53 8B D9 8B 0D");
             draw_portal_single_player_color_branch = modules::client.find_pattern("8B 15 ?? ?? ?? ?? 33 C0 32 C9");
-            if (!draw_portal_single_player_color_branch)
+            if (!draw_portal_single_player_color_branch) {
                 draw_portal_single_player_color_branch =
                     modules::client.find_pattern("B8 ?? ?? ?? ?? FF E0 C0 32 C9"); // in case we already patched this code
-
+            }
             is_2_guns_coop = modules::client.find_pattern("E8 ?? ?? ?? ?? 84 C0 75 0C A1 ?? ?? ?? ?? B1 01 83 C0 1C EB 17").jmp(1);
 
             _dump();
@@ -92,8 +93,9 @@ namespace portal {
             DUMP(airmove_velocity_check);
             DUMP(airmove_velocity_check_exit);
             DUMP(get_clientmode);
-            DUMP(draw_portal);
-            DUMP(draw_portal_single_player_color_branch);
+            /// SAR patches these two
+            DUMP_NOSANITY(draw_portal);
+            DUMP_NOSANITY(draw_portal_single_player_color_branch);
             DUMP(is_2_guns_coop);
         }
     } // namespace sig

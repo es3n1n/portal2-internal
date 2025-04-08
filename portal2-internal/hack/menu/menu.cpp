@@ -64,7 +64,7 @@ namespace hack::menu {
         ImGui::SetNextWindowPos(ImGui::GetIO().DisplaySize * 0.5f, ImGuiCond_Once, ImVec2(0.5f, 0.5f));
         ImGui::SetNextWindowSize(ImVec2(kMenuWidth, kMenuHeight), ImGuiCond_Once);
 
-        if (!ImGui::Begin("portal2 cheeto", &opened, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
+        if (!ImGui::Begin("portal2 cheeto / menu key: INSERT and F2", &opened, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
             return ImGui::End();
 
         static bool first_render{true};
@@ -175,8 +175,18 @@ namespace hack::menu {
     }
 
     void toggle() {
-        if (!util::input::get(VK_INSERT).pressed())
+        bool button_pressed = false;
+        for (auto vk : {VK_INSERT, VK_F2}) {
+            button_pressed |= util::input::get(vk).pressed();
+
+            if (button_pressed) {
+                break;
+            }
+        }
+
+        if (!button_pressed) {
             return;
+        }
 
         opened ^= true;
         return opened ? util::game::lock_cursor() : util::game::unlock_cursor();
